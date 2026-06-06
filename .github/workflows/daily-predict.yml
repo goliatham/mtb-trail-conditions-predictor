@@ -1,0 +1,42 @@
+name: Daily Predictions
+
+on:
+  schedule:
+    # 6am, 10am, 2pm, 6pm ET (UTC-5 in winter / UTC-4 in summer)
+    # Using UTC-5 (EST) as conservative baseline
+    - cron: '0 11 * * *'   # 6am EST
+    - cron: '0 15 * * *'   # 10am EST
+    - cron: '0 19 * * *'   # 2pm EST
+    - cron: '0 23 * * *'   # 6pm EST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  predict:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run predictions
+        run: python src/predict.py
+
+      - name: Commit updated predictions
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/predictions.json
+          git diff --staged --quiet || git commit -m "chore: update predictions [skip ci]"
+          git push

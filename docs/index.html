@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alum Creek Trail Conditions</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f1117;
+      color: #e8eaf0;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 0 20px;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .updated {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .trails {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .trail-section {
+      background: #1a1d27;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #2a2d3a;
+    }
+
+    .trail-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #c9d1e8;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #2a2d3a;
+    }
+
+    /* Day rows: today & tomorrow with time slots */
+    .day-row {
+      margin-bottom: 10px;
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .day-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .day-signal {
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
+
+    /* Slot cards (4 per day for today/tomorrow) */
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .slot-card {
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+      color: #fff;
+    }
+    .slot-time {
+      font-size: 0.65rem;
+      font-weight: 600;
+      opacity: 0.85;
+      margin-bottom: 3px;
+    }
+    .slot-pct {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    /* Single day cards (days 3-7) */
+    .week-days {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .day-card {
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+      color: #fff;
+    }
+    .day-card .card-name {
+      font-size: 0.65rem;
+      font-weight: 600;
+      opacity: 0.85;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .day-card .card-pct {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .day-card .card-signal {
+      font-size: 0.55rem;
+      opacity: 0.75;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Recent report */
+    .report-section {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #2a2d3a;
+    }
+    .report-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .report-card {
+      background: #111320;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .report-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .report-body { flex: 1; min-width: 0; }
+    .report-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 3px;
+    }
+    .report-user {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #c9d1e8;
+    }
+    .report-user.trusted {
+      color: #60a5fa;
+    }
+    .trusted-badge {
+      font-size: 0.6rem;
+      background: #1e3a5f;
+      color: #60a5fa;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-weight: 600;
+    }
+    .report-age {
+      font-size: 0.7rem;
+      color: #6b7280;
+      margin-left: auto;
+    }
+    .report-comment {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      line-height: 1.4;
+    }
+    .report-actions {
+      margin-top: 6px;
+    }
+    .thumbs-btn {
+      background: none;
+      border: 1px solid #2a2d3a;
+      border-radius: 6px;
+      color: #6b7280;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .thumbs-btn:hover { border-color: #60a5fa; color: #60a5fa; }
+    .thumbs-btn.voted { border-color: #22c55e; color: #22c55e; cursor: default; }
+
+    .no-report {
+      font-size: 0.75rem;
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    .error-msg {
+      text-align: center;
+      color: #ef4444;
+      padding: 40px;
+      font-size: 0.9rem;
+    }
+
+    .loading {
+      text-align: center;
+      color: #6b7280;
+      padding: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Alum Creek Trail Conditions</h1>
+    <div class="updated" id="updated-time"></div>
+  </header>
+
+  <div class="trails" id="trails">
+    <div class="loading">Loading predictions…</div>
+  </div>
+
+  <script>
+    const COLOR_DOT = { green: '#22c55e', yellow: '#f59e0b', red: '#ef4444' };
+    const TRUSTED = new Set(['combo-trails', 'timothy-ross', 'ben-puterbaugh']);
+
+    function scoreColor(s) {
+      // s: 0..1; red → yellow → green via HSL
+      const hue = s * 120;
+      const sat = 65 + s * 20;
+      const light = 32 + s * 8;
+      return `hsl(${hue.toFixed(0)}, ${sat.toFixed(0)}%, ${light.toFixed(0)}%)`;
+    }
+
+    function pct(s) {
+      return Math.round(s * 100) + '%';
+    }
+
+    function reportAge(report) {
+      if (!report) return '';
+      if (report.hours_ago !== null && report.hours_ago !== undefined) {
+        if (report.hours_ago === 0) return 'just now';
+        if (report.hours_ago === 1) return '1 hr ago';
+        return report.hours_ago + ' hrs ago';
+      }
+      if (!report.date) return '';
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const d = new Date(report.date + 'T00:00:00');
+      const diff = Math.round((today - d) / 86400000);
+      if (diff === 0) return 'today';
+      if (diff === 1) return 'yesterday';
+      if (diff < 0) return 'today'; // clock skew
+      return diff + ' days ago';
+    }
+
+    function renderSlots(slots) {
+      if (!slots || !slots.length) return '';
+      return `<div class="slots">${slots.map(s => `
+        <div class="slot-card" style="background:${scoreColor(s.score)}">
+          <div class="slot-time">${s.slot}</div>
+          <div class="slot-pct">${pct(s.score)}</div>
+        </div>`).join('')}</div>`;
+    }
+
+    function renderDayRow(day) {
+      const hasSlots = day.slots && day.slots.length;
+      return `
+        <div class="day-row">
+          <div class="day-header">
+            <span class="day-label">${day.day_name}</span>
+            <span class="day-signal">${day.signal}</span>
+          </div>
+          ${hasSlots ? renderSlots(day.slots) : `
+            <div class="slots">
+              <div class="slot-card" style="background:${scoreColor(day.score)};grid-column:1/-1;padding:10px;">
+                <div class="slot-pct" style="font-size:1.3rem">${pct(day.score)}</div>
+              </div>
+            </div>`}
+        </div>`;
+    }
+
+    function renderWeekCard(day) {
+      return `
+        <div class="day-card" style="background:${scoreColor(day.score)}">
+          <div class="card-name">${day.day_name}</div>
+          <div class="card-pct">${pct(day.score)}</div>
+          <div class="card-signal">${day.signal}</div>
+        </div>`;
+    }
+
+    function voteKey(trailKey) { return `vote_${trailKey}`; }
+
+    function renderReport(report, trailKey) {
+      if (!report) return '<div class="no-report">No recent reports found.</div>';
+      const trusted = TRUSTED.has(report.username);
+      const age = reportAge(report);
+      const dot = COLOR_DOT[report.color] || COLOR_DOT.yellow;
+      const voted = localStorage.getItem(voteKey(trailKey)) === 'true';
+      return `
+        <div class="report-card">
+          <div class="report-dot" style="background:${dot}"></div>
+          <div class="report-body">
+            <div class="report-meta">
+              <span class="report-user${trusted ? ' trusted' : ''}">${report.username || 'unknown'}</span>
+              ${trusted ? '<span class="trusted-badge">trusted</span>' : ''}
+              <span class="report-age">${age}</span>
+            </div>
+            ${report.comment ? `<div class="report-comment">${report.comment}</div>` : ''}
+            <div class="report-actions">
+              <button class="thumbs-btn${voted ? ' voted' : ''}"
+                      onclick="handleVote(this,'${trailKey}')"
+                      ${voted ? 'disabled' : ''}>
+                👍 ${voted ? 'Thanks!' : 'Accurate'}
+              </button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function renderTrail(trailKey, trail) {
+      const [today, tomorrow, ...rest] = trail.days;
+      return `
+        <div class="trail-section">
+          <div class="trail-name">${trail.trail_name}</div>
+          ${renderDayRow(today)}
+          ${tomorrow ? renderDayRow(tomorrow) : ''}
+          ${rest.length ? `<div class="week-days">${rest.map(renderWeekCard).join('')}</div>` : ''}
+          <div class="report-section">
+            <div class="report-label">Latest MTBProject Report</div>
+            ${renderReport(trail.recent_report, trailKey)}
+          </div>
+        </div>`;
+    }
+
+    function handleVote(btn, trailKey) {
+      localStorage.setItem(voteKey(trailKey), 'true');
+      btn.textContent = '👍 Thanks!';
+      btn.classList.add('voted');
+      btn.disabled = true;
+    }
+
+    function formatUpdated(isoStr) {
+      try {
+        const d = new Date(isoStr);
+        const now = new Date();
+        const diffMin = Math.round((now - d) / 60000);
+        if (diffMin < 2) return 'Updated just now';
+        if (diffMin < 60) return `Updated ${diffMin} min ago`;
+        const diffH = Math.round(diffMin / 60);
+        if (diffH < 24) return `Updated ${diffH}h ago`;
+        return `Updated ${d.toLocaleDateString()}`;
+      } catch { return ''; }
+    }
+
+    fetch('predictions.json')
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then(data => {
+        document.getElementById('updated-time').textContent =
+          formatUpdated(data.generated_at);
+
+        const container = document.getElementById('trails');
+        container.innerHTML = Object.entries(data.trails)
+          .map(([k, v]) => renderTrail(k, v))
+          .join('');
+      })
+      .catch(err => {
+        document.getElementById('trails').innerHTML =
+          `<div class="error-msg">Failed to load predictions: ${err.message}<br>
+           <small>Run predict.py to generate predictions.json</small></div>`;
+      });
+  </script>
+</body>
+</html>
