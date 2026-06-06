@@ -68,8 +68,10 @@ def build_intraday_features(history: list[dict], forecast_day: dict,
     base = build_features(history, forecast_day)
     precip_to_slot = sum(r["precip_mm"] for r in hourly if r["hour"] < hour)
     precip_3h = sum(r["precip_mm"] for r in hourly if hour - 3 <= r["hour"] < hour)
+    precip_after_slot = sum(r["precip_mm"] for r in hourly if r["hour"] >= hour)
     base["precip_midnight_to_slot_mm"] = precip_to_slot
     base["precip_3h_before_slot_mm"] = precip_3h
+    base["precip_slot_to_midnight_mm"] = precip_after_slot
     base["hour"] = hour
     return base
 
@@ -117,5 +119,6 @@ FEATURE_COLUMNS = [
 INTRADAY_FEATURE_COLUMNS = FEATURE_COLUMNS + [
     "precip_midnight_to_slot_mm",
     "precip_3h_before_slot_mm",
+    "precip_slot_to_midnight_mm",
     "hour",
 ]

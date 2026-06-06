@@ -26,9 +26,25 @@
       color: #fff;
     }
     .updated {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .updated-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .stale-warning {
+      display: block;
+      margin-top: 6px;
       font-size: 0.75rem;
-      color: #6b7280;
-      margin-top: 4px;
+      color: #f59e0b;
+      font-weight: 500;
     }
 
     .trails {
@@ -372,12 +388,17 @@
         const d = new Date(isoStr);
         const now = new Date();
         const diffMin = Math.round((now - d) / 60000);
-        if (diffMin < 2) return 'Updated just now';
-        if (diffMin < 60) return `Updated ${diffMin} min ago`;
-        const diffH = Math.round(diffMin / 60);
-        if (diffH < 24) return `Updated ${diffH}h ago`;
-        return `Updated ${d.toLocaleDateString()}`;
-      } catch { return ''; }
+        const diffH = diffMin / 60;
+
+        let text, dotColor, stale;
+        if (diffMin < 2) { text = 'Updated just now'; dotColor = '#22c55e'; stale = false; }
+        else if (diffMin < 60) { text = `Updated ${diffMin} min ago`; dotColor = '#22c55e'; stale = false; }
+        else if (diffH < 7) { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#22c55e'; stale = false; }
+        else if (diffH < 13) { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#f59e0b'; stale = false; }
+        else { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#ef4444'; stale = true; }
+
+        return { text, dotColor, stale };
+      } catch { return { text: 'Unknown', dotColor: '#6b7280', stale: false }; }
     }
 
     fetch('predictions.json')
@@ -386,8 +407,10 @@
         return r.json();
       })
       .then(data => {
-        document.getElementById('updated-time').textContent =
-          formatUpdated(data.generated_at);
+        const { text, dotColor, stale } = formatUpdated(data.generated_at);
+        const el = document.getElementById('updated-time');
+        el.innerHTML = `<span class="updated-dot" style="background:${dotColor}"></span>${text}`
+          + (stale ? '<span class="stale-warning">⚠ Predictions may be outdated</span>' : '');
 
         const container = document.getElementById('trails');
         container.innerHTML = Object.entries(data.trails)
