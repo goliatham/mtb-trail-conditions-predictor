@@ -23,13 +23,20 @@ from weather import get_forecast, get_historical, get_hourly_forecast_day
 MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
+_TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
 TRAILS = {
     "phase1": {"id": "4080717", "name": "Alum Creek Phase 1", "trail_id": 0},
     "phase2": {"id": "4081038", "name": "Alum Creek Phase 2", "trail_id": 1},
 }
 
-TRUSTED_USERS = {"combo-trails", "timothy-ross", "ben-puterbaugh"}
+
+def _load_trusted():
+    lines = _TRUSTED_PATH.read_text().splitlines()
+    return {l.strip() for l in lines if l.strip() and not l.startswith("#")}
+
+
+TRUSTED_USERS = _load_trusted()
 
 MTBPROJECT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
