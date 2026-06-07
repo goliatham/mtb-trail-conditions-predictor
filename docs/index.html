@@ -107,41 +107,50 @@
     .slot-pct {
       font-size: 1rem;
       font-weight: 700;
-      margin-bottom: 5px;
     }
 
-    /* Feedback buttons — only shown on today's slots */
-    .slot-feedback {
+    /* Feedback row — actual conditions, shown below today's slot grid */
+    .feedback-row {
+      display: flex;
+      align-items: center;
+      margin-top: 6px;
+      padding: 5px 6px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 6px;
+    }
+    .fb-row-label {
+      font-size: 0.6rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    .fb-slot {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
-      margin-top: 4px;
+      gap: 2px;
+      flex: 1;
     }
-    .fb-label {
+    .fb-slot-name {
       font-size: 0.55rem;
-      opacity: 0.6;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      color: #6b7280;
     }
-    .fb-btns { display: flex; gap: 4px; }
-    .fb-btn {
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 4px;
-      color: rgba(255,255,255,0.55);
-      font-size: 0.65rem;
-      padding: 2px 6px;
+    .fb-dots { display: flex; gap: 4px; }
+    .fb-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: none;
       cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-      line-height: 1.5;
-      display: flex;
-      align-items: center;
-      gap: 3px;
+      opacity: 0.25;
+      transition: opacity 0.15s, transform 0.1s;
+      padding: 0;
     }
-    .fb-btn:hover { background: rgba(0,0,0,0.4); color: #fff; border-color: rgba(255,255,255,0.4); }
-    .fb-btn.active-up { background: rgba(34,197,94,0.35); border-color: #22c55e; color: #fff; }
-    .fb-btn.active-dn { background: rgba(239,68,68,0.35); border-color: #ef4444; color: #fff; }
+    .fb-dot:hover { opacity: 0.65; transform: scale(1.2); }
+    .fb-dot.active { opacity: 1; }
+    .fb-dot.dim { opacity: 0.1; }
 
     /* Weekly cards */
     .week-days {
@@ -272,8 +281,8 @@
 
   <footer>
     <div class="feedback-hint">
-      👍/👎 on today's slots = actual conditions you observed.<br>
-      Export and commit to <code>data/user_feedback.json</code> to improve the model.
+      Green/red dots below today's slots = your actual observed conditions.<br>
+      Votes are saved locally. Export → commit to <code>data/user_feedback.json</code> → retrain to improve the model.
     </div>
     <button class="export-btn" id="export-btn" onclick="exportFeedback()">Export Feedback</button>
   </footer>
@@ -282,6 +291,7 @@
     const COLOR_DOT = { green: '#22c55e', yellow: '#f59e0b', red: '#ef4444' };
     const TRUSTED = new Set(['combo-trails', 'timothy-ross']);
     const FEEDBACK_KEY = 'mtcp_feedback_v1';
+    const TODAY = new Date().toISOString().split('T')[0];  // UTC date, used for export filename only
 
     // --- Feedback storage ---
 
@@ -303,9 +313,12 @@
       if (idx >= 0) log[idx] = entry; else log.push(entry);
       localStorage.setItem(FEEDBACK_KEY, JSON.stringify(log));
 
-      const card = btn.closest('.slot-card');
-      card.querySelectorAll('.fb-btn').forEach(b => b.classList.remove('active-up', 'active-dn'));
-      btn.classList.add(vote === 1 ? 'active-up' : 'active-dn');
+      const fbSlot = btn.closest('.fb-slot');
+      fbSlot.querySelectorAll('.fb-dot').forEach(d => {
+        const dv = parseInt(d.dataset.vote);
+        d.classList.toggle('active', dv === vote);
+        d.classList.toggle('dim', dv !== vote);
+      });
     }
 
     function exportFeedback() {
@@ -345,30 +358,34 @@
       return diff + ' days ago';
     }
 
-    function renderSlots(slots, trailKey, trailId, date, isToday) {
-      return `<div class="slots">${slots.map(s => {
-        const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
-        const fbHtml = isToday ? `
-          <div class="slot-feedback">
-            <span class="fb-label">Actual</span>
-            <div class="fb-btns">
-              <button class="fb-btn${vote===1?' active-up':''}"
-                      onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},1,this)">
-                <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block"></span> Good
-              </button>
-              <button class="fb-btn${vote===-1?' active-dn':''}"
-                      onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)">
-                <span style="width:7px;height:7px;border-radius:50%;background:#ef4444;display:inline-block"></span> Bad
-              </button>
-            </div>
-          </div>` : '';
-        return `
-          <div class="slot-card" style="background:${scoreColor(s.score)}">
-            <div class="slot-time">${s.slot}</div>
-            <div class="slot-pct">${pct(s.score)}</div>
-            ${fbHtml}
-          </div>`;
-      }).join('')}</div>`;
+    function renderSlots(slots) {
+      return `<div class="slots">${slots.map(s => `
+        <div class="slot-card" style="background:${scoreColor(s.score)}">
+          <div class="slot-time">${s.slot}</div>
+          <div class="slot-pct">${pct(s.score)}</div>
+        </div>`).join('')}</div>`;
+    }
+
+    function renderFeedbackRow(slots, trailKey, trailId, date) {
+      return `
+        <div class="feedback-row">
+          <span class="fb-row-label">Actual</span>
+          ${slots.map(s => {
+            const vote = getSlotVote(date, trailKey, s.slot);
+            return `
+              <div class="fb-slot">
+                <div class="fb-slot-name">${s.slot}</div>
+                <div class="fb-dots">
+                  <button class="fb-dot${vote===1?' active':vote===-1?' dim':''}"
+                          style="background:#22c55e" data-vote="1" title="Good conditions"
+                          onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},1,this)"></button>
+                  <button class="fb-dot${vote===-1?' active':vote===1?' dim':''}"
+                          style="background:#ef4444" data-vote="-1" title="Bad conditions"
+                          onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)"></button>
+                </div>
+              </div>`;
+          }).join('')}
+        </div>`;
     }
 
     function renderDayRow(day, trailKey, trailId, isToday) {
@@ -380,12 +397,13 @@
             <span class="day-signal">${day.signal}</span>
           </div>
           ${hasSlots
-            ? renderSlots(day.slots, trailKey, trailId, day.date, isToday)
+            ? renderSlots(day.slots)
             : `<div class="slots">
                  <div class="slot-card" style="background:${scoreColor(day.score)};grid-column:1/-1;padding:10px;">
                    <div class="slot-pct" style="font-size:1.3rem">${pct(day.score)}</div>
                  </div>
                </div>`}
+          ${(isToday && hasSlots) ? renderFeedbackRow(day.slots, trailKey, trailId, day.date) : ''}
         </div>`;
     }
 
