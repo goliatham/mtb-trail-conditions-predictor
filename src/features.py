@@ -6,13 +6,17 @@ from datetime import date
 RAIN_THRESHOLD_MM = 5.0  # significant rain event
 
 
-def build_features(history: list[dict], forecast_day: dict) -> dict:
+TRAIL_DRYING_DAYS = {0: 3, 1: 2}  # P1 drains slower than P2
+
+
+def build_features(history: list[dict], forecast_day: dict, trail_id: int = 0) -> dict:
     """
     Build a feature dict for a single prediction day.
 
     history: ordered list of daily weather dicts (oldest first) for days
              BEFORE the prediction day (from weather.get_window or similar)
     forecast_day: weather dict for the prediction day itself
+    trail_id: 0 = Phase 1, 1 = Phase 2
     """
     precip_history = [r["precip_mm"] for r in history]
     soil_values = [r["soil_moisture"] for r in history if r["soil_moisture"] is not None]
@@ -28,6 +32,9 @@ def build_features(history: list[dict], forecast_day: dict) -> dict:
 
     pred_date = date.fromisoformat(forecast_day["date"])
 
+    drying_threshold = TRAIL_DRYING_DAYS.get(trail_id, 3)
+    dry_surplus = consecutive_dry - drying_threshold  # negative = not dry enough yet
+
     return {
         "precip_1d_mm": precip_1d,
         "precip_3d_mm": precip_3d,
@@ -37,8 +44,10 @@ def build_features(history: list[dict], forecast_day: dict) -> dict:
         "temp_min_c": forecast_day["temp_min_c"] or 10.0,
         "days_since_rain": days_since_rain,
         "consecutive_dry_days": consecutive_dry,
+        "dry_surplus": dry_surplus,
         "month": pred_date.month,
         "forecast_precip_mm": forecast_day["precip_mm"] or 0.0,
+        "trail_id": trail_id,
     }
 
 
@@ -63,9 +72,9 @@ TIME_SLOTS = [7, 11, 15, 19]  # hours: 7am, 11am, 3pm, 7pm
 
 
 def build_intraday_features(history: list[dict], forecast_day: dict,
-                            hourly: list[dict], hour: int) -> dict:
+                            hourly: list[dict], hour: int, trail_id: int = 0) -> dict:
     """Build features for a specific time slot within a day."""
-    base = build_features(history, forecast_day)
+    base = build_features(history, forecast_day, trail_id)
     precip_to_slot = sum(r["precip_mm"] for r in hourly if r["hour"] < hour)
     precip_3h = sum(r["precip_mm"] for r in hourly if hour - 3 <= r["hour"] < hour)
     base["precip_midnight_to_slot_mm"] = precip_to_slot
@@ -109,9 +118,10 @@ FEATURE_COLUMNS = [
     "temp_min_c",
     "days_since_rain",
     "consecutive_dry_days",
+    "dry_surplus",
     "month",
     "forecast_precip_mm",
-    "trail_id",  # 0 = Phase 1, 1 = Phase 2
+    "trail_id",
 ]
 
 INTRADAY_FEATURE_COLUMNS = FEATURE_COLUMNS + [

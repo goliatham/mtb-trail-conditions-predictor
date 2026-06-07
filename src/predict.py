@@ -140,8 +140,7 @@ def predict_slots(intraday_model, history, fday, hourly, trail_id):
     """Return 4 time-slot predictions for a single day."""
     slots = []
     for hour in TIME_SLOTS:
-        ifeats = build_intraday_features(history, fday, hourly, hour)
-        ifeats["trail_id"] = trail_id
+        ifeats = build_intraday_features(history, fday, hourly, hour, trail_id)
         X = pd.DataFrame([[ifeats[col] for col in INTRADAY_FEATURE_COLUMNS]],
                          columns=INTRADAY_FEATURE_COLUMNS)
         proba = intraday_model.predict_proba(X)[0].tolist()
@@ -191,8 +190,7 @@ def main():
                 ]
                 hist = history + confirmed
 
-            feats = build_features(hist, fday)
-            feats["trail_id"] = trail["trail_id"]
+            feats = build_features(hist, fday, trail["trail_id"])
 
             # Daily prediction (all 7 days)
             X_d = pd.DataFrame([[feats[col] for col in FEATURE_COLUMNS]],

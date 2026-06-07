@@ -26,6 +26,11 @@ MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 HISTORY_DAYS = 14
 
+# Reports are almost always posted in the afternoon. Same-day labels are
+# therefore less reliable for morning slots where conditions may differ.
+MORNING_SLOT_WEIGHT_MULT = 0.2   # applied to MTBProject labels for 7am/11am slots
+MORNING_SLOTS = {7, 11}
+
 
 def load_labels():
     with open(DATA_PATH, newline="", encoding="utf-8") as f:
@@ -96,8 +101,7 @@ def main():
             continue
 
         # Daily row
-        feats = build_features(history, day_weather)
-        feats["trail_id"] = trail_id
+        feats = build_features(history, day_weather, trail_id)
         daily_rows.append([feats[col] for col in FEATURE_COLUMNS])
         daily_targets.append(day_label)
         daily_weights.append(weight)
@@ -106,12 +110,13 @@ def main():
         hourly = _get_hourly(label_date, cache)
         if hourly:
             for hour in TIME_SLOTS:
-                ifeats = build_intraday_features(history, day_weather, hourly, hour)
-                ifeats["trail_id"] = trail_id
+                ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id)
                 slot_label = assign_intraday_label(day_label, hourly, hour)
                 intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
                 intraday_targets.append(slot_label)
-                intraday_weights.append(weight)
+                # morning slots: assume report posted afternoon → less reliable for 7am/11am
+                slot_mult = MORNING_SLOT_WEIGHT_MULT if hour in MORNING_SLOTS else 1.0
+                intraday_weights.append(weight * slot_mult)
 
         if (i + 1) % 20 == 0:
             print(f"  Processed {i + 1}/{len(labels)}...")
@@ -151,11 +156,10 @@ def main():
                 fb_skipped += 1
                 continue
 
-            ifeats = build_intraday_features(history, day_weather, hourly, hour)
-            ifeats["trail_id"] = trail_id
+            ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id)
             intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
             intraday_targets.append(slot_label)
-            intraday_weights.append(1.5)  # higher than trusted MTBProject reports
+            intraday_weights.append(1.5)  # direct observation — no morning discount
 
         print(f"  Added {len(feedback) - fb_skipped} feedback rows, skipped {fb_skipped}")
 
