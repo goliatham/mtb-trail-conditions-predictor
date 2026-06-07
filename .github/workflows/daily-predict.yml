@@ -2,12 +2,11 @@ name: Daily Predictions
 
 on:
   schedule:
-    # 6am, 10am, 2pm, 6pm ET (UTC-5 in winter / UTC-4 in summer)
-    # Using UTC-5 (EST) as conservative baseline
-    - cron: '0 11 * * *'   # 6am EST
-    - cron: '0 15 * * *'   # 10am EST
-    - cron: '0 19 * * *'   # 2pm EST
-    - cron: '0 23 * * *'   # 6pm EST
+    # ~5am, ~9am, ~1pm, ~5pm ET (UTC-5 EST baseline, 65min early for GH Actions lag)
+    - cron: '55 9 * * *'    # ~5:55am EST
+    - cron: '55 13 * * *'   # ~9:55am EST
+    - cron: '55 17 * * *'   # ~1:55pm EST
+    - cron: '55 21 * * *'   # ~5:55pm EST
   workflow_dispatch:
 
 permissions:
