@@ -113,20 +113,31 @@
     /* Feedback buttons — only shown on today's slots */
     .slot-feedback {
       display: flex;
-      justify-content: center;
-      gap: 4px;
-      margin-top: 2px;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      margin-top: 4px;
     }
+    .fb-label {
+      font-size: 0.55rem;
+      opacity: 0.6;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .fb-btns { display: flex; gap: 4px; }
     .fb-btn {
       background: rgba(0,0,0,0.25);
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 4px;
       color: rgba(255,255,255,0.55);
       font-size: 0.65rem;
-      padding: 2px 5px;
+      padding: 2px 6px;
       cursor: pointer;
       transition: background 0.15s, color 0.15s, border-color 0.15s;
-      line-height: 1.4;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 3px;
     }
     .fb-btn:hover { background: rgba(0,0,0,0.4); color: #fff; border-color: rgba(255,255,255,0.4); }
     .fb-btn.active-up { background: rgba(34,197,94,0.35); border-color: #22c55e; color: #fff; }
@@ -271,7 +282,6 @@
     const COLOR_DOT = { green: '#22c55e', yellow: '#f59e0b', red: '#ef4444' };
     const TRUSTED = new Set(['combo-trails', 'timothy-ross']);
     const FEEDBACK_KEY = 'mtcp_feedback_v1';
-    const TODAY = new Date().toISOString().split('T')[0];
 
     // --- Feedback storage ---
 
@@ -335,16 +345,22 @@
       return diff + ' days ago';
     }
 
-    function renderSlots(slots, trailKey, trailId, date) {
-      const isToday = date === TODAY;
+    function renderSlots(slots, trailKey, trailId, date, isToday) {
       return `<div class="slots">${slots.map(s => {
         const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
         const fbHtml = isToday ? `
           <div class="slot-feedback">
-            <button class="fb-btn${vote===1?' active-up':''}"
-                    onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},1,this)">👍</button>
-            <button class="fb-btn${vote===-1?' active-dn':''}"
-                    onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)">👎</button>
+            <span class="fb-label">Actual</span>
+            <div class="fb-btns">
+              <button class="fb-btn${vote===1?' active-up':''}"
+                      onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},1,this)">
+                <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block"></span> Good
+              </button>
+              <button class="fb-btn${vote===-1?' active-dn':''}"
+                      onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)">
+                <span style="width:7px;height:7px;border-radius:50%;background:#ef4444;display:inline-block"></span> Bad
+              </button>
+            </div>
           </div>` : '';
         return `
           <div class="slot-card" style="background:${scoreColor(s.score)}">
@@ -355,7 +371,7 @@
       }).join('')}</div>`;
     }
 
-    function renderDayRow(day, trailKey, trailId) {
+    function renderDayRow(day, trailKey, trailId, isToday) {
       const hasSlots = day.slots && day.slots.length;
       return `
         <div class="day-row">
@@ -364,7 +380,7 @@
             <span class="day-signal">${day.signal}</span>
           </div>
           ${hasSlots
-            ? renderSlots(day.slots, trailKey, trailId, day.date)
+            ? renderSlots(day.slots, trailKey, trailId, day.date, isToday)
             : `<div class="slots">
                  <div class="slot-card" style="background:${scoreColor(day.score)};grid-column:1/-1;padding:10px;">
                    <div class="slot-pct" style="font-size:1.3rem">${pct(day.score)}</div>
@@ -402,12 +418,13 @@
     }
 
     function renderTrail(trailKey, trail) {
+      const trailId = trail.trail_id !== undefined ? trail.trail_id : (trailKey === 'phase1' ? 0 : 1);
       const [today, tomorrow, ...rest] = trail.days;
       return `
         <div class="trail-section">
           <div class="trail-name">${trail.trail_name}</div>
-          ${renderDayRow(today, trailKey, trail.trail_id || (trailKey === 'phase1' ? 0 : 1))}
-          ${tomorrow ? renderDayRow(tomorrow, trailKey, trail.trail_id || (trailKey === 'phase1' ? 0 : 1)) : ''}
+          ${renderDayRow(today, trailKey, trailId, true)}
+          ${tomorrow ? renderDayRow(tomorrow, trailKey, trailId, false) : ''}
           ${rest.length ? `<div class="week-days">${rest.map(renderWeekCard).join('')}</div>` : ''}
           <div class="report-section">
             <div class="report-label">Latest MTBProject Report</div>
