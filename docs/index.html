@@ -71,10 +71,7 @@
       border-bottom: 1px solid #2a2d3a;
     }
 
-    /* Day rows: today & tomorrow with time slots */
-    .day-row {
-      margin-bottom: 10px;
-    }
+    .day-row { margin-bottom: 10px; }
     .day-header {
       display: flex;
       align-items: center;
@@ -88,12 +85,8 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-    .day-signal {
-      font-size: 0.7rem;
-      color: #6b7280;
-    }
+    .day-signal { font-size: 0.7rem; color: #6b7280; }
 
-    /* Slot cards (4 per day for today/tomorrow) */
     .slots {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -101,7 +94,7 @@
     }
     .slot-card {
       border-radius: 8px;
-      padding: 8px 4px;
+      padding: 8px 4px 6px;
       text-align: center;
       color: #fff;
     }
@@ -114,9 +107,32 @@
     .slot-pct {
       font-size: 1rem;
       font-weight: 700;
+      margin-bottom: 5px;
     }
 
-    /* Single day cards (days 3-7) */
+    /* Feedback buttons — only shown on today's slots */
+    .slot-feedback {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .fb-btn {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.65rem;
+      padding: 2px 5px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      line-height: 1.4;
+    }
+    .fb-btn:hover { background: rgba(0,0,0,0.4); color: #fff; border-color: rgba(255,255,255,0.4); }
+    .fb-btn.active-up { background: rgba(34,197,94,0.35); border-color: #22c55e; color: #fff; }
+    .fb-btn.active-dn { background: rgba(239,68,68,0.35); border-color: #ef4444; color: #fff; }
+
+    /* Weekly cards */
     .week-days {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -138,10 +154,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .day-card .card-pct {
-      font-size: 1rem;
-      font-weight: 700;
-    }
+    .day-card .card-pct { font-size: 1rem; font-weight: 700; }
     .day-card .card-signal {
       font-size: 0.55rem;
       opacity: 0.75;
@@ -151,7 +164,7 @@
       text-overflow: ellipsis;
     }
 
-    /* Recent report */
+    /* Report section */
     .report-section {
       margin-top: 14px;
       padding-top: 12px;
@@ -188,14 +201,8 @@
       flex-wrap: wrap;
       margin-bottom: 3px;
     }
-    .report-user {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #c9d1e8;
-    }
-    .report-user.trusted {
-      color: #60a5fa;
-    }
+    .report-user { font-size: 0.8rem; font-weight: 600; color: #c9d1e8; }
+    .report-user.trusted { color: #60a5fa; }
     .trusted-badge {
       font-size: 0.6rem;
       background: #1e3a5f;
@@ -204,53 +211,42 @@
       padding: 1px 5px;
       font-weight: 600;
     }
-    .report-age {
-      font-size: 0.7rem;
-      color: #6b7280;
-      margin-left: auto;
-    }
-    .report-comment {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      line-height: 1.4;
-    }
-    .report-actions {
-      margin-top: 6px;
-    }
-    .thumbs-btn {
-      background: none;
-      border: 1px solid #2a2d3a;
-      border-radius: 6px;
-      color: #6b7280;
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      cursor: pointer;
-      display: inline-flex;
+    .report-age { font-size: 0.7rem; color: #6b7280; margin-left: auto; }
+    .report-comment { font-size: 0.75rem; color: #9ca3af; line-height: 1.4; }
+    .no-report { font-size: 0.75rem; color: #6b7280; font-style: italic; }
+
+    /* Footer */
+    footer {
+      max-width: 900px;
+      margin: 24px auto 8px;
+      display: flex;
       align-items: center;
-      gap: 4px;
-      transition: border-color 0.15s, color 0.15s;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .thumbs-btn:hover { border-color: #60a5fa; color: #60a5fa; }
-    .thumbs-btn.voted { border-color: #22c55e; color: #22c55e; cursor: default; }
-
-    .no-report {
+    .feedback-hint {
+      font-size: 0.72rem;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+    .export-btn {
+      background: #1a1d27;
+      border: 1px solid #2a2d3a;
+      border-radius: 8px;
+      color: #9ca3af;
       font-size: 0.75rem;
-      color: #6b7280;
-      font-style: italic;
+      padding: 6px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s;
+      flex-shrink: 0;
     }
+    .export-btn:hover { border-color: #60a5fa; color: #60a5fa; }
+    .export-btn:disabled { opacity: 0.4; cursor: default; }
 
-    .error-msg {
-      text-align: center;
-      color: #ef4444;
-      padding: 40px;
-      font-size: 0.9rem;
-    }
-
-    .loading {
-      text-align: center;
-      color: #6b7280;
-      padding: 60px;
-    }
+    .error-msg { text-align: center; color: #ef4444; padding: 40px; font-size: 0.9rem; }
+    .loading { text-align: center; color: #6b7280; padding: 60px; }
   </style>
 </head>
 <body>
@@ -263,21 +259,65 @@
     <div class="loading">Loading predictions…</div>
   </div>
 
+  <footer>
+    <div class="feedback-hint">
+      👍/👎 on today's slots = actual conditions you observed.<br>
+      Export and commit to <code>data/user_feedback.json</code> to improve the model.
+    </div>
+    <button class="export-btn" id="export-btn" onclick="exportFeedback()">Export Feedback</button>
+  </footer>
+
   <script>
     const COLOR_DOT = { green: '#22c55e', yellow: '#f59e0b', red: '#ef4444' };
-    const TRUSTED = new Set(['combo-trails', 'timothy-ross', 'ben-puterbaugh']);
+    const TRUSTED = new Set(['combo-trails', 'timothy-ross']);
+    const FEEDBACK_KEY = 'mtcp_feedback_v1';
+    const TODAY = new Date().toISOString().split('T')[0];
+
+    // --- Feedback storage ---
+
+    function getFeedbackLog() {
+      try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); }
+      catch { return []; }
+    }
+
+    function getSlotVote(date, trail, slot) {
+      const entry = getFeedbackLog().find(e => e.date === date && e.trail === trail && e.slot === slot);
+      return entry ? entry.vote : null;
+    }
+
+    function recordFeedback(date, trail, trailId, hour, slot, score, vote, btn) {
+      const log = getFeedbackLog();
+      const idx = log.findIndex(e => e.date === date && e.trail === trail && e.slot === slot);
+      const entry = { date, trail, trail_id: trailId, slot, hour, vote, model_score: score,
+                      voted_at: new Date().toISOString() };
+      if (idx >= 0) log[idx] = entry; else log.push(entry);
+      localStorage.setItem(FEEDBACK_KEY, JSON.stringify(log));
+
+      const card = btn.closest('.slot-card');
+      card.querySelectorAll('.fb-btn').forEach(b => b.classList.remove('active-up', 'active-dn'));
+      btn.classList.add(vote === 1 ? 'active-up' : 'active-dn');
+    }
+
+    function exportFeedback() {
+      const log = getFeedbackLog();
+      if (!log.length) { alert('No feedback recorded yet — vote on some slots first.'); return; }
+      const blob = new Blob([JSON.stringify(log, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `trail_feedback_${TODAY}.json`;
+      a.click();
+    }
+
+    // --- Rendering ---
 
     function scoreColor(s) {
-      // s: 0..1; red → yellow → green via HSL
       const hue = s * 120;
       const sat = 65 + s * 20;
       const light = 32 + s * 8;
       return `hsl(${hue.toFixed(0)}, ${sat.toFixed(0)}%, ${light.toFixed(0)}%)`;
     }
 
-    function pct(s) {
-      return Math.round(s * 100) + '%';
-    }
+    function pct(s) { return Math.round(s * 100) + '%'; }
 
     function reportAge(report) {
       if (!report) return '';
@@ -287,26 +327,35 @@
         return report.hours_ago + ' hrs ago';
       }
       if (!report.date) return '';
-      const today = new Date();
-      today.setHours(0,0,0,0);
+      const today = new Date(); today.setHours(0,0,0,0);
       const d = new Date(report.date + 'T00:00:00');
       const diff = Math.round((today - d) / 86400000);
-      if (diff === 0) return 'today';
+      if (diff <= 0) return 'today';
       if (diff === 1) return 'yesterday';
-      if (diff < 0) return 'today'; // clock skew
       return diff + ' days ago';
     }
 
-    function renderSlots(slots) {
-      if (!slots || !slots.length) return '';
-      return `<div class="slots">${slots.map(s => `
-        <div class="slot-card" style="background:${scoreColor(s.score)}">
-          <div class="slot-time">${s.slot}</div>
-          <div class="slot-pct">${pct(s.score)}</div>
-        </div>`).join('')}</div>`;
+    function renderSlots(slots, trailKey, trailId, date) {
+      const isToday = date === TODAY;
+      return `<div class="slots">${slots.map(s => {
+        const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
+        const fbHtml = isToday ? `
+          <div class="slot-feedback">
+            <button class="fb-btn${vote===1?' active-up':''}"
+                    onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},1,this)">👍</button>
+            <button class="fb-btn${vote===-1?' active-dn':''}"
+                    onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)">👎</button>
+          </div>` : '';
+        return `
+          <div class="slot-card" style="background:${scoreColor(s.score)}">
+            <div class="slot-time">${s.slot}</div>
+            <div class="slot-pct">${pct(s.score)}</div>
+            ${fbHtml}
+          </div>`;
+      }).join('')}</div>`;
     }
 
-    function renderDayRow(day) {
+    function renderDayRow(day, trailKey, trailId) {
       const hasSlots = day.slots && day.slots.length;
       return `
         <div class="day-row">
@@ -314,12 +363,13 @@
             <span class="day-label">${day.day_name}</span>
             <span class="day-signal">${day.signal}</span>
           </div>
-          ${hasSlots ? renderSlots(day.slots) : `
-            <div class="slots">
-              <div class="slot-card" style="background:${scoreColor(day.score)};grid-column:1/-1;padding:10px;">
-                <div class="slot-pct" style="font-size:1.3rem">${pct(day.score)}</div>
-              </div>
-            </div>`}
+          ${hasSlots
+            ? renderSlots(day.slots, trailKey, trailId, day.date)
+            : `<div class="slots">
+                 <div class="slot-card" style="background:${scoreColor(day.score)};grid-column:1/-1;padding:10px;">
+                   <div class="slot-pct" style="font-size:1.3rem">${pct(day.score)}</div>
+                 </div>
+               </div>`}
         </div>`;
     }
 
@@ -332,14 +382,11 @@
         </div>`;
     }
 
-    function voteKey(trailKey) { return `vote_${trailKey}`; }
-
-    function renderReport(report, trailKey) {
+    function renderReport(report) {
       if (!report) return '<div class="no-report">No recent reports found.</div>';
       const trusted = TRUSTED.has(report.username);
       const age = reportAge(report);
       const dot = COLOR_DOT[report.color] || COLOR_DOT.yellow;
-      const voted = localStorage.getItem(voteKey(trailKey)) === 'true';
       return `
         <div class="report-card">
           <div class="report-dot" style="background:${dot}"></div>
@@ -350,13 +397,6 @@
               <span class="report-age">${age}</span>
             </div>
             ${report.comment ? `<div class="report-comment">${report.comment}</div>` : ''}
-            <div class="report-actions">
-              <button class="thumbs-btn${voted ? ' voted' : ''}"
-                      onclick="handleVote(this,'${trailKey}')"
-                      ${voted ? 'disabled' : ''}>
-                👍 ${voted ? 'Thanks!' : 'Accurate'}
-              </button>
-            </div>
           </div>
         </div>`;
     }
@@ -366,21 +406,14 @@
       return `
         <div class="trail-section">
           <div class="trail-name">${trail.trail_name}</div>
-          ${renderDayRow(today)}
-          ${tomorrow ? renderDayRow(tomorrow) : ''}
+          ${renderDayRow(today, trailKey, trail.trail_id || (trailKey === 'phase1' ? 0 : 1))}
+          ${tomorrow ? renderDayRow(tomorrow, trailKey, trail.trail_id || (trailKey === 'phase1' ? 0 : 1)) : ''}
           ${rest.length ? `<div class="week-days">${rest.map(renderWeekCard).join('')}</div>` : ''}
           <div class="report-section">
             <div class="report-label">Latest MTBProject Report</div>
-            ${renderReport(trail.recent_report, trailKey)}
+            ${renderReport(trail.recent_report)}
           </div>
         </div>`;
-    }
-
-    function handleVote(btn, trailKey) {
-      localStorage.setItem(voteKey(trailKey), 'true');
-      btn.textContent = '👍 Thanks!';
-      btn.classList.add('voted');
-      btn.disabled = true;
     }
 
     function formatUpdated(isoStr) {
@@ -389,33 +422,26 @@
         const now = new Date();
         const diffMin = Math.round((now - d) / 60000);
         const diffH = diffMin / 60;
-
         let text, dotColor, stale;
-        if (diffMin < 2) { text = 'Updated just now'; dotColor = '#22c55e'; stale = false; }
-        else if (diffMin < 60) { text = `Updated ${diffMin} min ago`; dotColor = '#22c55e'; stale = false; }
-        else if (diffH < 7) { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#22c55e'; stale = false; }
-        else if (diffH < 13) { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#f59e0b'; stale = false; }
-        else { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#ef4444'; stale = true; }
-
+        if (diffMin < 2)       { text = 'Updated just now';               dotColor = '#22c55e'; stale = false; }
+        else if (diffMin < 60) { text = `Updated ${diffMin} min ago`;     dotColor = '#22c55e'; stale = false; }
+        else if (diffH < 7)    { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#22c55e'; stale = false; }
+        else if (diffH < 13)   { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#f59e0b'; stale = false; }
+        else                   { text = `Updated ${Math.round(diffH)}h ago`; dotColor = '#ef4444'; stale = true; }
         return { text, dotColor, stale };
       } catch { return { text: 'Unknown', dotColor: '#6b7280', stale: false }; }
     }
 
     fetch('predictions.json')
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then(data => {
         const { text, dotColor, stale } = formatUpdated(data.generated_at);
         const el = document.getElementById('updated-time');
         el.innerHTML = `<span class="updated-dot" style="background:${dotColor}"></span>${text}`
           + (stale ? '<span class="stale-warning">⚠ Predictions may be outdated</span>' : '');
 
-        const container = document.getElementById('trails');
-        container.innerHTML = Object.entries(data.trails)
-          .map(([k, v]) => renderTrail(k, v))
-          .join('');
+        document.getElementById('trails').innerHTML =
+          Object.entries(data.trails).map(([k, v]) => renderTrail(k, v)).join('');
       })
       .catch(err => {
         document.getElementById('trails').innerHTML =

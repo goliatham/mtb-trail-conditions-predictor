@@ -1,6 +1,7 @@
 """Join scraped condition labels with historical weather, train daily + intraday models."""
 
 import csv
+import json
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -20,6 +21,7 @@ from features import (
 from weather import get_historical, get_hourly_day
 
 DATA_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
+FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
 MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 HISTORY_DAYS = 14
@@ -28,6 +30,14 @@ HISTORY_DAYS = 14
 def load_labels():
     with open(DATA_PATH, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
+
+
+def load_feedback():
+    """Load user slot feedback exported from the browser UI."""
+    if not FEEDBACK_PATH.exists():
+        return []
+    with open(FEEDBACK_PATH) as f:
+        return json.load(f)
 
 
 def _get_history(label_date, cache):
@@ -107,6 +117,47 @@ def main():
             print(f"  Processed {i + 1}/{len(labels)}...")
 
     print(f"Skipped {skipped} records (missing date or weather)")
+
+    # Load user feedback — first-person slot observations, highest weight
+    feedback = load_feedback()
+    if feedback:
+        print(f"\nLoading {len(feedback)} user feedback entries...")
+        fb_skipped = 0
+        for fb in feedback:
+            try:
+                fb_date = date.fromisoformat(fb["date"])
+            except (ValueError, KeyError):
+                fb_skipped += 1
+                continue
+
+            vote = fb.get("vote")
+            if vote not in (1, -1):
+                fb_skipped += 1
+                continue
+
+            # vote 1 = good conditions (green=2), -1 = bad (red=0)
+            slot_label = 2 if vote == 1 else 0
+            trail_id = int(fb.get("trail_id", 0))
+            hour = int(fb["hour"])
+
+            history = _get_history(fb_date, cache)
+            day_weather = _get_day_weather(fb_date, cache)
+            if day_weather is None:
+                fb_skipped += 1
+                continue
+
+            hourly = _get_hourly(fb_date, cache)
+            if not hourly:
+                fb_skipped += 1
+                continue
+
+            ifeats = build_intraday_features(history, day_weather, hourly, hour)
+            ifeats["trail_id"] = trail_id
+            intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
+            intraday_targets.append(slot_label)
+            intraday_weights.append(1.5)  # higher than trusted MTBProject reports
+
+        print(f"  Added {len(feedback) - fb_skipped} feedback rows, skipped {fb_skipped}")
 
     def train_model(X, y, w, columns, name, path):
         trusted = sum(1 for wt in w if wt == 1.0)
