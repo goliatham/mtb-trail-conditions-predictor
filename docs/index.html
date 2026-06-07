@@ -109,38 +109,24 @@
       font-weight: 700;
     }
 
-    /* Feedback row — actual conditions, shown below today's slot grid */
-    .feedback-row {
-      display: flex;
-      align-items: center;
-      margin-top: 6px;
-      padding: 5px 6px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 6px;
-    }
-    .fb-row-label {
-      font-size: 0.6rem;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-right: 8px;
-      flex-shrink: 0;
-    }
-    .fb-slot {
+    /* Feedback dots — inside today's slot cards, stacked below pct */
+    .slot-feedback {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2px;
-      flex: 1;
+      margin-top: 5px;
     }
-    .fb-slot-name {
-      font-size: 0.55rem;
-      color: #6b7280;
+    .fb-label {
+      font-size: 0.5rem;
+      opacity: 0.5;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .fb-dots { display: flex; gap: 4px; }
     .fb-dot {
-      width: 11px;
-      height: 11px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       border: none;
       cursor: pointer;
@@ -148,7 +134,7 @@
       transition: opacity 0.15s, transform 0.1s;
       padding: 0;
     }
-    .fb-dot:hover { opacity: 0.65; transform: scale(1.2); }
+    .fb-dot:hover { opacity: 0.65; transform: scale(1.15); }
     .fb-dot.active { opacity: 1; }
     .fb-dot.dim { opacity: 0.1; }
 
@@ -313,8 +299,8 @@
       if (idx >= 0) log[idx] = entry; else log.push(entry);
       localStorage.setItem(FEEDBACK_KEY, JSON.stringify(log));
 
-      const fbSlot = btn.closest('.fb-slot');
-      fbSlot.querySelectorAll('.fb-dot').forEach(d => {
+      const container = btn.closest('.slot-feedback');
+      container.querySelectorAll('.fb-dot').forEach(d => {
         const dv = parseInt(d.dataset.vote);
         d.classList.toggle('active', dv === vote);
         d.classList.toggle('dim', dv !== vote);
@@ -358,34 +344,28 @@
       return diff + ' days ago';
     }
 
-    function renderSlots(slots) {
-      return `<div class="slots">${slots.map(s => `
-        <div class="slot-card" style="background:${scoreColor(s.score)}">
-          <div class="slot-time">${s.slot}</div>
-          <div class="slot-pct">${pct(s.score)}</div>
-        </div>`).join('')}</div>`;
-    }
-
-    function renderFeedbackRow(slots, trailKey, trailId, date) {
-      return `
-        <div class="feedback-row">
-          <span class="fb-row-label">Actual</span>
-          ${slots.map(s => {
-            const vote = getSlotVote(date, trailKey, s.slot);
-            return `
-              <div class="fb-slot">
-                <div class="fb-slot-name">${s.slot}</div>
-                <div class="fb-dots">
-                  <button class="fb-dot${vote===1?' active':vote===-1?' dim':''}"
-                          style="background:#22c55e" data-vote="1" title="Good conditions"
-                          onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},1,this)"></button>
-                  <button class="fb-dot${vote===-1?' active':vote===1?' dim':''}"
-                          style="background:#ef4444" data-vote="-1" title="Bad conditions"
-                          onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)"></button>
-                </div>
-              </div>`;
-          }).join('')}
-        </div>`;
+    function renderSlots(slots, trailKey, trailId, date, isToday) {
+      return `<div class="slots">${slots.map(s => {
+        const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
+        const fbHtml = isToday ? `
+          <div class="slot-feedback">
+            <span class="fb-label">Actual</span>
+            <div class="fb-dots">
+              <button class="fb-dot${vote===1?' active':vote===-1?' dim':''}"
+                      style="background:#22c55e" data-vote="1" title="Good conditions"
+                      onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},1,this)"></button>
+              <button class="fb-dot${vote===-1?' active':vote===1?' dim':''}"
+                      style="background:#ef4444" data-vote="-1" title="Bad conditions"
+                      onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)"></button>
+            </div>
+          </div>` : '';
+        return `
+          <div class="slot-card" style="background:${scoreColor(s.score)}">
+            <div class="slot-time">${s.slot}</div>
+            <div class="slot-pct">${pct(s.score)}</div>
+            ${fbHtml}
+          </div>`;
+      }).join('')}</div>`;
     }
 
     function renderDayRow(day, trailKey, trailId, isToday) {
@@ -397,13 +377,12 @@
             <span class="day-signal">${day.signal}</span>
           </div>
           ${hasSlots
-            ? renderSlots(day.slots)
+            ? renderSlots(day.slots, trailKey, trailId, day.date, isToday)
             : `<div class="slots">
                  <div class="slot-card" style="background:${scoreColor(day.score)};grid-column:1/-1;padding:10px;">
                    <div class="slot-pct" style="font-size:1.3rem">${pct(day.score)}</div>
                  </div>
                </div>`}
-          ${(isToday && hasSlots) ? renderFeedbackRow(day.slots, trailKey, trailId, day.date) : ''}
         </div>`;
     }
 
