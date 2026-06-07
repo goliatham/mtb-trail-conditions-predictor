@@ -94,12 +94,18 @@ def fetch_recent_report(trail_id: str):
 
     hours_ago = None
     hm = re.search(r"(\d+)\s+hour", text)
+    dm = re.search(r"(\d+)\s+day", text)
     if hm:
         hours_ago = int(hm.group(1))
         date_str = date.today().isoformat()
     elif re.search(r"(\d+)\s+minute", text):
         hours_ago = 0
         date_str = date.today().isoformat()
+    elif dm:
+        days = int(dm.group(1))
+        hours_ago = days * 24
+        from datetime import timedelta
+        date_str = (date.today() - timedelta(days=days)).isoformat()
 
     user_link = div.find("a", href=re.compile(r"/user/"))
     username = ""
