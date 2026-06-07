@@ -9,14 +9,17 @@ RAIN_THRESHOLD_MM = 5.0  # significant rain event
 TRAIL_DRYING_DAYS = {0: 3, 1: 2}  # P1 drains slower than P2
 
 
-def build_features(history: list[dict], forecast_day: dict, trail_id: int = 0) -> dict:
+def build_features(history: list[dict], forecast_day: dict,
+                   trail_id: int = 0, prior_report: dict = None) -> dict:
     """
     Build a feature dict for a single prediction day.
 
     history: ordered list of daily weather dicts (oldest first) for days
-             BEFORE the prediction day (from weather.get_window or similar)
+             BEFORE the prediction day
     forecast_day: weather dict for the prediction day itself
     trail_id: 0 = Phase 1, 1 = Phase 2
+    prior_report: dict with keys 'label' (0/1/2) and 'days_ago' (int),
+                  or None for no known prior report
     """
     precip_history = [r["precip_mm"] for r in history]
     soil_values = [r["soil_moisture"] for r in history if r["soil_moisture"] is not None]
@@ -35,6 +38,9 @@ def build_features(history: list[dict], forecast_day: dict, trail_id: int = 0) -
     drying_threshold = TRAIL_DRYING_DAYS.get(trail_id, 3)
     dry_surplus = consecutive_dry - drying_threshold  # negative = not dry enough yet
 
+    prior_label = prior_report["label"] if prior_report else 1      # neutral default
+    prior_days = min(prior_report.get("days_ago", 30), 30) if prior_report else 30
+
     return {
         "precip_1d_mm": precip_1d,
         "precip_3d_mm": precip_3d,
@@ -47,6 +53,8 @@ def build_features(history: list[dict], forecast_day: dict, trail_id: int = 0) -
         "dry_surplus": dry_surplus,
         "month": pred_date.month,
         "forecast_precip_mm": forecast_day["precip_mm"] or 0.0,
+        "prior_report_label": prior_label,
+        "prior_report_days_ago": prior_days,
         "trail_id": trail_id,
     }
 
@@ -72,9 +80,10 @@ TIME_SLOTS = [7, 11, 15, 19]  # hours: 7am, 11am, 3pm, 7pm
 
 
 def build_intraday_features(history: list[dict], forecast_day: dict,
-                            hourly: list[dict], hour: int, trail_id: int = 0) -> dict:
+                            hourly: list[dict], hour: int,
+                            trail_id: int = 0, prior_report: dict = None) -> dict:
     """Build features for a specific time slot within a day."""
-    base = build_features(history, forecast_day, trail_id)
+    base = build_features(history, forecast_day, trail_id, prior_report)
     precip_to_slot = sum(r["precip_mm"] for r in hourly if r["hour"] < hour)
     precip_3h = sum(r["precip_mm"] for r in hourly if hour - 3 <= r["hour"] < hour)
     base["precip_midnight_to_slot_mm"] = precip_to_slot
@@ -121,6 +130,8 @@ FEATURE_COLUMNS = [
     "dry_surplus",
     "month",
     "forecast_precip_mm",
+    "prior_report_label",
+    "prior_report_days_ago",
     "trail_id",
 ]
 

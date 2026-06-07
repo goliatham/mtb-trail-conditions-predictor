@@ -2,6 +2,7 @@
 
 import csv
 import json
+from collections import defaultdict
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -78,6 +79,25 @@ def main():
     labels = load_labels()
     print(f"Loaded {len(labels)} labeled records")
 
+    # Pre-compute the most recent prior report for each (trail_id, date)
+    by_trail = defaultdict(list)
+    for rec in labels:
+        by_trail[rec["trail_id"]].append(rec)
+
+    prior_report_map = {}  # (trail_id, date_str) -> {"label": int, "days_ago": int}
+    for tid, recs in by_trail.items():
+        recs_sorted = sorted(recs, key=lambda r: r["date"])
+        for i, rec in enumerate(recs_sorted):
+            label_date = date.fromisoformat(rec["date"])
+            prior = None
+            for j in range(i - 1, -1, -1):
+                prior_date = date.fromisoformat(recs_sorted[j]["date"])
+                if prior_date < label_date:
+                    prior = {"label": int(recs_sorted[j]["label"]),
+                             "days_ago": min((label_date - prior_date).days, 30)}
+                    break
+            prior_report_map[(tid, rec["date"])] = prior  # None if no prior
+
     daily_rows, daily_targets, daily_weights = [], [], []
     intraday_rows, intraday_targets, intraday_weights = [], [], []
     cache = {}
@@ -100,8 +120,10 @@ def main():
             skipped += 1
             continue
 
+        prior = prior_report_map.get((rec["trail_id"], rec["date"]))
+
         # Daily row
-        feats = build_features(history, day_weather, trail_id)
+        feats = build_features(history, day_weather, trail_id, prior)
         daily_rows.append([feats[col] for col in FEATURE_COLUMNS])
         daily_targets.append(day_label)
         daily_weights.append(weight)
@@ -110,7 +132,7 @@ def main():
         hourly = _get_hourly(label_date, cache)
         if hourly:
             for hour in TIME_SLOTS:
-                ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id)
+                ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, prior)
                 slot_label = assign_intraday_label(day_label, hourly, hour)
                 intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
                 intraday_targets.append(slot_label)
@@ -156,7 +178,8 @@ def main():
                 fb_skipped += 1
                 continue
 
-            ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id)
+            fb_prior = prior_report_map.get((str(trail_id), fb["date"]))
+            ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, fb_prior)
             intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
             intraday_targets.append(slot_label)
             intraday_weights.append(1.5)  # direct observation — no morning discount

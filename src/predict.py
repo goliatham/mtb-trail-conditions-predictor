@@ -1,5 +1,6 @@
 """Daily inference: fetch weather + recent reports, run model, write predictions.json."""
 
+import csv
 import json
 import re
 import time
@@ -23,7 +24,11 @@ from weather import get_forecast, get_historical, get_hourly_forecast_day
 MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
+DATA_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
 _TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
+
+TRAINING_FIELDNAMES = ["date", "trail_key", "trail_id", "label", "color",
+                       "username", "trusted", "comment"]
 
 TRAILS = {
     "phase1": {"id": "4080717", "name": "Alum Creek Phase 1", "trail_id": 0},
@@ -121,6 +126,19 @@ def fetch_recent_report(trail_id: str):
     }
 
 
+def prior_report_for_day(report, forecast_day_offset: int):
+    """Build the prior_report dict for build_features, adjusted for forecast horizon."""
+    if not report:
+        return None
+    if report.get("hours_ago") is not None:
+        base_days = max(1, report["hours_ago"] // 24)
+    elif report.get("date"):
+        base_days = max(1, (date.today() - date.fromisoformat(report["date"])).days)
+    else:
+        return None
+    return {"label": report["label"], "days_ago": min(base_days + forecast_day_offset, 30)}
+
+
 def good_score(proba):
     """Weighted good-conditions score: green=1.0, yellow=0.5, red=0.0."""
     return round(proba[2] + 0.5 * proba[1], 3)
@@ -136,11 +154,11 @@ def weather_signal(fday, feats):
     return f'Soil {feats["soil_moisture"]:.2f}'
 
 
-def predict_slots(intraday_model, history, fday, hourly, trail_id):
+def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=None):
     """Return 4 time-slot predictions for a single day."""
     slots = []
     for hour in TIME_SLOTS:
-        ifeats = build_intraday_features(history, fday, hourly, hour, trail_id)
+        ifeats = build_intraday_features(history, fday, hourly, hour, trail_id, prior_report)
         X = pd.DataFrame([[ifeats[col] for col in INTRADAY_FEATURE_COLUMNS]],
                          columns=INTRADAY_FEATURE_COLUMNS)
         proba = intraday_model.predict_proba(X)[0].tolist()
@@ -151,6 +169,32 @@ def predict_slots(intraday_model, history, fday, hourly, trail_id):
             "proba": [round(p, 3) for p in proba],
         })
     return slots
+
+
+def append_to_training(trail_key: str, trail_id: int, report: dict):
+    """Append a live-fetched report to training_raw.csv if not already present."""
+    if not report or not report.get("date"):
+        return
+    existing_keys = set()
+    if DATA_PATH.exists():
+        with open(DATA_PATH, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                existing_keys.add((row["date"], row["trail_key"]))
+    if (report["date"], trail_key) in existing_keys:
+        return
+    with open(DATA_PATH, "a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=TRAINING_FIELDNAMES)
+        writer.writerow({
+            "date": report["date"],
+            "trail_key": trail_key,
+            "trail_id": trail_id,
+            "label": report["label"],
+            "color": report["color"],
+            "username": report.get("username", ""),
+            "trusted": report.get("trusted", False),
+            "comment": report.get("comment", ""),
+        })
+    print(f"  New training record: {trail_key} {report['date']} {report['color']}")
 
 
 def main():
@@ -171,6 +215,7 @@ def main():
 
     for key, trail in TRAILS.items():
         recent_report = fetch_recent_report(trail["id"])
+        append_to_training(key, trail["trail_id"], recent_report)
         time.sleep(0.5)
 
         days = []
@@ -190,7 +235,8 @@ def main():
                 ]
                 hist = history + confirmed
 
-            feats = build_features(hist, fday, trail["trail_id"])
+            prior = prior_report_for_day(recent_report, i)
+            feats = build_features(hist, fday, trail["trail_id"], prior)
 
             # Daily prediction (all 7 days)
             X_d = pd.DataFrame([[feats[col] for col in FEATURE_COLUMNS]],
@@ -218,11 +264,11 @@ def main():
             # Add intraday slots for today and tomorrow
             if intraday_model and i == 0 and hourly_today:
                 day_entry["slots"] = predict_slots(
-                    intraday_model, hist, fday, hourly_today, trail["trail_id"]
+                    intraday_model, hist, fday, hourly_today, trail["trail_id"], prior
                 )
             elif intraday_model and i == 1 and hourly_tomorrow:
                 day_entry["slots"] = predict_slots(
-                    intraday_model, hist, fday, hourly_tomorrow, trail["trail_id"]
+                    intraday_model, hist, fday, hourly_tomorrow, trail["trail_id"], prior
                 )
 
             days.append(day_entry)
