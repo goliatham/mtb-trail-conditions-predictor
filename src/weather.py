@@ -1,7 +1,23 @@
 """Open-Meteo client for Alum Creek historical weather and 7-day forecast."""
 
+import time
 import requests
 from datetime import date, timedelta
+
+
+def _get(url, params, timeouts=(30, 60, 90)):
+    """GET with retries and escalating timeouts."""
+    last_err = None
+    for i, timeout in enumerate(timeouts):
+        try:
+            resp = requests.get(url, params=params, timeout=timeout)
+            resp.raise_for_status()
+            return resp
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+            last_err = e
+            if i < len(timeouts) - 1:
+                time.sleep(2 ** i)
+    raise last_err
 
 # Alum Creek State Park, Delaware OH
 LAT = 40.35
@@ -17,7 +33,7 @@ DAILY_VARS = [
 
 def get_historical(start: date, end: date) -> list[dict]:
     """Fetch daily historical weather between start and end dates (inclusive)."""
-    resp = requests.get(
+    resp = _get(
         "https://archive-api.open-meteo.com/v1/archive",
         params={
             "latitude": LAT,
@@ -27,15 +43,13 @@ def get_historical(start: date, end: date) -> list[dict]:
             "daily": ",".join(DAILY_VARS),
             "timezone": "America/New_York",
         },
-        timeout=30,
     )
-    resp.raise_for_status()
     return _parse_daily(resp.json())
 
 
 def get_forecast() -> list[dict]:
     """Fetch 7-day daily forecast starting today."""
-    resp = requests.get(
+    resp = _get(
         "https://api.open-meteo.com/v1/forecast",
         params={
             "latitude": LAT,
@@ -44,9 +58,7 @@ def get_forecast() -> list[dict]:
             "timezone": "America/New_York",
             "forecast_days": 7,
         },
-        timeout=30,
     )
-    resp.raise_for_status()
     return _parse_daily(resp.json())
 
 
@@ -74,7 +86,7 @@ def _parse_daily(payload: dict) -> list[dict]:
 
 def get_hourly_day(target: date) -> list[dict]:
     """Fetch hourly precip and temp for a single date."""
-    resp = requests.get(
+    resp = _get(
         "https://archive-api.open-meteo.com/v1/archive",
         params={
             "latitude": LAT,
@@ -84,9 +96,7 @@ def get_hourly_day(target: date) -> list[dict]:
             "hourly": "precipitation,temperature_2m",
             "timezone": "America/New_York",
         },
-        timeout=30,
     )
-    resp.raise_for_status()
     hourly = resp.json()["hourly"]
     return [
         {"hour": int(t.split("T")[1][:2]), "precip_mm": hourly["precipitation"][i] or 0.0}
@@ -96,7 +106,7 @@ def get_hourly_day(target: date) -> list[dict]:
 
 def get_hourly_forecast_day(target: date) -> list[dict]:
     """Fetch hourly precip forecast for a single date (today or tomorrow)."""
-    resp = requests.get(
+    resp = _get(
         "https://api.open-meteo.com/v1/forecast",
         params={
             "latitude": LAT,
@@ -105,9 +115,7 @@ def get_hourly_forecast_day(target: date) -> list[dict]:
             "timezone": "America/New_York",
             "forecast_days": 2,
         },
-        timeout=30,
     )
-    resp.raise_for_status()
     hourly = resp.json()["hourly"]
     return [
         {"hour": int(t.split("T")[1][:2]), "precip_mm": hourly["precipitation"][i] or 0.0}
