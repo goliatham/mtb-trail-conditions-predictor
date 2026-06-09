@@ -175,6 +175,8 @@ def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=
             "hour": hour,
             "score": good_score(proba),
             "proba": [round(p, 3) for p in proba],
+            "precip_midnight_to_slot_mm": round(ifeats["precip_midnight_to_slot_mm"], 1),
+            "precip_3h_before_slot_mm": round(ifeats["precip_3h_before_slot_mm"], 1),
         })
     return slots
 
@@ -276,6 +278,7 @@ def main():
             else:
                 day_name = label_date.strftime("%a %b %-d")
 
+            precip_2d = round(sum(r["precip_mm"] for r in hist[-2:]), 1) if len(hist) >= 2 else 0.0
             day_entry = {
                 "date": fday["date"],
                 "day_name": day_name,
@@ -283,6 +286,12 @@ def main():
                 "proba": [round(p, 3) for p in proba],
                 "signal": weather_signal(fday, feats),
                 "forecast_precip_mm": fday["precip_mm"],
+                "signals": {
+                    "forecast_precip_mm": round(fday["precip_mm"] or 0.0, 1),
+                    "precip_2d_mm": precip_2d,
+                    "soil_moisture": round(feats["soil_moisture"], 3),
+                    "soil_moisture_deep": round(feats["soil_moisture_deep"], 3),
+                },
             }
 
             # Add intraday slots for today and tomorrow

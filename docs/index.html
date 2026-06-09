@@ -141,6 +141,18 @@
     .fb-dot.active { opacity: 1; }
     .fb-dot.dim { opacity: 0.1; }
 
+    /* Slot intraday signals */
+    .slot-signals {
+      font-size: 0.5rem;
+      color: rgba(255,255,255,0.75);
+      margin-top: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      line-height: 1.3;
+    }
+
     /* Weekly cards */
     .week-days {
       display: grid;
@@ -356,6 +368,12 @@
     function renderSlots(slots, trailKey, trailId, date, isToday) {
       return `<div class="slots">${slots.map(s => {
         const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
+        const hasIntraday = s.precip_midnight_to_slot_mm !== undefined;
+        const sigHtml = hasIntraday ? `
+          <div class="slot-signals">
+            <span>${s.precip_midnight_to_slot_mm}mm to slot</span>
+            <span>${s.precip_3h_before_slot_mm}mm/3h</span>
+          </div>` : '';
         const fbHtml = isToday ? `
           <div class="slot-feedback">
             <span class="fb-label">Actual</span>
@@ -372,6 +390,7 @@
           <div class="slot-card" style="background:${scoreColor(s.score)}">
             <div class="slot-time">${s.slot}</div>
             <div class="slot-pct">${pct(s.score)}</div>
+            ${sigHtml}
             ${fbHtml}
           </div>`;
       }).join('')}</div>`;
@@ -379,11 +398,15 @@
 
     function renderDayRow(day, trailKey, trailId, isToday) {
       const hasSlots = day.slots && day.slots.length;
+      const s = day.signals || {};
+      const soilStr = s.soil_moisture !== undefined
+        ? `soil ${s.soil_moisture.toFixed(2)} / ${s.soil_moisture_deep.toFixed(2)}`
+        : day.signal;
       return `
         <div class="day-row">
           <div class="day-header">
             <span class="day-label">${day.day_name}</span>
-            <span class="day-signal">${day.signal}</span>
+            <span class="day-signal">${soilStr}</span>
           </div>
           ${hasSlots
             ? renderSlots(day.slots, trailKey, trailId, day.date, isToday)
@@ -396,11 +419,17 @@
     }
 
     function renderWeekCard(day) {
+      const s = day.signals || {};
+      const sigLines = [];
+      if (s.forecast_precip_mm > 0) sigLines.push(`${s.forecast_precip_mm}mm fcst`);
+      if (s.precip_2d_mm > 0) sigLines.push(`${s.precip_2d_mm}mm 2d`);
+      if (s.soil_moisture !== undefined)
+        sigLines.push(`soil ${s.soil_moisture.toFixed(2)}/${s.soil_moisture_deep.toFixed(2)}`);
       return `
         <div class="day-card" style="background:${scoreColor(day.score)}">
           <div class="card-name">${day.day_name}</div>
           <div class="card-pct">${pct(day.score)}</div>
-          <div class="card-signal">${day.signal}</div>
+          ${sigLines.map(l => `<div class="card-signal">${l}</div>`).join('')}
         </div>`;
     }
 
