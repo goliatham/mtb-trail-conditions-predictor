@@ -23,6 +23,7 @@ def build_features(history: list[dict], forecast_day: dict,
     """
     precip_history = [r["precip_mm"] for r in history]
     soil_values = [r["soil_moisture"] for r in history if r["soil_moisture"] is not None]
+    soil_deep_values = [r["soil_moisture_deep"] for r in history if r.get("soil_moisture_deep") is not None]
 
     precip_1d = sum(precip_history[-1:])
     precip_3d = sum(precip_history[-3:])
@@ -31,7 +32,8 @@ def build_features(history: list[dict], forecast_day: dict,
     days_since_rain = _days_since_last_rain(precip_history)
     consecutive_dry = _consecutive_dry_days(precip_history)
 
-    soil_moisture = soil_values[-1] if soil_values else 0.2  # fallback to moderate
+    soil_moisture = soil_values[-1] if soil_values else 0.2
+    soil_moisture_deep = soil_deep_values[-1] if soil_deep_values else 0.25
 
     pred_date = date.fromisoformat(forecast_day["date"])
 
@@ -53,6 +55,7 @@ def build_features(history: list[dict], forecast_day: dict,
         "dry_surplus": dry_surplus,
         "month": pred_date.month,
         "forecast_precip_mm": forecast_day["precip_mm"] or 0.0,
+        "soil_moisture_deep": soil_moisture_deep,
         "prior_report_label": prior_label,
         "prior_report_days_ago": prior_days,
         "trail_id": trail_id,
@@ -123,6 +126,7 @@ FEATURE_COLUMNS = [
     "precip_3d_mm",
     "precip_7d_mm",
     "soil_moisture",
+    "soil_moisture_deep",
     "temp_max_c",
     "temp_min_c",
     "days_since_rain",

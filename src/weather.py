@@ -28,6 +28,7 @@ DAILY_VARS = [
     "temperature_2m_max",
     "temperature_2m_min",
     "soil_moisture_0_to_7cm_mean",
+    "soil_moisture_7_to_28cm_mean",
 ]
 
 
@@ -80,6 +81,7 @@ def _parse_daily(payload: dict) -> list[dict]:
             "temp_max_c": daily["temperature_2m_max"][i],
             "temp_min_c": daily["temperature_2m_min"][i],
             "soil_moisture": daily["soil_moisture_0_to_7cm_mean"][i],
+            "soil_moisture_deep": daily["soil_moisture_7_to_28cm_mean"][i],
         })
     return rows
 

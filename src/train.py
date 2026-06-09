@@ -131,9 +131,9 @@ def main():
         prior = prior_report_map.get((rec["trail_id"], rec["date"]))
         snap_key = f"{rec['trail_key']}:{rec['date']}"
 
-        # Daily row — use saved snapshot if available (preserves forecast inputs from predict time)
+        # Daily row — use saved snapshot if available and complete
         daily_snap = snapshots["daily"].get(snap_key)
-        if daily_snap:
+        if daily_snap and all(c in daily_snap for c in FEATURE_COLUMNS):
             feats = daily_snap
         else:
             feats = build_features(history, day_weather, trail_id, prior)
@@ -146,7 +146,7 @@ def main():
         if hourly:
             for hour in TIME_SLOTS:
                 intra_snap = snapshots["intraday"].get(f"{snap_key}:{hour}")
-                if intra_snap:
+                if intra_snap and all(c in intra_snap for c in INTRADAY_FEATURE_COLUMNS):
                     ifeats = intra_snap
                 else:
                     ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, prior)
@@ -198,7 +198,7 @@ def main():
             fb_prior = prior_report_map.get((str(trail_id), fb["date"]))
             fb_trail_key = "phase1" if trail_id == 0 else "phase2"
             intra_snap = snapshots["intraday"].get(f"{fb_trail_key}:{fb['date']}:{hour}")
-            if intra_snap:
+            if intra_snap and all(c in intra_snap for c in INTRADAY_FEATURE_COLUMNS):
                 ifeats = intra_snap
             else:
                 ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, fb_prior)
