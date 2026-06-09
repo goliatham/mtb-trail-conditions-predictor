@@ -86,6 +86,30 @@ def _parse_daily(payload: dict) -> list[dict]:
     return rows
 
 
+def get_hourly_range(start: date, end: date) -> dict[str, list[dict]]:
+    """Fetch hourly precip for a date range. Returns dict keyed by date string."""
+    resp = _get(
+        "https://archive-api.open-meteo.com/v1/archive",
+        params={
+            "latitude": LAT,
+            "longitude": LON,
+            "start_date": start.isoformat(),
+            "end_date": end.isoformat(),
+            "hourly": "precipitation,temperature_2m",
+            "timezone": "America/New_York",
+        },
+    )
+    hourly = resp.json()["hourly"]
+    by_date: dict[str, list[dict]] = {}
+    for i, t in enumerate(hourly["time"]):
+        d = t[:10]
+        by_date.setdefault(d, []).append({
+            "hour": int(t[11:13]),
+            "precip_mm": hourly["precipitation"][i] or 0.0,
+        })
+    return by_date
+
+
 def get_hourly_day(target: date) -> list[dict]:
     """Fetch hourly precip and temp for a single date."""
     resp = _get(

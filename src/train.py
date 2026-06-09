@@ -19,7 +19,7 @@ from features import (
     build_features,
     build_intraday_features,
 )
-from weather import get_historical, get_hourly_day
+from weather import get_historical, get_hourly_range
 
 DATA_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
 FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
@@ -53,31 +53,21 @@ def load_snapshots():
         return json.load(f)
 
 
-def _get_history(label_date, cache):
-    start = label_date - timedelta(days=HISTORY_DAYS)
-    end = label_date - timedelta(days=1)
-    key = ("hist", start.isoformat())
-    if key not in cache:
-        cache[key] = get_historical(start, end)
-    return cache[key]
+def _get_history(label_date, weather_by_date):
+    rows = []
+    for i in range(HISTORY_DAYS, 0, -1):
+        d = (label_date - timedelta(days=i)).isoformat()
+        if d in weather_by_date:
+            rows.append(weather_by_date[d])
+    return rows
 
 
-def _get_day_weather(label_date, cache):
-    key = ("day", label_date.isoformat())
-    if key not in cache:
-        result = get_historical(label_date, label_date)
-        cache[key] = result[0] if result else None
-    return cache[key]
+def _get_day_weather(label_date, weather_by_date):
+    return weather_by_date.get(label_date.isoformat())
 
 
-def _get_hourly(label_date, cache):
-    key = ("hourly", label_date.isoformat())
-    if key not in cache:
-        try:
-            cache[key] = get_hourly_day(label_date)
-        except Exception:
-            cache[key] = []
-    return cache[key]
+def _get_hourly(label_date, hourly_by_date):
+    return hourly_by_date.get(label_date.isoformat(), [])
 
 
 def main():
@@ -106,9 +96,19 @@ def main():
                     break
             prior_report_map[(tid, rec["date"])] = prior  # None if no prior
 
+    # Bulk-fetch all weather in 2 API calls — avoids per-record timeouts
+    valid_dates = sorted(
+        date.fromisoformat(r["date"]) for r in labels if r["date"]
+    )
+    bulk_start = valid_dates[0] - timedelta(days=HISTORY_DAYS)
+    bulk_end = valid_dates[-1]
+    print(f"Fetching daily weather {bulk_start} → {bulk_end}...")
+    weather_by_date = {r["date"]: r for r in get_historical(bulk_start, bulk_end)}
+    print(f"Fetching hourly weather {bulk_start} → {bulk_end}...")
+    hourly_by_date = get_hourly_range(bulk_start, bulk_end)
+
     daily_rows, daily_targets, daily_weights = [], [], []
     intraday_rows, intraday_targets, intraday_weights = [], [], []
-    cache = {}
     skipped = 0
 
     for i, rec in enumerate(labels):
@@ -122,8 +122,8 @@ def main():
         day_label = int(rec["label"])
         weight = 1.0 if rec["trusted"] == "True" else 0.4
 
-        history = _get_history(label_date, cache)
-        day_weather = _get_day_weather(label_date, cache)
+        history = _get_history(label_date, weather_by_date)
+        day_weather = _get_day_weather(label_date, weather_by_date)
         if day_weather is None:
             skipped += 1
             continue
@@ -142,7 +142,7 @@ def main():
         daily_weights.append(weight)
 
         # Intraday rows — 4 slots per date using historical hourly precip
-        hourly = _get_hourly(label_date, cache)
+        hourly = _get_hourly(label_date, hourly_by_date)
         if hourly:
             for hour in TIME_SLOTS:
                 intra_snap = snapshots["intraday"].get(f"{snap_key}:{hour}")
@@ -184,13 +184,13 @@ def main():
             trail_id = int(fb.get("trail_id", 0))
             hour = int(fb["hour"])
 
-            history = _get_history(fb_date, cache)
-            day_weather = _get_day_weather(fb_date, cache)
+            history = _get_history(fb_date, weather_by_date)
+            day_weather = _get_day_weather(fb_date, weather_by_date)
             if day_weather is None:
                 fb_skipped += 1
                 continue
 
-            hourly = _get_hourly(fb_date, cache)
+            hourly = _get_hourly(fb_date, hourly_by_date)
             if not hourly:
                 fb_skipped += 1
                 continue
