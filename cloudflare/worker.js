@@ -4,6 +4,33 @@ const GH_WORKFLOW = 'daily-predict.yml';
 
 export default {
   async scheduled(event, env, ctx) {
+    if (event.cron === '0 13 * * 1') {
+      // Monday retrain — only if new votes exist since last retrain
+      const statusResp = await fetch(`https://mtcp-votes.mr-tony-82.workers.dev/status`);
+      const status = statusResp.ok ? await statusResp.json() : null;
+      if (!status || status.since_retrain === 0) {
+        console.log(`Monday retrain skipped: ${status ? status.since_retrain : 'status error'} votes since last retrain`);
+        return;
+      }
+      console.log(`Monday retrain: ${status.since_retrain} new votes, dispatching retrain`);
+      const resp = await fetch(
+        `https://api.github.com/repos/${GH_REPO}/actions/workflows/retrain.yml/dispatches`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+            'User-Agent': 'mtcp-votes-worker',
+          },
+          body: JSON.stringify({ ref: 'main', inputs: { reason: 'weekly auto-retrain' } }),
+        }
+      );
+      if (!resp.ok) console.error(`Retrain dispatch failed ${resp.status}: ${await resp.text()}`);
+      return;
+    }
+
+    // Daily predict
     const resp = await fetch(
       `https://api.github.com/repos/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
       {
