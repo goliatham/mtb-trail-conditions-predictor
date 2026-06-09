@@ -5,3 +5,6 @@ compatibility_date = "2024-01-01"
 [[kv_namespaces]]
 binding = "VOTES"
 id = "ab2debc285964b5c9c43ec027bd4c95e"
+
+[triggers]
+crons = ["55 8 * * *", "55 12 * * *", "55 16 * * *", "55 20 * * *"]

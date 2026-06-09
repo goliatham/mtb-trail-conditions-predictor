@@ -1,6 +1,28 @@
 const WATERMARK_KEY = '__last_retrained_at__';
+const GH_REPO = 'goliatham/mtb-trail-conditions-predictor';
+const GH_WORKFLOW = 'daily-predict.yml';
 
 export default {
+  async scheduled(event, env, ctx) {
+    const resp = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+          'User-Agent': 'mtcp-votes-worker',
+        },
+        body: JSON.stringify({ ref: 'main' }),
+      }
+    );
+    if (!resp.ok) {
+      const body = await resp.text();
+      console.error(`GitHub dispatch failed ${resp.status}: ${body}`);
+    }
+  },
+
   async fetch(request, env) {
     const cors = {
       'Access-Control-Allow-Origin': '*',
