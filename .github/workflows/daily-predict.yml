@@ -1,12 +1,6 @@
 name: Daily Predictions
 
 on:
-  schedule:
-    # ~5am, ~9am, ~1pm, ~5pm ET (UTC-5 EST baseline, 65min early for GH Actions lag)
-    - cron: '55 8 * * *'    # ~5:55am EST
-    - cron: '55 12 * * *'   # ~9:55am EST
-    - cron: '55 16 * * *'   # ~1:55pm EST
-    - cron: '55 20 * * *'   # ~5:55pm EST
   workflow_dispatch:
 
 permissions:
