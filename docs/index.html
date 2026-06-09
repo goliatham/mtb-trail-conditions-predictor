@@ -279,12 +279,16 @@
 
     // --- Feedback storage ---
 
+    let remoteVotesMap = {};  // populated from Cloudflare on load; keyed trail:date:slot
+
     function getFeedbackLog() {
       try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); }
       catch { return []; }
     }
 
     function getSlotVote(date, trail, slot) {
+      const remoteKey = `${trail}:${date}:${slot}`;
+      if (remoteVotesMap[remoteKey] !== undefined) return remoteVotesMap[remoteKey];
       const entry = getFeedbackLog().find(e => e.date === date && e.trail === trail && e.slot === slot);
       return entry ? entry.vote : null;
     }
@@ -452,9 +456,15 @@
       } catch { return { text: 'Unknown', dotColor: '#6b7280', stale: false }; }
     }
 
-    fetch('predictions.json')
-      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then(data => {
+    Promise.all([
+      fetch('predictions.json').then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+      fetch(VOTES_URL + '/votes?all=1').then(r => r.json()).catch(() => []),
+    ]).then(([data, votes]) => {
+        votes.forEach(v => {
+          if (v.trail && v.date && v.slot && v.vote !== undefined)
+            remoteVotesMap[`${v.trail}:${v.date}:${v.slot}`] = v.vote;
+        });
+
         const { text, dotColor, stale } = formatUpdated(data.generated_at);
         const el = document.getElementById('updated-time');
         el.innerHTML = `<span class="updated-dot" style="background:${dotColor}"></span>${text}`
