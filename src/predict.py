@@ -2,6 +2,7 @@
 
 import csv
 import json
+import os
 import re
 import time
 from datetime import date, datetime, timedelta
@@ -287,6 +288,7 @@ def main():
 
     output = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
+        "votes_url": os.environ.get("VOTES_WORKER_URL", ""),
         "trails": results,
     }
 

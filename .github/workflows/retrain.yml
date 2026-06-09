@@ -31,16 +31,30 @@ jobs:
       - name: Scrape latest condition reports
         run: python src/scraper.py
 
+      - name: Fetch feedback votes from Cloudflare
+        env:
+          VOTES_URL: ${{ secrets.VOTES_WORKER_URL }}
+        run: |
+          if [ -n "$VOTES_URL" ]; then
+            curl -sf "$VOTES_URL/votes" -o data/user_feedback.json \
+              && echo "Fetched votes from Cloudflare" \
+              || echo "[]" > data/user_feedback.json
+          else
+            echo "VOTES_WORKER_URL not set, skipping"
+          fi
+
       - name: Retrain models
         run: python src/train.py
 
       - name: Run predictions with new model
+        env:
+          VOTES_WORKER_URL: ${{ secrets.VOTES_WORKER_URL }}
         run: python src/predict.py
 
       - name: Commit updated model + predictions
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add model/ data/training_raw.csv docs/predictions.json
+          git add model/ data/training_raw.csv data/user_feedback.json docs/predictions.json
           git diff --staged --quiet || git commit -m "chore: retrain model — ${{ github.event.inputs.reason }}"
           git push
