@@ -30,9 +30,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run predictions
-        env:
-          VOTES_WORKER_URL: ${{ secrets.VOTES_WORKER_URL }}
-        run: python src/predict.py
+        run: VOTES_WORKER_URL=https://mtcp-votes.mr-tony-82.workers.dev python src/predict.py
 
       - name: Commit updated predictions
         run: |

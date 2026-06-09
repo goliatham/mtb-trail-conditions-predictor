@@ -288,7 +288,6 @@ def main():
 
     output = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
-        "votes_url": os.environ.get("VOTES_WORKER_URL", ""),
         "trails": results,
     }
 

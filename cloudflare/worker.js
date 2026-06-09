@@ -1,3 +1,5 @@
+const WATERMARK_KEY = '__last_retrained_at__';
+
 export default {
   async fetch(request, env) {
     const cors = {
@@ -30,16 +32,51 @@ export default {
       return json({ ok: true });
     }
 
-    // GET /votes — return all stored votes as array
+    // GET /votes — return votes since last retrain (or all if no watermark)
+    // ?all=1 returns everything regardless of watermark
     if (request.method === 'GET' && url.pathname === '/votes') {
+      const watermark = await env.VOTES.get(WATERMARK_KEY);
+      const since = url.searchParams.get('all') ? null : watermark;
       const list = await env.VOTES.list();
-      const votes = await Promise.all(
-        list.keys.map(async ({ name }) => {
-          const val = await env.VOTES.get(name);
-          return val ? JSON.parse(val) : null;
-        })
-      );
-      return json(votes.filter(Boolean));
+      const votes = (await Promise.all(
+        list.keys
+          .filter(({ name }) => name !== WATERMARK_KEY)
+          .map(async ({ name }) => {
+            const val = await env.VOTES.get(name);
+            return val ? JSON.parse(val) : null;
+          })
+      )).filter(Boolean);
+
+      const filtered = since
+        ? votes.filter(v => v.voted_at && v.voted_at > since)
+        : votes;
+
+      return json(filtered);
+    }
+
+    // POST /retrained — update watermark after a successful retrain
+    if (request.method === 'POST' && url.pathname === '/retrained') {
+      const ts = new Date().toISOString();
+      await env.VOTES.put(WATERMARK_KEY, ts);
+      return json({ ok: true, watermark: ts });
+    }
+
+    // GET /status — show vote count + watermark (useful for threshold check)
+    if (request.method === 'GET' && url.pathname === '/status') {
+      const watermark = await env.VOTES.get(WATERMARK_KEY);
+      const list = await env.VOTES.list();
+      const votes = (await Promise.all(
+        list.keys
+          .filter(({ name }) => name !== WATERMARK_KEY)
+          .map(async ({ name }) => {
+            const val = await env.VOTES.get(name);
+            return val ? JSON.parse(val) : null;
+          })
+      )).filter(Boolean);
+      const newVotes = watermark
+        ? votes.filter(v => v.voted_at && v.voted_at > watermark).length
+        : votes.length;
+      return json({ total: votes.length, since_retrain: newVotes, last_retrained_at: watermark });
     }
 
     return json({ error: 'not found' }, 404);

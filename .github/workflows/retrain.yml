@@ -32,24 +32,21 @@ jobs:
         run: python src/scraper.py
 
       - name: Fetch feedback votes from Cloudflare
-        env:
-          VOTES_URL: ${{ secrets.VOTES_WORKER_URL }}
         run: |
-          if [ -n "$VOTES_URL" ]; then
-            curl -sf "$VOTES_URL/votes" -o data/user_feedback.json \
-              && echo "Fetched votes from Cloudflare" \
-              || echo "[]" > data/user_feedback.json
-          else
-            echo "VOTES_WORKER_URL not set, skipping"
-          fi
+          curl -sf "https://mtcp-votes.mr-tony-82.workers.dev/votes" -o data/user_feedback.json \
+            && echo "Fetched $(python3 -c 'import json,sys; print(len(json.load(open("data/user_feedback.json"))))') votes" \
+            || echo "[]" > data/user_feedback.json
 
       - name: Retrain models
         run: python src/train.py
 
       - name: Run predictions with new model
-        env:
-          VOTES_WORKER_URL: ${{ secrets.VOTES_WORKER_URL }}
-        run: python src/predict.py
+        run: |
+          VOTES_WORKER_URL=https://mtcp-votes.mr-tony-82.workers.dev python src/predict.py
+
+      - name: Mark retrain watermark in Cloudflare
+        run: |
+          curl -sf -X POST "https://mtcp-votes.mr-tony-82.workers.dev/retrained" || true
 
       - name: Commit updated model + predictions
         run: |

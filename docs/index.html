@@ -275,7 +275,7 @@
     const TRUSTED = new Set(['combo-trails', 'timothy-ross']);
     const FEEDBACK_KEY = 'mtcp_feedback_v1';
     const TODAY = new Date().toISOString().split('T')[0];  // UTC date, used for export filename only
-    let VOTES_URL = '';  // set from predictions.json once loaded
+    const VOTES_URL = 'https://mtcp-votes.mr-tony-82.workers.dev';
 
     // --- Feedback storage ---
 
@@ -455,7 +455,6 @@
     fetch('predictions.json')
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then(data => {
-        VOTES_URL = data.votes_url || '';
         const { text, dotColor, stale } = formatUpdated(data.generated_at);
         const el = document.getElementById('updated-time');
         el.innerHTML = `<span class="updated-dot" style="background:${dotColor}"></span>${text}`
