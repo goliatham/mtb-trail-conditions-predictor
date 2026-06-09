@@ -120,6 +120,8 @@ def main():
 
         trail_id = int(rec["trail_id"])
         day_label = int(rec["label"])
+        if day_label == 1:
+            day_label = 2  # minor issues treated as rideable
         weight = 1.0 if rec["trusted"] == "True" else 0.4
 
         history = _get_history(label_date, weather_by_date)

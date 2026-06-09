@@ -147,9 +147,13 @@ def prior_report_for_day(report, forecast_day_offset: int):
     return {"label": report["label"], "days_ago": min(base_days + forecast_day_offset, 30)}
 
 
-def good_score(proba):
-    """Weighted good-conditions score: green=1.0, yellow=0.5, red=0.0."""
-    return round(proba[2] + 0.5 * proba[1], 3)
+def good_score(proba, classes):
+    """Good-conditions score derived from class probabilities."""
+    cl = list(classes)
+    score = 0.0
+    if 2 in cl: score += proba[cl.index(2)]
+    if 1 in cl: score += 0.5 * proba[cl.index(1)]
+    return round(score, 3)
 
 
 def weather_signal(fday, feats):
@@ -173,7 +177,7 @@ def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=
         slots.append({
             "slot": SLOT_LABELS[hour],
             "hour": hour,
-            "score": good_score(proba),
+            "score": good_score(proba, intraday_model.classes_),
             "proba": [round(p, 3) for p in proba],
             "precip_midnight_to_slot_mm": round(ifeats["precip_midnight_to_slot_mm"], 1),
             "precip_3h_before_slot_mm": round(ifeats["precip_3h_before_slot_mm"], 1),
@@ -268,7 +272,7 @@ def main():
             X_d = pd.DataFrame([[feats[col] for col in FEATURE_COLUMNS]],
                                columns=FEATURE_COLUMNS)
             proba = daily_model.predict_proba(X_d)[0].tolist()
-            score = good_score(proba)
+            score = good_score(proba, daily_model.classes_)
 
             label_date = date.fromisoformat(fday["date"])
             if i == 0:
