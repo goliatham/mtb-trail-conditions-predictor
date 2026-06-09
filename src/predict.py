@@ -26,6 +26,7 @@ MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
 DATA_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
+SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 _TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
 TRAINING_FIELDNAMES = ["date", "trail_key", "trail_id", "label", "color",
@@ -178,6 +179,18 @@ def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=
     return slots
 
 
+def load_snapshots() -> dict:
+    if SNAPSHOTS_PATH.exists():
+        with open(SNAPSHOTS_PATH) as f:
+            return json.load(f)
+    return {"daily": {}, "intraday": {}}
+
+
+def save_snapshots(snapshots: dict):
+    with open(SNAPSHOTS_PATH, "w") as f:
+        json.dump(snapshots, f)
+
+
 def append_to_training(trail_key: str, trail_id: int, report: dict):
     """Append a live-fetched report to training_raw.csv if not already present."""
     if not report or not report.get("date"):
@@ -219,6 +232,7 @@ def main():
     hourly_tomorrow = get_hourly_forecast_day(tomorrow) if intraday_model else []
 
     results = {}
+    snapshots = load_snapshots()
 
     for key, trail in TRAILS.items():
         recent_report = fetch_recent_report(trail["id"])
@@ -244,6 +258,9 @@ def main():
 
             prior = prior_report_for_day(recent_report, i)
             feats = build_features(hist, fday, trail["trail_id"], prior)
+
+            # Snapshot daily features so retrains use the same inputs we predicted with
+            snapshots["daily"][f"{key}:{fday['date']}"] = {c: feats[c] for c in FEATURE_COLUMNS}
 
             # Daily prediction (all 7 days)
             X_d = pd.DataFrame([[feats[col] for col in FEATURE_COLUMNS]],
@@ -273,10 +290,16 @@ def main():
                 day_entry["slots"] = predict_slots(
                     intraday_model, hist, fday, hourly_today, trail["trail_id"], prior
                 )
+                for hour in TIME_SLOTS:
+                    ifeats = build_intraday_features(hist, fday, hourly_today, hour, trail["trail_id"], prior)
+                    snapshots["intraday"][f"{key}:{fday['date']}:{hour}"] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
             elif intraday_model and i == 1 and hourly_tomorrow:
                 day_entry["slots"] = predict_slots(
                     intraday_model, hist, fday, hourly_tomorrow, trail["trail_id"], prior
                 )
+                for hour in TIME_SLOTS:
+                    ifeats = build_intraday_features(hist, fday, hourly_tomorrow, hour, trail["trail_id"], prior)
+                    snapshots["intraday"][f"{key}:{fday['date']}:{hour}"] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
 
             days.append(day_entry)
 
@@ -294,6 +317,7 @@ def main():
     with open(OUTPUT_PATH, "w") as f:
         json.dump(output, f, indent=2)
 
+    save_snapshots(snapshots)
     print(f"Wrote {OUTPUT_PATH}")
     for key, trail_data in results.items():
         print(f"\n{trail_data['trail_name']}:")

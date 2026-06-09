@@ -23,6 +23,7 @@ from weather import get_historical, get_hourly_day
 
 DATA_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
 FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
+SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 HISTORY_DAYS = 14
@@ -39,10 +40,16 @@ def load_labels():
 
 
 def load_feedback():
-    """Load user slot feedback exported from the browser UI."""
     if not FEEDBACK_PATH.exists():
         return []
     with open(FEEDBACK_PATH) as f:
+        return json.load(f)
+
+
+def load_snapshots():
+    if not SNAPSHOTS_PATH.exists():
+        return {"daily": {}, "intraday": {}}
+    with open(SNAPSHOTS_PATH) as f:
         return json.load(f)
 
 
@@ -77,7 +84,8 @@ def main():
     MODEL_PATH.parent.mkdir(exist_ok=True)
 
     labels = load_labels()
-    print(f"Loaded {len(labels)} labeled records")
+    snapshots = load_snapshots()
+    print(f"Loaded {len(labels)} labeled records, {len(snapshots['daily'])} daily snapshots")
 
     # Pre-compute the most recent prior report for each (trail_id, date)
     by_trail = defaultdict(list)
@@ -121,9 +129,14 @@ def main():
             continue
 
         prior = prior_report_map.get((rec["trail_id"], rec["date"]))
+        snap_key = f"{rec['trail_key']}:{rec['date']}"
 
-        # Daily row
-        feats = build_features(history, day_weather, trail_id, prior)
+        # Daily row — use saved snapshot if available (preserves forecast inputs from predict time)
+        daily_snap = snapshots["daily"].get(snap_key)
+        if daily_snap:
+            feats = daily_snap
+        else:
+            feats = build_features(history, day_weather, trail_id, prior)
         daily_rows.append([feats[col] for col in FEATURE_COLUMNS])
         daily_targets.append(day_label)
         daily_weights.append(weight)
@@ -132,7 +145,11 @@ def main():
         hourly = _get_hourly(label_date, cache)
         if hourly:
             for hour in TIME_SLOTS:
-                ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, prior)
+                intra_snap = snapshots["intraday"].get(f"{snap_key}:{hour}")
+                if intra_snap:
+                    ifeats = intra_snap
+                else:
+                    ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, prior)
                 slot_label = assign_intraday_label(day_label, hourly, hour)
                 intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
                 intraday_targets.append(slot_label)
@@ -179,7 +196,12 @@ def main():
                 continue
 
             fb_prior = prior_report_map.get((str(trail_id), fb["date"]))
-            ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, fb_prior)
+            fb_trail_key = "phase1" if trail_id == 0 else "phase2"
+            intra_snap = snapshots["intraday"].get(f"{fb_trail_key}:{fb['date']}:{hour}")
+            if intra_snap:
+                ifeats = intra_snap
+            else:
+                ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, fb_prior)
             intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
             intraday_targets.append(slot_label)
             intraday_weights.append(1.5)  # direct observation — no morning discount
