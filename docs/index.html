@@ -365,14 +365,15 @@
       return diff + ' days ago';
     }
 
-    function renderSlots(slots, trailKey, trailId, date, isToday) {
+    function renderSlots(slots, trailKey, trailId, date, isToday, signals) {
       return `<div class="slots">${slots.map(s => {
         const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
         const hasIntraday = s.precip_midnight_to_slot_mm !== undefined;
+        const precip2d = (signals && signals.precip_2d_mm) || 0;
         const sigHtml = hasIntraday ? `
           <div class="slot-signals">
-            <span>${s.precip_midnight_to_slot_mm}mm to slot</span>
-            <span>${s.precip_3h_before_slot_mm}mm/3h</span>
+            <span>${s.precip_midnight_to_slot_mm}mm fcst</span>
+            <span>${precip2d}mm 2d</span>
           </div>` : '';
         const fbHtml = isToday ? `
           <div class="slot-feedback">
@@ -409,7 +410,7 @@
             <span class="day-signal">${soilStr}</span>
           </div>
           ${hasSlots
-            ? renderSlots(day.slots, trailKey, trailId, day.date, isToday)
+            ? renderSlots(day.slots, trailKey, trailId, day.date, isToday, day.signals)
             : `<div class="slots">
                  <div class="slot-card" style="background:${scoreColor(day.score)};grid-column:1/-1;padding:10px;">
                    <div class="slot-pct" style="font-size:1.3rem">${pct(day.score)}</div>
