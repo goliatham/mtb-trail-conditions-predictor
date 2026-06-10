@@ -21,9 +21,10 @@ from features import (
 )
 from weather import get_historical, get_hourly_range
 
-DATA_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
+DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
 FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
 SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
+WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
 MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 HISTORY_DAYS = 14
@@ -51,6 +52,18 @@ def load_snapshots():
         return {"daily": {}, "intraday": {}}
     with open(SNAPSHOTS_PATH) as f:
         return json.load(f)
+
+
+def load_weather_cache():
+    if not WEATHER_CACHE_PATH.exists():
+        return {"daily": {}, "hourly": {}}
+    with open(WEATHER_CACHE_PATH) as f:
+        return json.load(f)
+
+
+def save_weather_cache(cache):
+    with open(WEATHER_CACHE_PATH, "w") as f:
+        json.dump(cache, f)
 
 
 def _get_history(label_date, weather_by_date):
@@ -96,16 +109,35 @@ def main():
                     break
             prior_report_map[(tid, rec["date"])] = prior  # None if no prior
 
-    # Bulk-fetch all weather in 2 API calls — avoids per-record timeouts
     valid_dates = sorted(
         date.fromisoformat(r["date"]) for r in labels if r["date"]
     )
     bulk_start = valid_dates[0] - timedelta(days=HISTORY_DAYS)
     bulk_end = valid_dates[-1]
-    print(f"Fetching daily weather {bulk_start} → {bulk_end}...")
-    weather_by_date = {r["date"]: r for r in get_historical(bulk_start, bulk_end)}
-    print(f"Fetching hourly weather {bulk_start} → {bulk_end}...")
-    hourly_by_date = get_hourly_range(bulk_start, bulk_end)
+
+    weather_cache = load_weather_cache()
+    cached_daily = weather_cache["daily"]
+    cached_hourly = weather_cache["hourly"]
+
+    # Find date ranges not yet in cache and fetch only those
+    all_dates = [bulk_start + timedelta(days=i) for i in range((bulk_end - bulk_start).days + 1)]
+    missing = [d for d in all_dates if d.isoformat() not in cached_daily]
+
+    if missing:
+        fetch_start, fetch_end = missing[0], missing[-1]
+        print(f"Fetching daily weather {fetch_start} → {fetch_end} ({len(missing)} new days)...")
+        for r in get_historical(fetch_start, fetch_end):
+            cached_daily[r["date"]] = r
+        print(f"Fetching hourly weather {fetch_start} → {fetch_end}...")
+        for d, records in get_hourly_range(fetch_start, fetch_end).items():
+            cached_hourly[d] = records
+        save_weather_cache({"daily": cached_daily, "hourly": cached_hourly})
+        print("Weather cache updated.")
+    else:
+        print(f"Weather cache hit — {len(all_dates)} days already cached.")
+
+    weather_by_date = cached_daily
+    hourly_by_date = cached_hourly
 
     daily_rows, daily_targets, daily_weights = [], [], []
     intraday_rows, intraday_targets, intraday_weights = [], [], []

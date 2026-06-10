@@ -25,7 +25,7 @@ from weather import get_forecast, get_historical, get_hourly_forecast_day
 MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
-DATA_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
+DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
 SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 _TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
