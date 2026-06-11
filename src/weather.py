@@ -5,18 +5,20 @@ import requests
 from datetime import date, timedelta
 
 
-def _get(url, params, timeouts=(30, 60, 90)):
-    """GET with retries and escalating timeouts."""
+def _get(url, params, timeouts=(30, 60, 90), retry_delays=(10, 30)):
+    """GET with retries, escalating timeouts, and longer delays for SSL/connection errors."""
     last_err = None
     for i, timeout in enumerate(timeouts):
         try:
             resp = requests.get(url, params=params, timeout=timeout)
             resp.raise_for_status()
             return resp
-        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+        except (requests.exceptions.Timeout,
+                requests.exceptions.ConnectionError,
+                requests.exceptions.SSLError) as e:
             last_err = e
             if i < len(timeouts) - 1:
-                time.sleep(2 ** i)
+                time.sleep(retry_delays[min(i, len(retry_delays) - 1)])
     raise last_err
 
 # Alum Creek State Park, Delaware OH
