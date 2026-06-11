@@ -48,19 +48,33 @@ def get_historical(start: date, end: date) -> list[dict]:
     return _parse_daily(resp.json())
 
 
-def get_forecast() -> list[dict]:
-    """Fetch 7-day daily forecast starting today."""
+def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
+    """Fetch 7-day daily forecast + hourly precip in one call.
+
+    Returns (daily_list, hourly_by_date) where hourly_by_date is keyed by
+    date string — avoids multiple round-trips to api.open-meteo.com.
+    """
     resp = _get(
         "https://api.open-meteo.com/v1/forecast",
         params={
             "latitude": LAT,
             "longitude": LON,
             "daily": ",".join(DAILY_VARS),
+            "hourly": "precipitation",
             "timezone": "America/New_York",
             "forecast_days": 7,
         },
     )
-    return _parse_daily(resp.json())
+    data = resp.json()
+    daily = _parse_daily(data)
+    hourly_by_date: dict[str, list[dict]] = {}
+    for i, t in enumerate(data["hourly"]["time"]):
+        d = t[:10]
+        hourly_by_date.setdefault(d, []).append({
+            "hour": int(t[11:13]),
+            "precip_mm": data["hourly"]["precipitation"][i] or 0.0,
+        })
+    return daily, hourly_by_date
 
 
 def get_window(target: date, history_days: int = 14) -> list[dict]:

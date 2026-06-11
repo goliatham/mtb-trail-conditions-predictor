@@ -20,7 +20,7 @@ from features import (
     build_features,
     build_intraday_features,
 )
-from weather import get_forecast, get_historical, get_hourly_forecast_day
+from weather import get_forecast, get_historical
 
 MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
@@ -229,13 +229,12 @@ def main():
     intraday_model = joblib.load(INTRADAY_MODEL_PATH) if INTRADAY_MODEL_PATH.exists() else None
 
     today = date.today()
-    forecast = get_forecast()  # 7 days starting today
+    tomorrow = today + timedelta(days=1)
+    forecast, hourly_by_date = get_forecast()  # daily + hourly in one call
     history = get_historical(today - timedelta(days=14), today - timedelta(days=1))
 
-    # Fetch hourly forecast for today + tomorrow
-    hourly_today = get_hourly_forecast_day(today) if intraday_model else []
-    tomorrow = today + timedelta(days=1)
-    hourly_tomorrow = get_hourly_forecast_day(tomorrow) if intraday_model else []
+    hourly_today = hourly_by_date.get(today.isoformat(), []) if intraday_model else []
+    hourly_tomorrow = hourly_by_date.get(tomorrow.isoformat(), []) if intraday_model else []
 
     results = {}
     snapshots = load_snapshots()
