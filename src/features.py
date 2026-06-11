@@ -132,7 +132,7 @@ FEATURE_COLUMNS = [
     "days_since_rain",
     "consecutive_dry_days",
     "dry_surplus",
-    "month",
+    # "month",  # ablation: testing whether month suppresses soil_moisture
     "forecast_precip_mm",
     "prior_report_label",
     "prior_report_days_ago",
