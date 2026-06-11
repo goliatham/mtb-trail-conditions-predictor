@@ -1,25 +1,12 @@
-# Beads / Dolt files (added by bd init)
-.dolt/
-*.db
-.beads-credential-key
-.beads/proxieddb/
-plugins/
-.repo.git/
-.land-worktree/
-.beads/
-.logs/
+# Wrangler local cache (account ID, deploy state)
+cloudflare/.wrangler/
+
+# Python
 __pycache__/
-state.json
-CLAUDE.local.md
-.claude/
-.archive/
-.runtime/
-crew/
-daemon/
-mayor/
-polecats/
-refinery/
-settings/
-witness/
-config.json
-AGENTS.md
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS
+.DS_Store
