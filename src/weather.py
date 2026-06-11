@@ -22,8 +22,8 @@ def _get(url, params, timeouts=(30, 60, 90), retry_delays=(10, 30)):
     raise last_err
 
 # Alum Creek State Park, Delaware OH
-LAT = 40.35
-LON = -82.98
+LAT = 40.201876
+LON = -82.938115
 
 DAILY_VARS = [
     "precipitation_sum",
