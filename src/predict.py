@@ -198,7 +198,7 @@ def save_snapshots(snapshots: dict):
 
 
 def append_to_training(trail_key: str, trail_id: int, report: dict):
-    """Append a live-fetched report to training_raw.csv if not already present."""
+    """Append a live-fetched report to mtb_scrape_raw.csv if not already present."""
     if not report or not report.get("date"):
         return
     existing_keys = set()

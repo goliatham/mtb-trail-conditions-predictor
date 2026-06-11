@@ -32,7 +32,7 @@ HEADERS = {
 COLOR_TO_LABEL = {"green": 2, "yellow": 1, "red": 0}
 COLOR_TO_NAME = {"green": "All Clear", "yellow": "Minor Issues", "red": "Bad/Closed"}
 
-OUTPUT_PATH = Path(__file__).parent.parent / "data" / "training_raw.csv"
+OUTPUT_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
 
 
 def scrape_trail(trail_id: str) -> list[dict]:
