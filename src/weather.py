@@ -61,7 +61,7 @@ def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
         params={
             "latitude": LAT,
             "longitude": LON,
-            "daily": ",".join(DAILY_VARS),
+            "daily": ",".join(DAILY_VARS) + ",sunrise,sunset",
             "hourly": "precipitation",
             "timezone": "America/New_York",
             "forecast_days": 7,
@@ -69,6 +69,9 @@ def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
     )
     data = resp.json()
     daily = _parse_daily(data)
+    for i, d in enumerate(daily):
+        d["sunrise"] = data["daily"]["sunrise"][i][11:16]  # "HH:MM"
+        d["sunset"] = data["daily"]["sunset"][i][11:16]
     hourly_by_date: dict[str, list[dict]] = {}
     for i, t in enumerate(data["hourly"]["time"]):
         d = t[:10]

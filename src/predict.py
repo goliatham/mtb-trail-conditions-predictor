@@ -52,7 +52,7 @@ MTBPROJECT_HEADERS = {
 
 LABEL_NAMES = {0: "Bad/Closed", 1: "Minor Issues", 2: "All Clear"}
 
-SLOT_LABELS = {7: "7am", 11: "11am", 15: "3pm", 19: "7pm"}
+SLOT_LABELS = {5: "Dawn", 7: "7am", 11: "11am", 15: "3pm", 19: "7pm"}
 
 
 def fetch_recent_report(trail_id: str):
@@ -294,6 +294,8 @@ def main():
                     "precip_2d_mm": precip_2d,
                     "soil_moisture": round(feats["soil_moisture"], 3),
                     "soil_moisture_deep": round(feats["soil_moisture_deep"], 3),
+                    "sunrise": fday.get("sunrise"),
+                    "sunset": fday.get("sunset"),
                 },
             }
 
