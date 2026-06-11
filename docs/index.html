@@ -153,10 +153,6 @@
       line-height: 1.3;
     }
 
-    .slot-dawn {
-      border-top: 2px solid rgba(255,200,80,0.6);
-    }
-
     /* Weekly cards */
     .week-days {
       display: grid;
@@ -391,10 +387,9 @@
                       onclick="recordFeedback('${date}','${trailKey}',${trailId},${s.hour},'${s.slot}',${s.score},-1,this)"></button>
             </div>
           </div>` : '';
-        const isDawn = s.slot === 'Dawn';
         return `
-          <div class="slot-card${isDawn ? ' slot-dawn' : ''}" style="background:${scoreColor(s.score)}">
-            <div class="slot-time">${isDawn ? '🌅 Dawn' : s.slot}</div>
+          <div class="slot-card" style="background:${scoreColor(s.score)}">
+            <div class="slot-time">${s.slot}</div>
             <div class="slot-pct">${pct(s.score)}</div>
             ${sigHtml}
             ${fbHtml}

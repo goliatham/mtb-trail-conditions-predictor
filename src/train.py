@@ -32,7 +32,7 @@ HISTORY_DAYS = 14
 # Reports are almost always posted in the afternoon. Same-day labels are
 # therefore less reliable for morning slots where conditions may differ.
 MORNING_SLOT_WEIGHT_MULT = 0.2   # applied to MTBProject labels for 7am/11am slots
-MORNING_SLOTS = {5, 7, 11}
+MORNING_SLOTS = {7, 11}
 
 
 def load_labels():

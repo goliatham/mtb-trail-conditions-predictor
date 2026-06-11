@@ -79,7 +79,7 @@ def _consecutive_dry_days(precip_history: list[float]) -> int:
     return count
 
 
-TIME_SLOTS = [5, 7, 11, 15, 19]  # hours: Dawn, 7am, 11am, 3pm, 7pm
+TIME_SLOTS = [7, 11, 15, 19]  # hours: 7am, 11am, 3pm, 7pm
 
 
 def build_intraday_features(history: list[dict], forecast_day: dict,
