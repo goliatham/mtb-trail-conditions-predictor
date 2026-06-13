@@ -61,7 +61,7 @@ def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
         params={
             "latitude": LAT,
             "longitude": LON,
-            "daily": ",".join(DAILY_VARS) + ",sunrise,sunset",
+            "daily": ",".join(DAILY_VARS) + ",sunrise,sunset,precipitation_probability_max",
             "hourly": "precipitation",
             "timezone": "America/New_York",
             "forecast_days": 7,
@@ -92,6 +92,7 @@ def get_window(target: date, history_days: int = 14) -> list[dict]:
 def _parse_daily(payload: dict) -> list[dict]:
     daily = payload["daily"]
     dates = daily["time"]
+    prob = daily.get("precipitation_probability_max")
     rows = []
     for i, d in enumerate(dates):
         rows.append({
@@ -101,6 +102,7 @@ def _parse_daily(payload: dict) -> list[dict]:
             "temp_min_c": daily["temperature_2m_min"][i],
             "soil_moisture": daily["soil_moisture_0_to_7cm_mean"][i],
             "soil_moisture_deep": daily["soil_moisture_7_to_28cm_mean"][i],
+            "precip_prob_pct": prob[i] if prob is not None else None,
         })
     return rows
 

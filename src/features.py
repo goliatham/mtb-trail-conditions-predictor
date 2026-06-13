@@ -43,6 +43,7 @@ def build_features(history: list[dict], forecast_day: dict,
     prior_label = prior_report["label"] if prior_report else 1      # neutral default
     prior_days = min(prior_report.get("days_ago", 30), 30) if prior_report else 30
 
+    raw_prob = forecast_day.get("precip_prob_pct")
     return {
         "precip_1d_mm": precip_1d,
         "precip_3d_mm": precip_3d,
@@ -55,6 +56,7 @@ def build_features(history: list[dict], forecast_day: dict,
         "dry_surplus": dry_surplus,
         "month": pred_date.month,
         "forecast_precip_mm": forecast_day["precip_mm"] or 0.0,
+        "precip_prob_pct": raw_prob if raw_prob is not None else 50.0,
         "soil_moisture_deep": soil_moisture_deep,
         "prior_report_label": prior_label,
         "prior_report_days_ago": prior_days,
@@ -134,6 +136,7 @@ FEATURE_COLUMNS = [
     "dry_surplus",
     # "month",  # ablation: testing whether month suppresses soil_moisture
     "forecast_precip_mm",
+    "precip_prob_pct",
     "prior_report_label",
     "prior_report_days_ago",
     "trail_id",
