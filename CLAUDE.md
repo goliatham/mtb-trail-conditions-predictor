@@ -60,18 +60,23 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 
 ## Build & Test
 
-_Add your build and test commands here_
-
 ```bash
-# Example:
-# npm install
-# npm test
+python src/train.py
+VOTES_WORKER_URL=https://mtcp-votes.mr-tony-82.workers.dev python src/predict.py
 ```
-
-## Architecture Overview
-
-_Add a brief overview of your project architecture_
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+### Feature/model changes require a committed retrain
+
+Any change to `src/features.py` or `src/train.py` is **not complete** until:
+1. `python src/train.py` runs successfully
+2. `python src/predict.py` runs successfully
+3. All generated files are committed alongside the code change:
+   - `model/model.joblib`
+   - `model/model_intraday.joblib`
+   - `data/feature_snapshots.json`
+   - `data/weather_cache.json`
+   - `docs/predictions.json`
+
+The model files must be trained on the same feature set `predict.py` uses — shipping code without updated models breaks the GitHub Actions predict workflow.
