@@ -136,7 +136,6 @@ FEATURE_COLUMNS = [
     "dry_surplus",
     # "month",  # ablation: testing whether month suppresses soil_moisture
     "forecast_precip_mm",
-    "precip_prob_pct",
     "prior_report_label",
     "prior_report_days_ago",
     "trail_id",
