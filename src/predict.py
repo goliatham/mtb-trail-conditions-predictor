@@ -226,10 +226,10 @@ def append_to_training(trail_key: str, trail_id: int, report: dict):
 
 
 def _persist_forecast_probs(forecast: list) -> None:
-    """Write precip_prob_pct for each forecast day into the weather cache.
+    """Write forecast data into the weather cache (write-once per field per day).
 
-    Write-once: skips dates that already have a non-None value so the first
-    predict run of the day (morning) wins over later runs.
+    Saves precip_prob_pct and midnight soil moisture so training can use the
+    same scale as inference.  First predict run of the day wins.
     """
     if WEATHER_CACHE_PATH.exists():
         with open(WEATHER_CACHE_PATH) as f:
@@ -240,14 +240,21 @@ def _persist_forecast_probs(forecast: list) -> None:
     changed = False
     for fday in forecast:
         d = fday["date"]
+        if d not in daily:
+            daily[d] = {k: v for k, v in fday.items() if k not in ("sunrise", "sunset")}
+            changed = True
+        entry = daily[d]
         prob = fday.get("precip_prob_pct")
-        if prob is None:
-            continue
-        if daily.get(d, {}).get("precip_prob_pct") is None:
-            if d not in daily:
-                daily[d] = {k: v for k, v in fday.items() if k not in ("sunrise", "sunset")}
-            else:
-                daily[d]["precip_prob_pct"] = prob
+        if prob is not None and entry.get("precip_prob_pct") is None:
+            entry["precip_prob_pct"] = prob
+            changed = True
+        sm = fday.get("soil_moisture")
+        if sm is not None and entry.get("soil_moisture_midnight") is None:
+            entry["soil_moisture_midnight"] = sm
+            changed = True
+        smd = fday.get("soil_moisture_deep")
+        if smd is not None and entry.get("soil_moisture_deep_midnight") is None:
+            entry["soil_moisture_deep_midnight"] = smd
             changed = True
     if changed:
         with open(WEATHER_CACHE_PATH, "w") as f:
@@ -264,6 +271,24 @@ def main():
     forecast, hourly_by_date = get_forecast()  # daily + hourly in one call
     _persist_forecast_probs(forecast)
     history = get_historical(today - timedelta(days=14), today - timedelta(days=1))
+
+    # Scale historical soil to match forecast-API (midnight) scale.
+    # Use cached midnight values for days that have been through predict before;
+    # fall back to historical * 1.8 for older dates.
+    _cache_daily: dict = {}
+    if WEATHER_CACHE_PATH.exists():
+        with open(WEATHER_CACHE_PATH) as f:
+            _cache_daily = json.load(f).get("daily", {})
+    for r in history:
+        cached = _cache_daily.get(r["date"], {})
+        if cached.get("soil_moisture_midnight") is not None:
+            r["soil_moisture"] = cached["soil_moisture_midnight"]
+            r["soil_moisture_deep"] = cached.get("soil_moisture_deep_midnight", r.get("soil_moisture_deep"))
+        else:
+            if r.get("soil_moisture") is not None:
+                r["soil_moisture"] = round(r["soil_moisture"] * 1.8, 4)
+            if r.get("soil_moisture_deep") is not None:
+                r["soil_moisture_deep"] = round(r["soil_moisture_deep"] * 1.8, 4)
 
     hourly_today = hourly_by_date.get(today.isoformat(), []) if intraday_model else []
     hourly_tomorrow = hourly_by_date.get(tomorrow.isoformat(), []) if intraday_model else []

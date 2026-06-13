@@ -127,10 +127,11 @@ def main():
         fetch_start, fetch_end = missing[0], missing[-1]
         print(f"Fetching daily weather {fetch_start} → {fetch_end} ({len(missing)} new days)...")
         for r in get_historical(fetch_start, fetch_end):
-            existing_prob = cached_daily.get(r["date"], {}).get("precip_prob_pct")
+            existing = cached_daily.get(r["date"], {})
             cached_daily[r["date"]] = r
-            if existing_prob is not None:
-                cached_daily[r["date"]]["precip_prob_pct"] = existing_prob
+            for key in ("precip_prob_pct", "soil_moisture_midnight", "soil_moisture_deep_midnight"):
+                if existing.get(key) is not None:
+                    cached_daily[r["date"]][key] = existing[key]
         print(f"Fetching hourly weather {fetch_start} → {fetch_end}...")
         for d, records in get_hourly_range(fetch_start, fetch_end).items():
             cached_hourly[d] = records
@@ -139,7 +140,21 @@ def main():
     else:
         print(f"Weather cache hit — {len(all_dates)} days already cached.")
 
-    weather_by_date = cached_daily
+    # Build a scaled weather dict: prefer midnight forecast soil when cached,
+    # else scale historical values by 1.8 to match the forecast-API range.
+    weather_by_date = {}
+    for d, entry in cached_daily.items():
+        e = dict(entry)
+        if e.get("soil_moisture_midnight") is not None:
+            e["soil_moisture"] = e["soil_moisture_midnight"]
+            if e.get("soil_moisture_deep_midnight") is not None:
+                e["soil_moisture_deep"] = e["soil_moisture_deep_midnight"]
+        else:
+            if e.get("soil_moisture") is not None:
+                e["soil_moisture"] = round(e["soil_moisture"] * 1.8, 4)
+            if e.get("soil_moisture_deep") is not None:
+                e["soil_moisture_deep"] = round(e["soil_moisture_deep"] * 1.8, 4)
+        weather_by_date[d] = e
     hourly_by_date = cached_hourly
 
     daily_rows, daily_targets, daily_weights = [], [], []
