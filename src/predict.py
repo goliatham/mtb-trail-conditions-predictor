@@ -30,14 +30,6 @@ SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json
 WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
 _TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
-# Soil moisture propagation for forecast days (m³/m³)
-SOIL_DRAIN_SURFACE  = {0: 0.037, 1: 0.055}  # P1, P2 per day
-SOIL_DRAIN_DEEP     = {0: 0.013, 1: 0.020}  # P1, P2 per day (~1/3 of surface)
-SOIL_INFILTRATION_S = 0.008   # per mm of rain
-SOIL_INFILTRATION_D = 0.004   # per mm of rain
-SOIL_SURFACE_MAX    = 0.45
-SOIL_DEEP_MAX       = 0.42
-SOIL_MIN            = 0.05
 
 TRAINING_FIELDNAMES = ["date", "trail_key", "trail_id", "label", "color",
                        "username", "trusted", "comment"]
@@ -284,22 +276,11 @@ def main():
         append_to_training(key, trail["trail_id"], recent_report)
         time.sleep(0.5)
 
-        # Pre-compute simulated soil moisture for each forecast day
+        # Fallback soil values if Open-Meteo hourly soil is missing
         last_surface = next((r["soil_moisture"] for r in reversed(history)
                              if r.get("soil_moisture") is not None), 0.20)
         last_deep = next((r.get("soil_moisture_deep") for r in reversed(history)
                           if r.get("soil_moisture_deep") is not None), 0.25)
-        drain_s = SOIL_DRAIN_SURFACE[trail["trail_id"]]
-        drain_d = SOIL_DRAIN_DEEP[trail["trail_id"]]
-        # sim_surface[j] = soil AFTER day j's rain — what the sensor would read on day j
-        sim_surface, sim_deep = [], []
-        surf, deep = last_surface, last_deep
-        for j in range(len(forecast)):
-            rain = forecast[j]["precip_mm"] or 0.0
-            surf = max(min(surf + rain * SOIL_INFILTRATION_S - drain_s, SOIL_SURFACE_MAX), SOIL_MIN)
-            deep = max(min(deep + rain * SOIL_INFILTRATION_D - drain_d, SOIL_DEEP_MAX),    SOIL_MIN)
-            sim_surface.append(surf)
-            sim_deep.append(deep)
 
         days = []
         for i, fday in enumerate(forecast):
@@ -312,8 +293,8 @@ def main():
                         "precip_mm":          forecast[j]["precip_mm"],
                         "temp_max_c":         forecast[j]["temp_max_c"],
                         "temp_min_c":         forecast[j]["temp_min_c"],
-                        "soil_moisture":      sim_surface[j],
-                        "soil_moisture_deep": sim_deep[j],
+                        "soil_moisture":      forecast[j]["soil_moisture"] if forecast[j].get("soil_moisture") is not None else last_surface,
+                        "soil_moisture_deep": forecast[j].get("soil_moisture_deep") if forecast[j].get("soil_moisture_deep") is not None else last_deep,
                     }
                     for j in range(i)
                 ]

@@ -62,7 +62,11 @@ def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
             "latitude": LAT,
             "longitude": LON,
             "daily": ",".join(DAILY_VARS) + ",sunrise,sunset,precipitation_probability_max",
-            "hourly": "precipitation",
+            "hourly": (
+                "precipitation"
+                ",soil_moisture_0_to_1cm,soil_moisture_1_to_3cm"
+                ",soil_moisture_3_to_9cm,soil_moisture_9_to_27cm"
+            ),
             "timezone": "America/New_York",
             "forecast_days": 7,
         },
@@ -72,13 +76,43 @@ def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
     for i, d in enumerate(daily):
         d["sunrise"] = data["daily"]["sunrise"][i][11:16]  # "HH:MM"
         d["sunset"] = data["daily"]["sunset"][i][11:16]
+
+    hourly = data["hourly"]
+    sm_0_1  = hourly.get("soil_moisture_0_to_1cm",  [])
+    sm_1_3  = hourly.get("soil_moisture_1_to_3cm",  [])
+    sm_3_9  = hourly.get("soil_moisture_3_to_9cm",  [])
+    sm_9_27 = hourly.get("soil_moisture_9_to_27cm", [])
+
+    midnight_soil: dict[str, tuple] = {}
     hourly_by_date: dict[str, list[dict]] = {}
-    for i, t in enumerate(data["hourly"]["time"]):
+    for i, t in enumerate(hourly["time"]):
         d = t[:10]
+        hour = int(t[11:13])
         hourly_by_date.setdefault(d, []).append({
-            "hour": int(t[11:13]),
-            "precip_mm": data["hourly"]["precipitation"][i] or 0.0,
+            "hour": hour,
+            "precip_mm": hourly["precipitation"][i] or 0.0,
         })
+        if hour == 0 and d not in midnight_soil:
+            s01, s13, s39, s927 = (
+                sm_0_1[i] if i < len(sm_0_1) else None,
+                sm_1_3[i] if i < len(sm_1_3) else None,
+                sm_3_9[i] if i < len(sm_3_9) else None,
+                sm_9_27[i] if i < len(sm_9_27) else None,
+            )
+            surf = (1*s01 + 2*s13 + 4*s39) / 7 if all(v is not None for v in (s01, s13, s39)) else None
+            deep = (2*s39 + 18*s927) / 20 if all(v is not None for v in (s39, s927)) else None
+            midnight_soil[d] = (surf, deep)
+
+    # Overwrite daily soil moisture with start-of-day (midnight) forecast values.
+    # The daily forecast API always returns None for soil moisture; hourly is the real source.
+    for day_entry in daily:
+        ms = midnight_soil.get(day_entry["date"])
+        if ms:
+            if ms[0] is not None:
+                day_entry["soil_moisture"] = ms[0]
+            if ms[1] is not None:
+                day_entry["soil_moisture_deep"] = ms[1]
+
     return daily, hourly_by_date
 
 
