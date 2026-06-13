@@ -27,6 +27,7 @@ INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.j
 OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
 DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
 SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
+WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
 _TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
 TRAINING_FIELDNAMES = ["date", "trail_key", "trail_id", "label", "color",
@@ -223,6 +224,35 @@ def append_to_training(trail_key: str, trail_id: int, report: dict):
     print(f"  New training record: {trail_key} {report['date']} {report['color']}")
 
 
+def _persist_forecast_probs(forecast: list) -> None:
+    """Write precip_prob_pct for each forecast day into the weather cache.
+
+    Write-once: skips dates that already have a non-None value so the first
+    predict run of the day (morning) wins over later runs.
+    """
+    if WEATHER_CACHE_PATH.exists():
+        with open(WEATHER_CACHE_PATH) as f:
+            cache = json.load(f)
+    else:
+        cache = {"daily": {}, "hourly": {}}
+    daily = cache["daily"]
+    changed = False
+    for fday in forecast:
+        d = fday["date"]
+        prob = fday.get("precip_prob_pct")
+        if prob is None:
+            continue
+        if daily.get(d, {}).get("precip_prob_pct") is None:
+            if d not in daily:
+                daily[d] = {k: v for k, v in fday.items() if k not in ("sunrise", "sunset")}
+            else:
+                daily[d]["precip_prob_pct"] = prob
+            changed = True
+    if changed:
+        with open(WEATHER_CACHE_PATH, "w") as f:
+            json.dump(cache, f)
+
+
 def main():
     OUTPUT_PATH.parent.mkdir(exist_ok=True)
     daily_model = joblib.load(MODEL_PATH)
@@ -231,6 +261,7 @@ def main():
     today = date.today()
     tomorrow = today + timedelta(days=1)
     forecast, hourly_by_date = get_forecast()  # daily + hourly in one call
+    _persist_forecast_probs(forecast)
     history = get_historical(today - timedelta(days=14), today - timedelta(days=1))
 
     hourly_today = hourly_by_date.get(today.isoformat(), []) if intraday_model else []

@@ -127,7 +127,10 @@ def main():
         fetch_start, fetch_end = missing[0], missing[-1]
         print(f"Fetching daily weather {fetch_start} → {fetch_end} ({len(missing)} new days)...")
         for r in get_historical(fetch_start, fetch_end):
+            existing_prob = cached_daily.get(r["date"], {}).get("precip_prob_pct")
             cached_daily[r["date"]] = r
+            if existing_prob is not None:
+                cached_daily[r["date"]]["precip_prob_pct"] = existing_prob
         print(f"Fetching hourly weather {fetch_start} → {fetch_end}...")
         for d, records in get_hourly_range(fetch_start, fetch_end).items():
             cached_hourly[d] = records
