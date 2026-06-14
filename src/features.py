@@ -1,5 +1,6 @@
 """Feature engineering: transform weather history + forecast day into model inputs."""
 
+import math
 from datetime import date
 
 
@@ -7,6 +8,9 @@ RAIN_THRESHOLD_MM = 5.0  # significant rain event
 
 
 TRAIL_DRYING_DAYS = {0: 3, 1: 2}  # P1 drains slower than P2
+
+PRIOR_REPORT_TAU = 7.0          # decay constant in days (half-life ≈ 4.85 days)
+_LABEL_MAP = {0: -1.0, 1: 0.0, 2: 1.0}
 
 
 def build_features(history: list[dict], forecast_day: dict,
@@ -40,8 +44,12 @@ def build_features(history: list[dict], forecast_day: dict,
     drying_threshold = TRAIL_DRYING_DAYS.get(trail_id, 3)
     dry_surplus = consecutive_dry - drying_threshold  # negative = not dry enough yet
 
-    prior_label = prior_report["label"] if prior_report else 1      # neutral default
-    prior_days = min(prior_report.get("days_ago", 30), 30) if prior_report else 30
+    if prior_report:
+        label_val = _LABEL_MAP.get(prior_report["label"], 0.0)
+        days = min(prior_report.get("days_ago", 30), 30)
+        prior_report_score = label_val * math.exp(-days / PRIOR_REPORT_TAU)
+    else:
+        prior_report_score = 0.0
 
     raw_prob = forecast_day.get("precip_prob_pct")
     return {
@@ -58,8 +66,7 @@ def build_features(history: list[dict], forecast_day: dict,
         "forecast_precip_mm": forecast_day["precip_mm"] or 0.0,
         "precip_prob_pct": raw_prob if raw_prob is not None else 50.0,
         "soil_moisture_deep": soil_moisture_deep,
-        "prior_report_label": prior_label,
-        "prior_report_days_ago": prior_days,
+        "prior_report_score": prior_report_score,
         "trail_id": trail_id,
     }
 
@@ -136,8 +143,7 @@ FEATURE_COLUMNS = [
     "dry_surplus",
     # "month",  # ablation: testing whether month suppresses soil_moisture
     "forecast_precip_mm",
-    "prior_report_label",
-    "prior_report_days_ago",
+    "prior_report_score",
     "trail_id",
 ]
 
