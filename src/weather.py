@@ -33,149 +33,138 @@ DAILY_VARS = [
     "soil_moisture_7_to_28cm_mean",
 ]
 
-
-def get_historical(start: date, end: date) -> list[dict]:
-    """Fetch daily historical weather between start and end dates (inclusive)."""
-    resp = _get(
-        "https://archive-api.open-meteo.com/v1/archive",
-        params={
-            "latitude": LAT,
-            "longitude": LON,
-            "start_date": start.isoformat(),
-            "end_date": end.isoformat(),
-            "daily": ",".join(DAILY_VARS),
-            "timezone": "America/New_York",
-        },
-    )
-    return _parse_daily(resp.json())
+_HOURLY_VARS = (
+    "precipitation"
+    ",soil_moisture_0_to_1cm,soil_moisture_1_to_3cm"
+    ",soil_moisture_3_to_9cm,soil_moisture_9_to_27cm"
+)
 
 
-def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
-    """Fetch 7-day daily forecast + hourly precip in one call.
+def _build_hourly_and_soil(hourly: dict) -> tuple[dict[str, list[dict]], dict[str, tuple]]:
+    """Parse hourly section into (hourly_by_date, midnight_soil_by_date).
 
-    Returns (daily_list, hourly_by_date) where hourly_by_date is keyed by
-    date string — avoids multiple round-trips to api.open-meteo.com.
+    midnight_soil values are (surface_0_7cm, deep_7_28cm) aggregated from
+    the 4 IFS soil layers at hour=0 (start of day, before any rain).
     """
-    resp = _get(
-        "https://api.open-meteo.com/v1/forecast",
-        params={
-            "latitude": LAT,
-            "longitude": LON,
-            "daily": ",".join(DAILY_VARS) + ",sunrise,sunset,precipitation_probability_max",
-            "hourly": (
-                "precipitation"
-                ",soil_moisture_0_to_1cm,soil_moisture_1_to_3cm"
-                ",soil_moisture_3_to_9cm,soil_moisture_9_to_27cm"
-            ),
-            "timezone": "America/New_York",
-            "forecast_days": 7,
-        },
-    )
-    data = resp.json()
-    daily = _parse_daily(data)
-    for i, d in enumerate(daily):
-        d["sunrise"] = data["daily"]["sunrise"][i][11:16]  # "HH:MM"
-        d["sunset"] = data["daily"]["sunset"][i][11:16]
-
-    hourly = data["hourly"]
     sm_0_1  = hourly.get("soil_moisture_0_to_1cm",  [])
     sm_1_3  = hourly.get("soil_moisture_1_to_3cm",  [])
     sm_3_9  = hourly.get("soil_moisture_3_to_9cm",  [])
     sm_9_27 = hourly.get("soil_moisture_9_to_27cm", [])
 
-    midnight_soil: dict[str, tuple] = {}
     hourly_by_date: dict[str, list[dict]] = {}
+    midnight_soil:  dict[str, tuple]      = {}
     for i, t in enumerate(hourly["time"]):
-        d = t[:10]
+        d    = t[:10]
         hour = int(t[11:13])
         hourly_by_date.setdefault(d, []).append({
-            "hour": hour,
+            "hour":      hour,
             "precip_mm": hourly["precipitation"][i] or 0.0,
         })
         if hour == 0 and d not in midnight_soil:
-            s01, s13, s39, s927 = (
-                sm_0_1[i] if i < len(sm_0_1) else None,
-                sm_1_3[i] if i < len(sm_1_3) else None,
-                sm_3_9[i] if i < len(sm_3_9) else None,
-                sm_9_27[i] if i < len(sm_9_27) else None,
-            )
+            s01  = sm_0_1[i]  if i < len(sm_0_1)  else None
+            s13  = sm_1_3[i]  if i < len(sm_1_3)  else None
+            s39  = sm_3_9[i]  if i < len(sm_3_9)  else None
+            s927 = sm_9_27[i] if i < len(sm_9_27) else None
             surf = (1*s01 + 2*s13 + 4*s39) / 7 if all(v is not None for v in (s01, s13, s39)) else None
-            deep = (2*s39 + 18*s927) / 20 if all(v is not None for v in (s39, s927)) else None
+            deep = (2*s39 + 18*s927) / 20      if all(v is not None for v in (s39, s927))     else None
             midnight_soil[d] = (surf, deep)
+    return hourly_by_date, midnight_soil
 
-    # Overwrite daily soil moisture with start-of-day (midnight) forecast values.
-    # The daily forecast API always returns None for soil moisture; hourly is the real source.
-    for day_entry in daily:
-        ms = midnight_soil.get(day_entry["date"])
+
+def _apply_midnight_soil(daily: list[dict], midnight_soil: dict[str, tuple]) -> None:
+    """Overwrite daily soil entries with midnight (start-of-day) values from hourly."""
+    for entry in daily:
+        ms = midnight_soil.get(entry["date"])
         if ms:
             if ms[0] is not None:
-                day_entry["soil_moisture"] = ms[0]
+                entry["soil_moisture"] = ms[0]
             if ms[1] is not None:
-                day_entry["soil_moisture_deep"] = ms[1]
+                entry["soil_moisture_deep"] = ms[1]
 
+
+def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
+    """Fetch 7-day daily forecast + hourly precip/soil in one call.
+
+    Returns (daily_list, hourly_by_date).  Daily soil moisture is set from
+    the midnight (hour=0) hourly reading — same basis as get_historical_forecast().
+    """
+    resp = _get(
+        "https://api.open-meteo.com/v1/forecast",
+        params={
+            "latitude":     LAT,
+            "longitude":    LON,
+            "daily":        ",".join(DAILY_VARS) + ",sunrise,sunset,precipitation_probability_max",
+            "hourly":       _HOURLY_VARS,
+            "timezone":     "America/New_York",
+            "forecast_days": 7,
+        },
+    )
+    data  = resp.json()
+    daily = _parse_daily(data)
+    for i, d in enumerate(daily):
+        d["sunrise"] = data["daily"]["sunrise"][i][11:16]
+        d["sunset"]  = data["daily"]["sunset"][i][11:16]
+    hourly_by_date, midnight_soil = _build_hourly_and_soil(data["hourly"])
+    _apply_midnight_soil(daily, midnight_soil)
     return daily, hourly_by_date
 
 
-def get_window(target: date, history_days: int = 14) -> list[dict]:
-    """Return historical days leading up to (but not including) target date."""
-    start = target - timedelta(days=history_days)
-    end = target - timedelta(days=1)
-    return get_historical(start, end)
+def get_historical_forecast(start: date, end: date) -> tuple[list[dict], dict[str, list[dict]]]:
+    """Fetch daily weather + hourly precip/soil from the historical forecast API.
+
+    Uses the same IFS model as get_forecast() so training and inference see
+    identical data source and scale.  Replaces get_historical() + get_hourly_range().
+
+    Returns (daily_list, hourly_by_date).
+    """
+    resp = _get(
+        "https://historical-forecast-api.open-meteo.com/v1/forecast",
+        params={
+            "latitude":   LAT,
+            "longitude":  LON,
+            "start_date": start.isoformat(),
+            "end_date":   end.isoformat(),
+            "daily":      ",".join(DAILY_VARS),
+            "hourly":     _HOURLY_VARS,
+            "timezone":   "America/New_York",
+        },
+    )
+    data  = resp.json()
+    daily = _parse_daily(data)
+    hourly_by_date, midnight_soil = _build_hourly_and_soil(data["hourly"])
+    _apply_midnight_soil(daily, midnight_soil)
+    return daily, hourly_by_date
 
 
 def _parse_daily(payload: dict) -> list[dict]:
     daily = payload["daily"]
     dates = daily["time"]
-    prob = daily.get("precipitation_probability_max")
-    rows = []
+    prob  = daily.get("precipitation_probability_max")
+    rows  = []
     for i, d in enumerate(dates):
         rows.append({
-            "date": d,
-            "precip_mm": daily["precipitation_sum"][i] or 0.0,
-            "temp_max_c": daily["temperature_2m_max"][i],
-            "temp_min_c": daily["temperature_2m_min"][i],
-            "soil_moisture": daily["soil_moisture_0_to_7cm_mean"][i],
+            "date":               d,
+            "precip_mm":          daily["precipitation_sum"][i] or 0.0,
+            "temp_max_c":         daily["temperature_2m_max"][i],
+            "temp_min_c":         daily["temperature_2m_min"][i],
+            "soil_moisture":      daily["soil_moisture_0_to_7cm_mean"][i],
             "soil_moisture_deep": daily["soil_moisture_7_to_28cm_mean"][i],
-            "precip_prob_pct": prob[i] if prob is not None else None,
+            "precip_prob_pct":    prob[i] if prob is not None else None,
         })
     return rows
 
 
-def get_hourly_range(start: date, end: date) -> dict[str, list[dict]]:
-    """Fetch hourly precip for a date range. Returns dict keyed by date string."""
-    resp = _get(
-        "https://archive-api.open-meteo.com/v1/archive",
-        params={
-            "latitude": LAT,
-            "longitude": LON,
-            "start_date": start.isoformat(),
-            "end_date": end.isoformat(),
-            "hourly": "precipitation,temperature_2m",
-            "timezone": "America/New_York",
-        },
-    )
-    hourly = resp.json()["hourly"]
-    by_date: dict[str, list[dict]] = {}
-    for i, t in enumerate(hourly["time"]):
-        d = t[:10]
-        by_date.setdefault(d, []).append({
-            "hour": int(t[11:13]),
-            "precip_mm": hourly["precipitation"][i] or 0.0,
-        })
-    return by_date
-
-
 def get_hourly_day(target: date) -> list[dict]:
-    """Fetch hourly precip and temp for a single date."""
+    """Fetch hourly precip and temp for a single historical date."""
     resp = _get(
         "https://archive-api.open-meteo.com/v1/archive",
         params={
-            "latitude": LAT,
-            "longitude": LON,
+            "latitude":   LAT,
+            "longitude":  LON,
             "start_date": target.isoformat(),
-            "end_date": target.isoformat(),
-            "hourly": "precipitation,temperature_2m",
-            "timezone": "America/New_York",
+            "end_date":   target.isoformat(),
+            "hourly":     "precipitation,temperature_2m",
+            "timezone":   "America/New_York",
         },
     )
     hourly = resp.json()["hourly"]
@@ -190,10 +179,10 @@ def get_hourly_forecast_day(target: date) -> list[dict]:
     resp = _get(
         "https://api.open-meteo.com/v1/forecast",
         params={
-            "latitude": LAT,
-            "longitude": LON,
-            "hourly": "precipitation",
-            "timezone": "America/New_York",
+            "latitude":     LAT,
+            "longitude":    LON,
+            "hourly":       "precipitation",
+            "timezone":     "America/New_York",
             "forecast_days": 2,
         },
     )
@@ -207,11 +196,11 @@ def get_hourly_forecast_day(target: date) -> list[dict]:
 
 if __name__ == "__main__":
     today = date.today()
-    print("=== Last 7 days ===")
-    hist = get_historical(today - timedelta(days=7), today - timedelta(days=1))
+    print("=== Last 7 days (historical forecast) ===")
+    hist, _ = get_historical_forecast(today - timedelta(days=7), today - timedelta(days=1))
     for r in hist:
         print(r)
     print("\n=== 7-day forecast ===")
-    fcast = get_forecast()
+    fcast, _ = get_forecast()
     for r in fcast:
         print(r)

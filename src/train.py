@@ -19,7 +19,7 @@ from features import (
     build_features,
     build_intraday_features,
 )
-from weather import get_historical, get_hourly_range
+from weather import get_historical_forecast
 
 DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
 FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
@@ -116,46 +116,30 @@ def main():
     bulk_end = valid_dates[-1]
 
     weather_cache = load_weather_cache()
-    cached_daily = weather_cache["daily"]
-    cached_hourly = weather_cache["hourly"]
+    hf_daily  = weather_cache.get("hf_daily",  {})
+    hf_hourly = weather_cache.get("hf_hourly", {})
 
     # Find date ranges not yet in cache and fetch only those
     all_dates = [bulk_start + timedelta(days=i) for i in range((bulk_end - bulk_start).days + 1)]
-    missing = [d for d in all_dates if d.isoformat() not in cached_daily]
+    missing = [d for d in all_dates if d.isoformat() not in hf_daily]
 
     if missing:
         fetch_start, fetch_end = missing[0], missing[-1]
-        print(f"Fetching daily weather {fetch_start} → {fetch_end} ({len(missing)} new days)...")
-        for r in get_historical(fetch_start, fetch_end):
-            existing = cached_daily.get(r["date"], {})
-            cached_daily[r["date"]] = r
-            for key in ("precip_prob_pct", "soil_moisture_midnight", "soil_moisture_deep_midnight"):
-                if existing.get(key) is not None:
-                    cached_daily[r["date"]][key] = existing[key]
-        print(f"Fetching hourly weather {fetch_start} → {fetch_end}...")
-        for d, records in get_hourly_range(fetch_start, fetch_end).items():
-            cached_hourly[d] = records
-        save_weather_cache({"daily": cached_daily, "hourly": cached_hourly})
+        print(f"Fetching historical forecast {fetch_start} → {fetch_end} ({len(missing)} new days)...")
+        daily_list, new_hourly = get_historical_forecast(fetch_start, fetch_end)
+        for r in daily_list:
+            hf_daily[r["date"]] = r
+        for d, records in new_hourly.items():
+            hf_hourly[d] = records
+        weather_cache["hf_daily"]  = hf_daily
+        weather_cache["hf_hourly"] = hf_hourly
+        save_weather_cache(weather_cache)
         print("Weather cache updated.")
     else:
         print(f"Weather cache hit — {len(all_dates)} days already cached.")
 
-    # Build a scaled weather dict: prefer midnight forecast soil when cached,
-    # else scale historical values by 1.8 to match the forecast-API range.
-    weather_by_date = {}
-    for d, entry in cached_daily.items():
-        e = dict(entry)
-        if e.get("soil_moisture_midnight") is not None:
-            e["soil_moisture"] = e["soil_moisture_midnight"]
-            if e.get("soil_moisture_deep_midnight") is not None:
-                e["soil_moisture_deep"] = e["soil_moisture_deep_midnight"]
-        else:
-            if e.get("soil_moisture") is not None:
-                e["soil_moisture"] = round(e["soil_moisture"] * 1.8, 4)
-            if e.get("soil_moisture_deep") is not None:
-                e["soil_moisture_deep"] = round(e["soil_moisture_deep"] * 1.8, 4)
-        weather_by_date[d] = e
-    hourly_by_date = cached_hourly
+    weather_by_date = hf_daily
+    hourly_by_date  = hf_hourly
 
     daily_rows, daily_targets, daily_weights = [], [], []
     intraday_rows, intraday_targets, intraday_weights = [], [], []
