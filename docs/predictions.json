@@ -1,81 +1,12 @@
 {
-  "generated_at": "2026-06-15T20:55:59.140229Z",
+  "generated_at": "2026-06-16T05:05:53.763421Z",
   "trails": {
     "phase1": {
       "trail_name": "Alum Creek Phase 1",
       "days": [
         {
-          "date": "2026-06-15",
-          "day_name": "Today",
-          "score": 0.958,
-          "proba": [
-            0.042,
-            0.958
-          ],
-          "signal": "Soil 0.27",
-          "forecast_precip_mm": 0.0,
-          "signals": {
-            "forecast_precip_mm": 0.0,
-            "precip_2d_mm": 2.2,
-            "soil_moisture": 0.268,
-            "soil_moisture_deep": 0.284,
-            "sunrise": "06:01",
-            "sunset": "21:02"
-          },
-          "slots": [
-            {
-              "slot": "7am",
-              "hour": 7,
-              "score": 0.975,
-              "proba": [
-                0.025,
-                0.0,
-                0.975
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            },
-            {
-              "slot": "11am",
-              "hour": 11,
-              "score": 0.975,
-              "proba": [
-                0.025,
-                0.0,
-                0.975
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            },
-            {
-              "slot": "3pm",
-              "hour": 15,
-              "score": 0.975,
-              "proba": [
-                0.025,
-                0.0,
-                0.975
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            },
-            {
-              "slot": "7pm",
-              "hour": 19,
-              "score": 0.975,
-              "proba": [
-                0.025,
-                0.0,
-                0.975
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            }
-          ]
-        },
-        {
           "date": "2026-06-16",
-          "day_name": "Tomorrow",
+          "day_name": "Today",
           "score": 0.818,
           "proba": [
             0.182,
@@ -144,38 +75,88 @@
         },
         {
           "date": "2026-06-17",
-          "day_name": "Wed Jun 17",
-          "score": 0.914,
+          "day_name": "Tomorrow",
+          "score": 0.9,
           "proba": [
-            0.086,
-            0.914
+            0.1,
+            0.9
           ],
-          "signal": "8.1mm rain forecast",
-          "forecast_precip_mm": 8.1,
+          "signal": "Soil 0.30",
+          "forecast_precip_mm": 2.33,
           "signals": {
-            "forecast_precip_mm": 8.1,
+            "forecast_precip_mm": 2.3,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.291,
-            "soil_moisture_deep": 0.299,
+            "soil_moisture": 0.297,
+            "soil_moisture_deep": 0.303,
             "sunrise": "06:01",
             "sunset": "21:03"
-          }
+          },
+          "slots": [
+            {
+              "slot": "7am",
+              "hour": 7,
+              "score": 0.983,
+              "proba": [
+                0.017,
+                0.0,
+                0.983
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0
+            },
+            {
+              "slot": "11am",
+              "hour": 11,
+              "score": 0.983,
+              "proba": [
+                0.017,
+                0.0,
+                0.983
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0
+            },
+            {
+              "slot": "3pm",
+              "hour": 15,
+              "score": 0.983,
+              "proba": [
+                0.017,
+                0.0,
+                0.983
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0
+            },
+            {
+              "slot": "7pm",
+              "hour": 19,
+              "score": 0.983,
+              "proba": [
+                0.017,
+                0.0,
+                0.983
+              ],
+              "precip_midnight_to_slot_mm": 0.1,
+              "precip_3h_before_slot_mm": 0.1
+            }
+          ]
         },
         {
           "date": "2026-06-18",
           "day_name": "Thu Jun 18",
-          "score": 0.819,
+          "score": 0.87,
           "proba": [
-            0.181,
-            0.819
+            0.13,
+            0.87
           ],
-          "signal": "123.0mm rain forecast",
-          "forecast_precip_mm": 123.0,
+          "signal": "23.0mm rain forecast",
+          "forecast_precip_mm": 23.0,
           "signals": {
-            "forecast_precip_mm": 123.0,
-            "precip_2d_mm": 8.1,
-            "soil_moisture": 0.28,
-            "soil_moisture_deep": 0.287,
+            "forecast_precip_mm": 23.0,
+            "precip_2d_mm": 2.3,
+            "soil_moisture": 0.289,
+            "soil_moisture_deep": 0.292,
             "sunrise": "06:01",
             "sunset": "21:03"
           }
@@ -183,18 +164,18 @@
         {
           "date": "2026-06-19",
           "day_name": "Fri Jun 19",
-          "score": 0.641,
+          "score": 0.961,
           "proba": [
-            0.359,
-            0.641
+            0.039,
+            0.961
           ],
-          "signal": "123.0mm rain yesterday",
-          "forecast_precip_mm": 1.6,
+          "signal": "23.0mm rain yesterday",
+          "forecast_precip_mm": 0.5,
           "signals": {
-            "forecast_precip_mm": 1.6,
-            "precip_2d_mm": 131.1,
-            "soil_moisture": 0.269,
-            "soil_moisture_deep": 0.28,
+            "forecast_precip_mm": 0.5,
+            "precip_2d_mm": 25.3,
+            "soil_moisture": 0.277,
+            "soil_moisture_deep": 0.285,
             "sunrise": "06:02",
             "sunset": "21:04"
           }
@@ -202,18 +183,18 @@
         {
           "date": "2026-06-20",
           "day_name": "Sat Jun 20",
-          "score": 0.597,
+          "score": 0.958,
           "proba": [
-            0.403,
-            0.597
+            0.042,
+            0.958
           ],
-          "signal": "Soil 0.27",
+          "signal": "Soil 0.28",
           "forecast_precip_mm": 0.0,
           "signals": {
             "forecast_precip_mm": 0.0,
-            "precip_2d_mm": 124.6,
-            "soil_moisture": 0.272,
-            "soil_moisture_deep": 0.279,
+            "precip_2d_mm": 23.5,
+            "soil_moisture": 0.281,
+            "soil_moisture_deep": 0.288,
             "sunrise": "06:02",
             "sunset": "21:04"
           }
@@ -221,17 +202,36 @@
         {
           "date": "2026-06-21",
           "day_name": "Sun Jun 21",
-          "score": 0.715,
+          "score": 0.929,
           "proba": [
-            0.285,
-            0.715
+            0.071,
+            0.929
+          ],
+          "signal": "Soil 0.27",
+          "forecast_precip_mm": 3.9,
+          "signals": {
+            "forecast_precip_mm": 3.9,
+            "precip_2d_mm": 0.5,
+            "soil_moisture": 0.267,
+            "soil_moisture_deep": 0.278,
+            "sunrise": "06:02",
+            "sunset": "21:04"
+          }
+        },
+        {
+          "date": "2026-06-22",
+          "day_name": "Mon Jun 22",
+          "score": 0.965,
+          "proba": [
+            0.035,
+            0.965
           ],
           "signal": "Soil 0.26",
-          "forecast_precip_mm": 1.8,
+          "forecast_precip_mm": 0.0,
           "signals": {
-            "forecast_precip_mm": 1.8,
-            "precip_2d_mm": 1.6,
-            "soil_moisture": 0.259,
+            "forecast_precip_mm": 0.0,
+            "precip_2d_mm": 3.9,
+            "soil_moisture": 0.258,
             "soil_moisture_deep": 0.271,
             "sunrise": "06:02",
             "sunset": "21:04"
@@ -239,7 +239,7 @@
         }
       ],
       "recent_report": {
-        "date": "2026-06-10",
+        "date": "2026-06-11",
         "hours_ago": 120,
         "color": "green",
         "label": 2,
@@ -252,77 +252,8 @@
       "trail_name": "Alum Creek Phase 2",
       "days": [
         {
-          "date": "2026-06-15",
-          "day_name": "Today",
-          "score": 0.98,
-          "proba": [
-            0.02,
-            0.98
-          ],
-          "signal": "Soil 0.27",
-          "forecast_precip_mm": 0.0,
-          "signals": {
-            "forecast_precip_mm": 0.0,
-            "precip_2d_mm": 2.2,
-            "soil_moisture": 0.268,
-            "soil_moisture_deep": 0.284,
-            "sunrise": "06:01",
-            "sunset": "21:02"
-          },
-          "slots": [
-            {
-              "slot": "7am",
-              "hour": 7,
-              "score": 0.986,
-              "proba": [
-                0.014,
-                0.0,
-                0.986
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            },
-            {
-              "slot": "11am",
-              "hour": 11,
-              "score": 0.986,
-              "proba": [
-                0.014,
-                0.0,
-                0.986
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            },
-            {
-              "slot": "3pm",
-              "hour": 15,
-              "score": 0.986,
-              "proba": [
-                0.014,
-                0.0,
-                0.986
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            },
-            {
-              "slot": "7pm",
-              "hour": 19,
-              "score": 0.986,
-              "proba": [
-                0.014,
-                0.0,
-                0.986
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0
-            }
-          ]
-        },
-        {
           "date": "2026-06-16",
-          "day_name": "Tomorrow",
+          "day_name": "Today",
           "score": 0.891,
           "proba": [
             0.109,
@@ -391,38 +322,88 @@
         },
         {
           "date": "2026-06-17",
-          "day_name": "Wed Jun 17",
-          "score": 0.922,
+          "day_name": "Tomorrow",
+          "score": 0.908,
           "proba": [
-            0.078,
-            0.922
+            0.092,
+            0.908
           ],
-          "signal": "8.1mm rain forecast",
-          "forecast_precip_mm": 8.1,
+          "signal": "Soil 0.30",
+          "forecast_precip_mm": 2.33,
           "signals": {
-            "forecast_precip_mm": 8.1,
+            "forecast_precip_mm": 2.3,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.291,
-            "soil_moisture_deep": 0.299,
+            "soil_moisture": 0.297,
+            "soil_moisture_deep": 0.303,
             "sunrise": "06:01",
             "sunset": "21:03"
-          }
+          },
+          "slots": [
+            {
+              "slot": "7am",
+              "hour": 7,
+              "score": 0.977,
+              "proba": [
+                0.023,
+                0.0,
+                0.977
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0
+            },
+            {
+              "slot": "11am",
+              "hour": 11,
+              "score": 0.977,
+              "proba": [
+                0.023,
+                0.0,
+                0.977
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0
+            },
+            {
+              "slot": "3pm",
+              "hour": 15,
+              "score": 0.977,
+              "proba": [
+                0.023,
+                0.0,
+                0.977
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0
+            },
+            {
+              "slot": "7pm",
+              "hour": 19,
+              "score": 0.977,
+              "proba": [
+                0.023,
+                0.0,
+                0.977
+              ],
+              "precip_midnight_to_slot_mm": 0.1,
+              "precip_3h_before_slot_mm": 0.1
+            }
+          ]
         },
         {
           "date": "2026-06-18",
           "day_name": "Thu Jun 18",
-          "score": 0.901,
+          "score": 0.879,
           "proba": [
-            0.099,
-            0.901
+            0.121,
+            0.879
           ],
-          "signal": "123.0mm rain forecast",
-          "forecast_precip_mm": 123.0,
+          "signal": "23.0mm rain forecast",
+          "forecast_precip_mm": 23.0,
           "signals": {
-            "forecast_precip_mm": 123.0,
-            "precip_2d_mm": 8.1,
-            "soil_moisture": 0.28,
-            "soil_moisture_deep": 0.287,
+            "forecast_precip_mm": 23.0,
+            "precip_2d_mm": 2.3,
+            "soil_moisture": 0.289,
+            "soil_moisture_deep": 0.292,
             "sunrise": "06:01",
             "sunset": "21:03"
           }
@@ -430,18 +411,18 @@
         {
           "date": "2026-06-19",
           "day_name": "Fri Jun 19",
-          "score": 0.658,
+          "score": 0.971,
           "proba": [
-            0.342,
-            0.658
+            0.029,
+            0.971
           ],
-          "signal": "123.0mm rain yesterday",
-          "forecast_precip_mm": 1.6,
+          "signal": "23.0mm rain yesterday",
+          "forecast_precip_mm": 0.5,
           "signals": {
-            "forecast_precip_mm": 1.6,
-            "precip_2d_mm": 131.1,
-            "soil_moisture": 0.269,
-            "soil_moisture_deep": 0.28,
+            "forecast_precip_mm": 0.5,
+            "precip_2d_mm": 25.3,
+            "soil_moisture": 0.277,
+            "soil_moisture_deep": 0.285,
             "sunrise": "06:02",
             "sunset": "21:04"
           }
@@ -449,18 +430,18 @@
         {
           "date": "2026-06-20",
           "day_name": "Sat Jun 20",
-          "score": 0.628,
+          "score": 0.976,
           "proba": [
-            0.372,
-            0.628
+            0.024,
+            0.976
           ],
-          "signal": "Soil 0.27",
+          "signal": "Soil 0.28",
           "forecast_precip_mm": 0.0,
           "signals": {
             "forecast_precip_mm": 0.0,
-            "precip_2d_mm": 124.6,
-            "soil_moisture": 0.272,
-            "soil_moisture_deep": 0.279,
+            "precip_2d_mm": 23.5,
+            "soil_moisture": 0.281,
+            "soil_moisture_deep": 0.288,
             "sunrise": "06:02",
             "sunset": "21:04"
           }
@@ -468,17 +449,36 @@
         {
           "date": "2026-06-21",
           "day_name": "Sun Jun 21",
-          "score": 0.828,
+          "score": 0.949,
           "proba": [
-            0.172,
-            0.828
+            0.051,
+            0.949
+          ],
+          "signal": "Soil 0.27",
+          "forecast_precip_mm": 3.9,
+          "signals": {
+            "forecast_precip_mm": 3.9,
+            "precip_2d_mm": 0.5,
+            "soil_moisture": 0.267,
+            "soil_moisture_deep": 0.278,
+            "sunrise": "06:02",
+            "sunset": "21:04"
+          }
+        },
+        {
+          "date": "2026-06-22",
+          "day_name": "Mon Jun 22",
+          "score": 0.983,
+          "proba": [
+            0.017,
+            0.983
           ],
           "signal": "Soil 0.26",
-          "forecast_precip_mm": 1.8,
+          "forecast_precip_mm": 0.0,
           "signals": {
-            "forecast_precip_mm": 1.8,
-            "precip_2d_mm": 1.6,
-            "soil_moisture": 0.259,
+            "forecast_precip_mm": 0.0,
+            "precip_2d_mm": 3.9,
+            "soil_moisture": 0.258,
             "soil_moisture_deep": 0.271,
             "sunrise": "06:02",
             "sunset": "21:04"
@@ -486,13 +486,13 @@
         }
       ],
       "recent_report": {
-        "date": "2026-06-15",
-        "hours_ago": 3,
+        "date": "2026-06-16",
+        "hours_ago": 11,
         "color": "green",
         "label": 2,
         "username": "rick-s",
         "trusted": false,
-        "comment": "3 hours ago: Mostly Dry: A few puddles, but nothing mushy"
+        "comment": "11 hours ago: Mostly Dry: A few puddles, but nothing mushy"
       }
     }
   }
