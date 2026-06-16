@@ -1,5 +1,6 @@
 const WATERMARK_KEY = '__last_retrained_at__';
-const LOG_KEY = '__last_cron__';
+const LOG_PREDICT_KEY = '__last_predict__';
+const LOG_RETRAIN_KEY = '__last_retrain_check__';
 const GH_REPO = 'goliatham/mtb-trail-conditions-predictor';
 const GH_WORKFLOW = 'daily-predict.yml';
 
@@ -65,7 +66,7 @@ export default {
         log.outcome = 'dispatched';
         console.log(`Sunday retrain: ${since_retrain} new votes, dispatched`);
       }
-      await env.VOTES.put(LOG_KEY, JSON.stringify(log));
+      await env.VOTES.put(LOG_RETRAIN_KEY, JSON.stringify(log));
       return;
     }
 
@@ -93,7 +94,7 @@ export default {
     } else {
       log.outcome = 'ok';
     }
-    await env.VOTES.put(LOG_KEY, JSON.stringify(log));
+    await env.VOTES.put(LOG_PREDICT_KEY, JSON.stringify(log));
   },
 
   async fetch(request, env) {
@@ -152,10 +153,16 @@ export default {
       return json({ total, since_retrain, last_retrained_at: watermark });
     }
 
-    // GET /debug — last scheduled cron outcome (persisted to KV)
+    // GET /debug — last outcome for each cron type (persisted separately to KV)
     if (request.method === 'GET' && url.pathname === '/debug') {
-      const last = await env.VOTES.get(LOG_KEY);
-      return json(last ? JSON.parse(last) : { note: 'no cron run recorded yet' });
+      const [predict, retrain] = await Promise.all([
+        env.VOTES.get(LOG_PREDICT_KEY),
+        env.VOTES.get(LOG_RETRAIN_KEY),
+      ]);
+      return json({
+        last_predict:       predict ? JSON.parse(predict) : null,
+        last_retrain_check: retrain ? JSON.parse(retrain) : null,
+      });
     }
 
     return json({ error: 'not found' }, 404);
