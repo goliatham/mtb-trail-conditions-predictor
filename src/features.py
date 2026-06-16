@@ -88,6 +88,18 @@ def _consecutive_dry_days(precip_history: list[float]) -> int:
     return count
 
 
+def _hours_since_rain(hourly: list[dict], hour: int, days_since_rain: int) -> float:
+    """Hours since last rain ≥1mm before this slot.
+
+    Scans today's hourly data first; falls back to days_since_rain × 24 + slot_hour
+    for the case where rain was on a prior day (no hour precision available).
+    """
+    rain_hours = [r["hour"] for r in hourly if r["hour"] < hour and r["precip_mm"] >= 1.0]
+    if rain_hours:
+        return float(hour - max(rain_hours))
+    return float(days_since_rain * 24 + hour)
+
+
 TIME_SLOTS = [7, 11, 15, 19]  # hours: 7am, 11am, 3pm, 7pm
 
 
@@ -101,6 +113,7 @@ def build_intraday_features(history: list[dict], forecast_day: dict,
     base["precip_midnight_to_slot_mm"] = precip_to_slot
     base["precip_3h_before_slot_mm"] = precip_3h
     base["hour"] = hour
+    base["hours_since_rain"] = _hours_since_rain(hourly, hour, base["days_since_rain"])
     return base
 
 
@@ -151,4 +164,5 @@ INTRADAY_FEATURE_COLUMNS = FEATURE_COLUMNS + [
     "precip_midnight_to_slot_mm",
     "precip_3h_before_slot_mm",
     "hour",
+    "hours_since_rain",
 ]

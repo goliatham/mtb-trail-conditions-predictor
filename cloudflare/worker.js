@@ -1,18 +1,47 @@
 const WATERMARK_KEY = '__last_retrained_at__';
+const LOG_KEY = '__last_cron__';
 const GH_REPO = 'goliatham/mtb-trail-conditions-predictor';
 const GH_WORKFLOW = 'daily-predict.yml';
 
+const isVoteKey = (name) => !name.startsWith('__');
+
+async function countVotes(env, sinceWatermark) {
+  const list = await env.VOTES.list();
+  const votes = (await Promise.all(
+    list.keys
+      .filter(({ name }) => isVoteKey(name))
+      .map(async ({ name }) => {
+        const val = await env.VOTES.get(name);
+        return val ? JSON.parse(val) : null;
+      })
+  )).filter(Boolean);
+  const since_retrain = sinceWatermark
+    ? votes.filter(v => v.voted_at && v.voted_at > sinceWatermark).length
+    : votes.length;
+  return { total: votes.length, since_retrain, votes };
+}
+
 export default {
   async scheduled(event, env, ctx) {
+    const log = { ts: new Date().toISOString(), cron: event.cron };
+
     if (event.cron === '0 13 * * 1') {
-      // Monday retrain — only if new votes exist since last retrain
-      const statusResp = await fetch(`https://mtcp-votes.mr-tony-82.workers.dev/status`);
-      const status = statusResp.ok ? await statusResp.json() : null;
-      if (!status || status.since_retrain === 0) {
-        console.log(`Monday retrain skipped: ${status ? status.since_retrain : 'status error'} votes since last retrain`);
+      // Sunday retrain — only if new votes exist since last retrain
+      // Reads KV directly rather than calling /status to avoid self-invocation issues
+      const watermark = await env.VOTES.get(WATERMARK_KEY);
+      const { total, since_retrain } = await countVotes(env, watermark);
+      log.action = 'retrain_check';
+      log.votes_total = total;
+      log.votes_since_retrain = since_retrain;
+
+      if (since_retrain === 0) {
+        log.outcome = 'skipped';
+        log.reason = 'no new votes since last retrain';
+        console.log(`Sunday retrain skipped: 0 new votes`);
+        await env.VOTES.put(LOG_KEY, JSON.stringify(log));
         return;
       }
-      console.log(`Monday retrain: ${status.since_retrain} new votes, dispatching retrain`);
+
       const resp = await fetch(
         `https://api.github.com/repos/${GH_REPO}/actions/workflows/retrain.yml/dispatches`,
         {
@@ -26,11 +55,22 @@ export default {
           body: JSON.stringify({ ref: 'main', inputs: { reason: 'weekly auto-retrain' } }),
         }
       );
-      if (!resp.ok) console.error(`Retrain dispatch failed ${resp.status}: ${await resp.text()}`);
+      log.gh_status = resp.status;
+      if (!resp.ok) {
+        const body = await resp.text();
+        log.outcome = 'dispatch_failed';
+        log.error = body;
+        console.error(`Retrain dispatch failed ${resp.status}: ${body}`);
+      } else {
+        log.outcome = 'dispatched';
+        console.log(`Sunday retrain: ${since_retrain} new votes, dispatched`);
+      }
+      await env.VOTES.put(LOG_KEY, JSON.stringify(log));
       return;
     }
 
     // Daily predict
+    log.action = 'daily_predict';
     const resp = await fetch(
       `https://api.github.com/repos/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
       {
@@ -44,10 +84,16 @@ export default {
         body: JSON.stringify({ ref: 'main' }),
       }
     );
+    log.gh_status = resp.status;
     if (!resp.ok) {
       const body = await resp.text();
+      log.outcome = 'failed';
+      log.error = body;
       console.error(`GitHub dispatch failed ${resp.status}: ${body}`);
+    } else {
+      log.outcome = 'ok';
     }
+    await env.VOTES.put(LOG_KEY, JSON.stringify(log));
   },
 
   async fetch(request, env) {
@@ -81,25 +127,14 @@ export default {
       return json({ ok: true });
     }
 
-    // GET /votes — return votes since last retrain (or all if no watermark)
-    // ?all=1 returns everything regardless of watermark
+    // GET /votes — return all votes (?all=1) or only new since last retrain
     if (request.method === 'GET' && url.pathname === '/votes') {
       const watermark = await env.VOTES.get(WATERMARK_KEY);
       const since = url.searchParams.get('all') ? null : watermark;
-      const list = await env.VOTES.list();
-      const votes = (await Promise.all(
-        list.keys
-          .filter(({ name }) => name !== WATERMARK_KEY)
-          .map(async ({ name }) => {
-            const val = await env.VOTES.get(name);
-            return val ? JSON.parse(val) : null;
-          })
-      )).filter(Boolean);
-
+      const { votes } = await countVotes(env, null);
       const filtered = since
         ? votes.filter(v => v.voted_at && v.voted_at > since)
         : votes;
-
       return json(filtered);
     }
 
@@ -110,22 +145,17 @@ export default {
       return json({ ok: true, watermark: ts });
     }
 
-    // GET /status — show vote count + watermark (useful for threshold check)
+    // GET /status — vote count + watermark
     if (request.method === 'GET' && url.pathname === '/status') {
       const watermark = await env.VOTES.get(WATERMARK_KEY);
-      const list = await env.VOTES.list();
-      const votes = (await Promise.all(
-        list.keys
-          .filter(({ name }) => name !== WATERMARK_KEY)
-          .map(async ({ name }) => {
-            const val = await env.VOTES.get(name);
-            return val ? JSON.parse(val) : null;
-          })
-      )).filter(Boolean);
-      const newVotes = watermark
-        ? votes.filter(v => v.voted_at && v.voted_at > watermark).length
-        : votes.length;
-      return json({ total: votes.length, since_retrain: newVotes, last_retrained_at: watermark });
+      const { total, since_retrain } = await countVotes(env, watermark);
+      return json({ total, since_retrain, last_retrained_at: watermark });
+    }
+
+    // GET /debug — last scheduled cron outcome (persisted to KV)
+    if (request.method === 'GET' && url.pathname === '/debug') {
+      const last = await env.VOTES.get(LOG_KEY);
+      return json(last ? JSON.parse(last) : { note: 'no cron run recorded yet' });
     }
 
     return json({ error: 'not found' }, 404);

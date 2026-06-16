@@ -33,7 +33,7 @@ jobs:
 
       - name: Fetch feedback votes from Cloudflare
         run: |
-          curl -sf "https://mtcp-votes.mr-tony-82.workers.dev/votes" -o data/user_feedback.json \
+          curl -sf "https://mtcp-votes.mr-tony-82.workers.dev/votes?all=1" -o data/user_feedback.json \
             && echo "Fetched $(python3 -c 'import json,sys; print(len(json.load(open("data/user_feedback.json"))))') votes" \
             || echo "[]" > data/user_feedback.json
 
