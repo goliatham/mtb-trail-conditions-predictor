@@ -168,11 +168,12 @@ def weather_signal(fday, feats):
     return f'Soil {feats["soil_moisture"]:.2f}'
 
 
-def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=None):
+def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=None,
+                  history_hourly=None):
     """Return 4 time-slot predictions for a single day."""
     slots = []
     for hour in TIME_SLOTS:
-        ifeats = build_intraday_features(history, fday, hourly, hour, trail_id, prior_report)
+        ifeats = build_intraday_features(history, fday, hourly, hour, trail_id, prior_report, history_hourly)
         X = pd.DataFrame([[ifeats[col] for col in INTRADAY_FEATURE_COLUMNS]],
                          columns=INTRADAY_FEATURE_COLUMNS)
         proba = intraday_model.predict_proba(X)[0].tolist()
@@ -262,10 +263,21 @@ def main():
     tomorrow = today + timedelta(days=1)
     forecast, hourly_by_date = get_forecast()  # daily + hourly in one call
     _persist_forecast_probs(forecast)
-    history, _ = get_historical_forecast(today - timedelta(days=14), today - timedelta(days=1))
+    history, hist_hourly = get_historical_forecast(today - timedelta(days=14), today - timedelta(days=1))
 
     hourly_today = hourly_by_date.get(today.isoformat(), []) if intraday_model else []
     hourly_tomorrow = hourly_by_date.get(tomorrow.isoformat(), []) if intraday_model else []
+
+    # Combined hourly lookup (historical + forecast) for hours_since_rain accuracy
+    all_hourly = {**hist_hourly, **hourly_by_date}
+
+    def _prev_hourly(target: date) -> list[list[dict]]:
+        result = []
+        for i in range(1, 8):
+            h = all_hourly.get((target - timedelta(days=i)).isoformat())
+            if h:
+                result.append(h)
+        return result
 
     results = {}
     snapshots = load_snapshots()
@@ -351,18 +363,20 @@ def main():
 
             # Add intraday slots for today and tomorrow
             if intraday_model and i == 0 and hourly_today:
+                ph = _prev_hourly(label_date)
                 day_entry["slots"] = predict_slots(
-                    intraday_model, hist, fday, hourly_today, trail["trail_id"], prior
+                    intraday_model, hist, fday, hourly_today, trail["trail_id"], prior, ph
                 )
                 for hour in TIME_SLOTS:
-                    ifeats = build_intraday_features(hist, fday, hourly_today, hour, trail["trail_id"], prior)
+                    ifeats = build_intraday_features(hist, fday, hourly_today, hour, trail["trail_id"], prior, ph)
                     snapshots["intraday"][f"{key}:{fday['date']}:{hour}"] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
             elif intraday_model and i == 1 and hourly_tomorrow:
+                ph = _prev_hourly(label_date)
                 day_entry["slots"] = predict_slots(
-                    intraday_model, hist, fday, hourly_tomorrow, trail["trail_id"], prior
+                    intraday_model, hist, fday, hourly_tomorrow, trail["trail_id"], prior, ph
                 )
                 for hour in TIME_SLOTS:
-                    ifeats = build_intraday_features(hist, fday, hourly_tomorrow, hour, trail["trail_id"], prior)
+                    ifeats = build_intraday_features(hist, fday, hourly_tomorrow, hour, trail["trail_id"], prior, ph)
                     snapshots["intraday"][f"{key}:{fday['date']}:{hour}"] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
 
             days.append(day_entry)

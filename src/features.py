@@ -88,15 +88,25 @@ def _consecutive_dry_days(precip_history: list[float]) -> int:
     return count
 
 
-def _hours_since_rain(hourly: list[dict], hour: int, days_since_rain: int) -> float:
+def _hours_since_rain(hourly: list[dict], hour: int, days_since_rain: int,
+                       history_hourly: list[list[dict]] = None) -> float:
     """Hours since last rain ≥1mm before this slot.
 
-    Scans today's hourly data first; falls back to days_since_rain × 24 + slot_hour
-    for the case where rain was on a prior day (no hour precision available).
+    Scans today's hourly first, then history_hourly (newest day first) for
+    exact hour precision.  Falls back to days_since_rain × 24 + slot_hour
+    when no hourly history is available.
     """
     rain_hours = [r["hour"] for r in hourly if r["hour"] < hour and r["precip_mm"] >= 1.0]
     if rain_hours:
         return float(hour - max(rain_hours))
+    if history_hourly:
+        for days_back, day_hourly in enumerate(history_hourly, 1):
+            rain_in_day = [r["hour"] for r in day_hourly if r["precip_mm"] >= 1.0]
+            if rain_in_day:
+                last_hour = max(rain_in_day)
+                # hours from last_hour on days_back days ago to current slot
+                return float((days_back - 1) * 24 + (24 - last_hour) + hour)
+        return float(len(history_hourly) * 24 + hour)
     return float(days_since_rain * 24 + hour)
 
 
@@ -105,15 +115,21 @@ TIME_SLOTS = [7, 11, 15, 19]  # hours: 7am, 11am, 3pm, 7pm
 
 def build_intraday_features(history: list[dict], forecast_day: dict,
                             hourly: list[dict], hour: int,
-                            trail_id: int = 0, prior_report: dict = None) -> dict:
-    """Build features for a specific time slot within a day."""
+                            trail_id: int = 0, prior_report: dict = None,
+                            history_hourly: list[list[dict]] = None) -> dict:
+    """Build features for a specific time slot within a day.
+
+    history_hourly: daily hourly arrays for recent past days, newest first.
+    When provided, hours_since_rain uses actual rain timestamps instead of
+    falling back to whole-day granularity.
+    """
     base = build_features(history, forecast_day, trail_id, prior_report)
     precip_to_slot = sum(r["precip_mm"] for r in hourly if r["hour"] < hour)
     precip_3h = sum(r["precip_mm"] for r in hourly if hour - 3 <= r["hour"] < hour)
     base["precip_midnight_to_slot_mm"] = precip_to_slot
     base["precip_3h_before_slot_mm"] = precip_3h
     base["hour"] = hour
-    base["hours_since_rain"] = _hours_since_rain(hourly, hour, base["days_since_rain"])
+    base["hours_since_rain"] = _hours_since_rain(hourly, hour, base["days_since_rain"], history_hourly)
     return base
 
 

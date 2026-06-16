@@ -180,12 +180,14 @@ def main():
         # Intraday rows — 4 slots per date using historical hourly precip
         hourly = _get_hourly(label_date, hourly_by_date)
         if hourly:
+            prev_hourly = [h for i in range(1, 8)
+                           if (h := hourly_by_date.get((label_date - timedelta(days=i)).isoformat()))]
             for hour in TIME_SLOTS:
                 intra_snap = snapshots["intraday"].get(f"{snap_key}:{hour}")
                 if intra_snap and all(c in intra_snap for c in INTRADAY_FEATURE_COLUMNS):
                     ifeats = intra_snap
                 else:
-                    ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, prior)
+                    ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, prior, prev_hourly)
                 slot_label = assign_intraday_label(day_label, hourly, hour)
                 intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
                 intraday_targets.append(slot_label)
@@ -237,7 +239,9 @@ def main():
             if intra_snap and all(c in intra_snap for c in INTRADAY_FEATURE_COLUMNS):
                 ifeats = intra_snap
             else:
-                ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, fb_prior)
+                fb_prev_hourly = [h for i in range(1, 8)
+                                  if (h := hourly_by_date.get((fb_date - timedelta(days=i)).isoformat()))]
+                ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, fb_prior, fb_prev_hourly)
             intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
             intraday_targets.append(slot_label)
             intraday_weights.append(1.5)  # direct observation — no morning discount
