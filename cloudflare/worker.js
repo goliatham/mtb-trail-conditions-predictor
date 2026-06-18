@@ -139,11 +139,20 @@ export default {
       return json(filtered);
     }
 
-    // POST /retrained — update watermark after a successful retrain
+    // POST /retrained — update watermark and trim KV to 500 most recent votes (~2 months buffer)
     if (request.method === 'POST' && url.pathname === '/retrained') {
       const ts = new Date().toISOString();
       await env.VOTES.put(WATERMARK_KEY, ts);
-      return json({ ok: true, watermark: ts });
+
+      const list = await env.VOTES.list();
+      const voteKeys = list.keys
+        .filter(({ name }) => isVoteKey(name))
+        .map(({ name }) => name)
+        .sort((a, b) => (b.split(':')[1] || '').localeCompare(a.split(':')[1] || '')); // newest first
+      const toDelete = voteKeys.slice(500);
+      await Promise.all(toDelete.map(key => env.VOTES.delete(key)));
+
+      return json({ ok: true, watermark: ts, total: voteKeys.length, deleted: toDelete.length });
     }
 
     // GET /status — vote count + watermark
