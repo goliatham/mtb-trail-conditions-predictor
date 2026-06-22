@@ -28,6 +28,7 @@ OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
 DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
 SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
+LAST_FORECAST_PATH = Path(__file__).parent.parent / "data" / "last_forecast.json"
 _TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
 
@@ -182,8 +183,8 @@ def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=
             "hour": hour,
             "score": good_score(proba, intraday_model.classes_),
             "proba": [round(p, 3) for p in proba],
-            "precip_midnight_to_slot_mm": round(ifeats["precip_midnight_to_slot_mm"], 1),
-            "precip_3h_before_slot_mm": round(ifeats["precip_3h_before_slot_mm"], 1),
+            "features": {k: round(v, 4) if isinstance(v, float) else v
+                         for k, v in ifeats.items() if k in INTRADAY_FEATURE_COLUMNS},
         })
     return slots
 
@@ -264,6 +265,15 @@ def main():
     forecast, hourly_by_date = get_forecast()  # daily + hourly in one call
     _persist_forecast_probs(forecast)
     history, hist_hourly = get_historical_forecast(today - timedelta(days=14), today - timedelta(days=1))
+
+    with open(LAST_FORECAST_PATH, "w") as f:
+        json.dump({
+            "generated_at": datetime.utcnow().isoformat() + "Z",
+            "daily": forecast,
+            "hourly_today": hourly_by_date.get(today.isoformat(), []),
+            "hourly_tomorrow": hourly_by_date.get(tomorrow.isoformat(), []),
+            "hourly_history": {d: h for d, h in hist_hourly.items()},
+        }, f, indent=2)
 
     hourly_today = hourly_by_date.get(today.isoformat(), []) if intraday_model else []
     hourly_tomorrow = hourly_by_date.get(tomorrow.isoformat(), []) if intraday_model else []
@@ -359,6 +369,8 @@ def main():
                     "sunrise": fday.get("sunrise"),
                     "sunset": fday.get("sunset"),
                 },
+                "features": {k: round(v, 4) if isinstance(v, float) else v
+                             for k, v in feats.items() if k in FEATURE_COLUMNS},
             }
 
             # Add intraday slots for today and tomorrow
