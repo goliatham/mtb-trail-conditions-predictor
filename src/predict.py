@@ -197,7 +197,7 @@ def load_snapshots() -> dict:
 
 def save_snapshots(snapshots: dict):
     with open(SNAPSHOTS_PATH, "w") as f:
-        json.dump(snapshots, f)
+        json.dump(snapshots, f, indent=2)
 
 
 def append_to_training(trail_key: str, trail_id: int, report: dict):
@@ -251,7 +251,7 @@ def _persist_forecast_probs(forecast: list) -> None:
             changed = True
     if changed:
         with open(WEATHER_CACHE_PATH, "w") as f:
-            json.dump(cache, f)
+            json.dump(cache, f, indent=2)
 
 
 def main():

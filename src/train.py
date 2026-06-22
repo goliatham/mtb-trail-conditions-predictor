@@ -63,7 +63,7 @@ def load_weather_cache():
 
 def save_weather_cache(cache):
     with open(WEATHER_CACHE_PATH, "w") as f:
-        json.dump(cache, f)
+        json.dump(cache, f, indent=2)
 
 
 def _get_history(label_date, weather_by_date):
