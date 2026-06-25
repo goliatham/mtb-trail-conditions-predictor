@@ -183,6 +183,8 @@ def predict_slots(intraday_model, history, fday, hourly, trail_id, prior_report=
             "hour": hour,
             "score": good_score(proba, intraday_model.classes_),
             "proba": [round(p, 3) for p in proba],
+            "precip_midnight_to_slot_mm": round(ifeats["precip_midnight_to_slot_mm"], 1),
+            "precip_3h_before_slot_mm": round(ifeats["precip_3h_before_slot_mm"], 1),
             "features": {k: round(v, 4) if isinstance(v, float) else v
                          for k, v in ifeats.items() if k in INTRADAY_FEATURE_COLUMNS},
         })
