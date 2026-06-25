@@ -39,7 +39,7 @@ export default {
         log.outcome = 'skipped';
         log.reason = 'no new votes since last retrain';
         console.log(`Sunday retrain skipped: 0 new votes`);
-        await env.VOTES.put(LOG_KEY, JSON.stringify(log));
+        await env.VOTES.put(LOG_RETRAIN_KEY, JSON.stringify(log));
         return;
       }
 
