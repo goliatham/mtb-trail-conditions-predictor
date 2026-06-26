@@ -133,32 +133,6 @@ def build_intraday_features(history: list[dict], forecast_day: dict,
     return base
 
 
-def assign_intraday_label(day_label: int, hourly: list[dict], hour: int) -> int:
-    """
-    Infer the condition label for a specific time slot from a daily label + hourly rain.
-
-    day_label: 0=red, 1=yellow, 2=green
-    Returns: 0/1/2
-    """
-    precip_before = sum(r["precip_mm"] for r in hourly if r["hour"] < hour)
-    precip_total = sum(r["precip_mm"] for r in hourly)
-
-    if day_label == 2:  # green day
-        # If it rained heavily before this slot, downgrade
-        if precip_before > 8:
-            return 1
-        return 2
-
-    if day_label == 0:  # red/closed day
-        # If rain hadn't started yet before this slot, slot might have been rideable
-        if precip_before < 2 and precip_total > 8:
-            return 1  # yellow — probably rideable before the rain hit
-        return 0
-
-    # yellow — stays yellow across all slots
-    return 1
-
-
 FEATURE_COLUMNS = [
     "precip_1d_mm",
     "precip_3d_mm",
@@ -176,7 +150,9 @@ FEATURE_COLUMNS = [
     "trail_id",
 ]
 
-INTRADAY_FEATURE_COLUMNS = FEATURE_COLUMNS + [
+INTRADAY_FEATURE_COLUMNS = [
+    c for c in FEATURE_COLUMNS if c != "days_since_rain"
+] + [
     "precip_midnight_to_slot_mm",
     "precip_3h_before_slot_mm",
     "hour",

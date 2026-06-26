@@ -15,7 +15,6 @@ from features import (
     FEATURE_COLUMNS,
     INTRADAY_FEATURE_COLUMNS,
     TIME_SLOTS,
-    assign_intraday_label,
     build_features,
     build_intraday_features,
 )
@@ -188,7 +187,7 @@ def main():
                     ifeats = intra_snap
                 else:
                     ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, prior, prev_hourly)
-                slot_label = assign_intraday_label(day_label, hourly, hour)
+                slot_label = day_label
                 intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
                 intraday_targets.append(slot_label)
                 # morning slots: assume report posted afternoon → less reliable for 7am/11am
