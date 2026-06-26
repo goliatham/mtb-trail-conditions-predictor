@@ -22,7 +22,6 @@ from features import (
 )
 from weather import get_forecast, get_historical_forecast
 
-MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
 DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
@@ -259,7 +258,6 @@ def _persist_forecast_probs(forecast: list) -> None:
 
 def main():
     OUTPUT_PATH.parent.mkdir(exist_ok=True)
-    daily_model = joblib.load(MODEL_PATH)
     intraday_model = joblib.load(INTRADAY_MODEL_PATH) if INTRADAY_MODEL_PATH.exists() else None
 
     today = date.today()
@@ -276,9 +274,6 @@ def main():
             "hourly_tomorrow": hourly_by_date.get(tomorrow.isoformat(), []),
             "hourly_history": {d: h for d, h in hist_hourly.items()},
         }, f, indent=2)
-
-    hourly_today = hourly_by_date.get(today.isoformat(), []) if intraday_model else []
-    hourly_tomorrow = hourly_by_date.get(tomorrow.isoformat(), []) if intraday_model else []
 
     # Combined hourly lookup (historical + forecast) for hours_since_rain accuracy
     all_hourly = {**hist_hourly, **hourly_by_date}
@@ -326,27 +321,6 @@ def main():
             prior = prior_report_for_day(recent_report, i)
             feats = build_features(hist, fday, trail["trail_id"], prior)
 
-            # Snapshot daily features so retrains use the same inputs we predicted with
-            snapshots["daily"][f"{key}:{fday['date']}"] = {c: feats[c] for c in FEATURE_COLUMNS}
-
-            # Daily prediction (all 7 days) — mixture model when probability is available
-            prob = fday.get("precip_prob_pct")
-            if prob is not None and 0 < prob < 100:
-                # Rain scenario: forecast precip as-is
-                X_rain = pd.DataFrame([[feats[col] for col in FEATURE_COLUMNS]], columns=FEATURE_COLUMNS)
-                proba_rain = daily_model.predict_proba(X_rain)[0]
-                # No-rain scenario: zero out forecast precip
-                fday_dry = {**fday, "precip_mm": 0.0}
-                feats_dry = build_features(hist, fday_dry, trail["trail_id"], prior)
-                X_dry = pd.DataFrame([[feats_dry[col] for col in FEATURE_COLUMNS]], columns=FEATURE_COLUMNS)
-                proba_dry = daily_model.predict_proba(X_dry)[0]
-                p = prob / 100.0
-                proba = [p * r + (1 - p) * d for r, d in zip(proba_rain, proba_dry)]
-            else:
-                X_d = pd.DataFrame([[feats[col] for col in FEATURE_COLUMNS]], columns=FEATURE_COLUMNS)
-                proba = daily_model.predict_proba(X_d)[0].tolist()
-            score = good_score(proba, daily_model.classes_)
-
             label_date = date.fromisoformat(fday["date"])
             if i == 0:
                 day_name = "Today"
@@ -359,8 +333,6 @@ def main():
             day_entry = {
                 "date": fday["date"],
                 "day_name": day_name,
-                "score": score,
-                "proba": [round(p, 3) for p in proba],
                 "signal": weather_signal(fday, feats),
                 "forecast_precip_mm": fday["precip_mm"],
                 "signals": {
@@ -375,23 +347,20 @@ def main():
                              for k, v in feats.items() if k in FEATURE_COLUMNS},
             }
 
-            # Add intraday slots for today and tomorrow
-            if intraday_model and i == 0 and hourly_today:
+            # Intraday slots for all 7 forecast days
+            hourly_for_day = hourly_by_date.get(fday["date"], [])
+            if intraday_model and hourly_for_day:
                 ph = _prev_hourly(label_date)
                 day_entry["slots"] = predict_slots(
-                    intraday_model, hist, fday, hourly_today, trail["trail_id"], prior, ph
+                    intraday_model, hist, fday, hourly_for_day, trail["trail_id"], prior, ph
                 )
                 for hour in TIME_SLOTS:
-                    ifeats = build_intraday_features(hist, fday, hourly_today, hour, trail["trail_id"], prior, ph)
+                    ifeats = build_intraday_features(hist, fday, hourly_for_day, hour, trail["trail_id"], prior, ph)
                     snapshots["intraday"][f"{key}:{fday['date']}:{hour}"] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
-            elif intraday_model and i == 1 and hourly_tomorrow:
-                ph = _prev_hourly(label_date)
-                day_entry["slots"] = predict_slots(
-                    intraday_model, hist, fday, hourly_tomorrow, trail["trail_id"], prior, ph
-                )
-                for hour in TIME_SLOTS:
-                    ifeats = build_intraday_features(hist, fday, hourly_tomorrow, hour, trail["trail_id"], prior, ph)
-                    snapshots["intraday"][f"{key}:{fday['date']}:{hour}"] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
+                # Derive day score from intraday slot scores
+                day_entry["score"] = round(sum(s["score"] for s in day_entry["slots"]) / len(day_entry["slots"]), 3)
+            else:
+                day_entry["score"] = None
 
             days.append(day_entry)
 
@@ -414,8 +383,11 @@ def main():
     for key, trail_data in results.items():
         print(f"\n{trail_data['trail_name']}:")
         for d in trail_data["days"]:
-            bar = "█" * int(d["score"] * 10)
-            print(f"  {d['day_name']:12s} {bar:10s} {d['score']:.0%}  {d['signal']}")
+            if d.get("score") is not None:
+                bar = "█" * int(d["score"] * 10)
+                print(f"  {d['day_name']:12s} {bar:10s} {d['score']:.0%}  {d['signal']}")
+            else:
+                print(f"  {d['day_name']:12s} {'no data':10s}  {d['signal']}")
             if "slots" in d:
                 for slot in d["slots"]:
                     print(f"    {slot['slot']:6s} {slot['score']:.0%}")

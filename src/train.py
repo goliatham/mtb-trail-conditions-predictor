@@ -1,4 +1,4 @@
-"""Join scraped condition labels with historical weather, train daily + intraday models."""
+"""Join scraped condition labels with historical weather, train intraday model."""
 
 import csv
 import json
@@ -12,10 +12,8 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import cross_val_score
 
 from features import (
-    FEATURE_COLUMNS,
     INTRADAY_FEATURE_COLUMNS,
     TIME_SLOTS,
-    build_features,
     build_intraday_features,
 )
 from weather import get_historical_forecast
@@ -24,7 +22,6 @@ DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
 FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
 SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
-MODEL_PATH = Path(__file__).parent.parent / "model" / "model.joblib"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
 HISTORY_DAYS = 14
 
@@ -48,7 +45,7 @@ def load_feedback():
 
 def load_snapshots():
     if not SNAPSHOTS_PATH.exists():
-        return {"daily": {}, "intraday": {}}
+        return {"intraday": {}}
     with open(SNAPSHOTS_PATH) as f:
         return json.load(f)
 
@@ -83,11 +80,11 @@ def _get_hourly(label_date, hourly_by_date):
 
 
 def main():
-    MODEL_PATH.parent.mkdir(exist_ok=True)
+    INTRADAY_MODEL_PATH.parent.mkdir(exist_ok=True)
 
     labels = load_labels()
     snapshots = load_snapshots()
-    print(f"Loaded {len(labels)} labeled records, {len(snapshots['daily'])} daily snapshots")
+    print(f"Loaded {len(labels)} labeled records, {len(snapshots.get('intraday', {}))} intraday snapshots")
 
     # Pre-compute the most recent prior report for each (trail_id, date)
     by_trail = defaultdict(list)
@@ -140,7 +137,6 @@ def main():
     weather_by_date = hf_daily
     hourly_by_date  = hf_hourly
 
-    daily_rows, daily_targets, daily_weights = [], [], []
     intraday_rows, intraday_targets, intraday_weights = [], [], []
     skipped = 0
 
@@ -165,16 +161,6 @@ def main():
 
         prior = prior_report_map.get((rec["trail_id"], rec["date"]))
         snap_key = f"{rec['trail_key']}:{rec['date']}"
-
-        # Daily row — use saved snapshot if available and complete
-        daily_snap = snapshots["daily"].get(snap_key)
-        if daily_snap and all(c in daily_snap for c in FEATURE_COLUMNS):
-            feats = daily_snap
-        else:
-            feats = build_features(history, day_weather, trail_id, prior)
-        daily_rows.append([feats[col] for col in FEATURE_COLUMNS])
-        daily_targets.append(day_label)
-        daily_weights.append(weight)
 
         # Intraday rows — 4 slots per date using historical hourly precip
         hourly = _get_hourly(label_date, hourly_by_date)
@@ -266,10 +252,6 @@ def main():
 
         joblib.dump(m, path)
         print(f"Saved -> {path}")
-
-    X_d = pd.DataFrame(daily_rows, columns=FEATURE_COLUMNS)
-    train_model(X_d, pd.Series(daily_targets), pd.Series(daily_weights),
-                FEATURE_COLUMNS, "Daily model", MODEL_PATH)
 
     if intraday_rows:
         X_i = pd.DataFrame(intraday_rows, columns=INTRADAY_FEATURE_COLUMNS)
