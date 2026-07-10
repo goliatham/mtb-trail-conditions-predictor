@@ -1,4 +1,10 @@
-"""Fetch historical weather for alternative models and build parallel training caches."""
+"""Fetch historical weather for alternative models and build parallel training caches.
+
+Usage:
+    python3 src/fetch_alt_weather.py                         # default: IFS cache start → yesterday
+    python3 src/fetch_alt_weather.py --start 2025-05-10 --end 2026-07-10
+"""
+import argparse
 import json
 import sys
 from datetime import date, timedelta
@@ -61,7 +67,6 @@ def _avg_hourly(model_hourlies, date_str):
     ]
     if not per_model:
         return []
-    # All models should have 24 hours; zip by position
     max_len = max(len(h) for h in per_model)
     averaged = []
     for i in range(max_len):
@@ -72,19 +77,42 @@ def _avg_hourly(model_hourlies, date_str):
 
 
 def main():
-    # Load main cache
+    parser = argparse.ArgumentParser(description="Extend NBM and ensemble weather caches.")
+    parser.add_argument("--start", type=date.fromisoformat, default=None,
+                        help="Start date YYYY-MM-DD (default: earliest date in IFS cache)")
+    parser.add_argument("--end", type=date.fromisoformat, default=None,
+                        help="End date YYYY-MM-DD (default: yesterday)")
+    args = parser.parse_args()
+
+    # Load main IFS cache
+    if not MAIN_CACHE.exists():
+        print("Main IFS cache not found — run train.py first.")
+        return
     with open(MAIN_CACHE) as f:
         main_cache = json.load(f)
     main_hf_daily  = main_cache.get("hf_daily",  {})
     main_hf_hourly = main_cache.get("hf_hourly", {})
 
-    all_dates = sorted(main_hf_daily.keys())
-    if not all_dates:
+    ifs_dates = sorted(main_hf_daily.keys())
+    if not ifs_dates:
         print("Main cache is empty, nothing to fetch.")
         return
 
-    start = date.fromisoformat(all_dates[0])
-    end   = date.fromisoformat(all_dates[-1])
+    # Determine date range
+    start = args.start or date.fromisoformat(ifs_dates[0])
+    end   = args.end   or (date.today() - timedelta(days=1))
+
+    if start > end:
+        print(f"Start {start} is after end {end}, nothing to do.")
+        return
+
+    # Build list of all dates in the requested range
+    all_dates = []
+    d = start
+    while d <= end:
+        all_dates.append(d.isoformat())
+        d += timedelta(days=1)
+
     print(f"Date range: {start} -> {end} ({len(all_dates)} days)")
 
     # ── NBM Cache ──────────────────────────────────────────────────────────
@@ -114,7 +142,7 @@ def main():
         except Exception as e:
             print(f"  ERROR fetching NBM: {e}")
     else:
-        print(f"  NBM cache already up to date ({len(nbm_hf_daily)} days)")
+        print(f"  NBM cache already up to date ({len(nbm_hf_daily)} days cached, 0 missing)")
 
     # Fill any remaining gaps from main cache
     for d in all_dates:
@@ -135,18 +163,25 @@ def main():
     ens_hf_daily  = ens_cache["hf_daily"]
     ens_hf_hourly = ens_cache["hf_hourly"]
 
-    # Check which dates still need to be computed
     missing_ens = [d for d in all_dates if d not in ens_hf_daily]
+
     if not missing_ens:
-        print(f"  Ensemble cache already up to date ({len(ens_hf_daily)} days)")
+        print(f"  Ensemble cache already up to date ({len(ens_hf_daily)} days cached, 0 missing)")
     else:
+        # Only fetch the range that covers missing dates — not the full cache range
+        ens_fetch_start = date.fromisoformat(missing_ens[0])
+        ens_fetch_end   = date.fromisoformat(missing_ens[-1])
+        print(f"  Fetching {len(missing_ens)} missing days: {ens_fetch_start} -> {ens_fetch_end}")
+
         model_dailies  = {}  # model -> {date -> entry}
         model_hourlies = {}  # model -> {date -> [hourly]}
 
         for mdl in ENSEMBLE_MODELS:
             print(f"  Fetching {mdl}...")
             try:
-                daily_list, hourly_by_date = get_historical_forecast(start, end, model=mdl)
+                daily_list, hourly_by_date = get_historical_forecast(
+                    ens_fetch_start, ens_fetch_end, model=mdl
+                )
                 overlay_soil(daily_list, main_hf_daily)
                 model_dailies[mdl]  = {r["date"]: r for r in daily_list}
                 model_hourlies[mdl] = hourly_by_date
@@ -156,7 +191,7 @@ def main():
                 model_dailies[mdl]  = {}
                 model_hourlies[mdl] = {}
 
-        # Average across models for each missing date
+        # Average across models for each missing date only
         for d in missing_ens:
             entries = [
                 model_dailies[m][d]
@@ -171,18 +206,18 @@ def main():
 
             main_entry = main_hf_daily.get(d, {})
             ens_hf_daily[d] = {
-                "date":              d,
-                "precip_mm":         _avg(entries, "precip_mm"),
-                "temp_max_c":        _avg(entries, "temp_max_c"),
-                "temp_min_c":        _avg(entries, "temp_min_c"),
+                "date":               d,
+                "precip_mm":          _avg(entries, "precip_mm"),
+                "temp_max_c":         _avg(entries, "temp_max_c"),
+                "temp_min_c":         _avg(entries, "temp_min_c"),
                 # Always use best_match soil moisture (not all models provide it)
                 "soil_moisture":      main_entry.get("soil_moisture"),
                 "soil_moisture_deep": main_entry.get("soil_moisture_deep"),
                 "precip_prob_pct":    _avg(entries, "precip_prob_pct"),
             }
 
-        # Ensemble hourly: average precip across all models
-        for d in all_dates:
+        # Ensemble hourly: average precip — only for missing dates
+        for d in missing_ens:
             if d not in ens_hf_hourly:
                 averaged = _avg_hourly(model_hourlies, d)
                 if averaged:

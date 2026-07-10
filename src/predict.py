@@ -22,14 +22,21 @@ from features import (
 )
 from weather import get_forecast, get_historical_forecast
 
-INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
-OUTPUT_PATH = Path(__file__).parent.parent / "docs" / "predictions.json"
-DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
-SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
+INTRADAY_MODEL_PATH     = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
+INTRADAY_MODEL_PATH_NBM = Path(__file__).parent.parent / "model" / "model_intraday_nbm.joblib"
+INTRADAY_MODEL_PATH_ENS = Path(__file__).parent.parent / "model" / "model_intraday_ensemble.joblib"
+OUTPUT_PATH        = Path(__file__).parent.parent / "docs" / "predictions.json"
+DATA_PATH          = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
+SNAPSHOTS_PATH     = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
+ENS_CACHE_PATH     = Path(__file__).parent.parent / "data" / "weather_cache_ensemble.json"
 LAST_FORECAST_PATH = Path(__file__).parent.parent / "data" / "last_forecast.json"
-_TRUSTED_PATH = Path(__file__).parent.parent / "config" / "trusted_users.txt"
+_TRUSTED_PATH      = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
+ENSEMBLE_MODELS = [
+    "best_match", "ecmwf_ifs025", "ncep_nbm_conus",
+    "ukmo_seamless", "meteofrance_seamless", "jma_seamless",
+]
 
 TRAINING_FIELDNAMES = ["date", "trail_key", "trail_id", "label", "color",
                        "username", "trusted", "comment"]
@@ -256,15 +263,164 @@ def _persist_forecast_probs(forecast: list) -> None:
             json.dump(cache, f, indent=2)
 
 
+def _average_forecasts(
+    forecast_list: list,
+    hourly_list: list,
+) -> tuple:
+    """Average daily forecast and hourly precip across multiple models.
+
+    Uses the first entry in forecast_list (best_match) for soil_moisture,
+    soil_moisture_deep, sunrise, and sunset — other models don't reliably
+    provide soil data.
+    """
+    if not forecast_list:
+        return [], {}
+
+    n_days = max(len(fl) for fl in forecast_list)
+    averaged_daily = []
+
+    for i in range(n_days):
+        entries = [fl[i] for fl in forecast_list if i < len(fl)]
+        if not entries:
+            continue
+
+        def _avg_f(field, _entries=entries):
+            vals = [e[field] for e in _entries if e.get(field) is not None]
+            return sum(vals) / len(vals) if vals else None
+
+        best = forecast_list[0][i] if i < len(forecast_list[0]) else entries[0]
+        averaged_daily.append({
+            "date":               entries[0]["date"],
+            "precip_mm":          _avg_f("precip_mm") or 0.0,
+            "temp_max_c":         _avg_f("temp_max_c"),
+            "temp_min_c":         _avg_f("temp_min_c"),
+            "soil_moisture":      best.get("soil_moisture"),
+            "soil_moisture_deep": best.get("soil_moisture_deep"),
+            "precip_prob_pct":    _avg_f("precip_prob_pct"),
+            "sunrise":            best.get("sunrise"),
+            "sunset":             best.get("sunset"),
+        })
+
+    # Average hourly precip across models
+    all_dates: set = set()
+    for hd in hourly_list:
+        all_dates.update(hd.keys())
+
+    averaged_hourly: dict = {}
+    for d in sorted(all_dates):
+        per_model = [hd[d] for hd in hourly_list if d in hd]
+        if not per_model:
+            continue
+        max_len = max(len(h) for h in per_model)
+        averaged_hourly[d] = [
+            {
+                "hour": j,
+                "precip_mm": (
+                    sum(h[j]["precip_mm"] for h in per_model if j < len(h))
+                    / len([h for h in per_model if j < len(h)])
+                ),
+            }
+            for j in range(max_len)
+        ]
+
+    return averaged_daily, averaged_hourly
+
+
+def _load_ens_history(
+    today: date,
+    fallback_daily: list,
+    fallback_hourly: dict,
+) -> tuple:
+    """Load ensemble weather history from the pre-built cache.
+
+    Falls back to IFS entries for any dates missing from the ensemble cache,
+    so predict.py always has a 14-day history without extra API calls.
+    """
+    ens_data: dict = {}
+    if ENS_CACHE_PATH.exists():
+        with open(ENS_CACHE_PATH) as f:
+            ens_data = json.load(f)
+    hf_daily  = ens_data.get("hf_daily",  {})
+    hf_hourly = ens_data.get("hf_hourly", {})
+
+    ifs_daily_map = {r["date"]: r for r in fallback_daily}
+
+    history_ens: list = []
+    hist_hourly_ens: dict = {}
+    for i in range(14, 0, -1):
+        d = (today - timedelta(days=i)).isoformat()
+        if d in hf_daily:
+            history_ens.append(hf_daily[d])
+        elif d in ifs_daily_map:
+            history_ens.append(ifs_daily_map[d])
+        hourly = hf_hourly.get(d) or fallback_hourly.get(d)
+        if hourly:
+            hist_hourly_ens[d] = hourly
+
+    return history_ens, hist_hourly_ens
+
+
+def _prev_hourly(target: date, all_h: dict) -> list:
+    """Return hourly records for the 7 days before target from all_h."""
+    result = []
+    for i in range(1, 8):
+        h = all_h.get((target - timedelta(days=i)).isoformat())
+        if h:
+            result.append(h)
+    return result
+
+
 def main():
     OUTPUT_PATH.parent.mkdir(exist_ok=True)
-    intraday_model = joblib.load(INTRADAY_MODEL_PATH) if INTRADAY_MODEL_PATH.exists() else None
+    intraday_model     = joblib.load(INTRADAY_MODEL_PATH)     if INTRADAY_MODEL_PATH.exists()     else None
+    intraday_model_nbm = joblib.load(INTRADAY_MODEL_PATH_NBM) if INTRADAY_MODEL_PATH_NBM.exists() else None
+    intraday_model_ens = joblib.load(INTRADAY_MODEL_PATH_ENS) if INTRADAY_MODEL_PATH_ENS.exists() else None
 
-    today = date.today()
+    today    = date.today()
     tomorrow = today + timedelta(days=1)
-    forecast, hourly_by_date = get_forecast()  # daily + hourly in one call
+
+    # ── IFS (best_match) ──────────────────────────────────────────────────
+    print("Fetching IFS forecast/history...")
+    forecast, hourly_by_date = get_forecast()
     _persist_forecast_probs(forecast)
-    history, hist_hourly = get_historical_forecast(today - timedelta(days=14), today - timedelta(days=1))
+    history, hist_hourly = get_historical_forecast(
+        today - timedelta(days=14), today - timedelta(days=1)
+    )
+
+    # ── NBM ───────────────────────────────────────────────────────────────
+    print("Fetching NBM forecast/history...")
+    try:
+        forecast_nbm, hourly_by_date_nbm = get_forecast(model="ncep_nbm_conus")
+        history_nbm, hist_hourly_nbm = get_historical_forecast(
+            today - timedelta(days=14), today - timedelta(days=1),
+            model="ncep_nbm_conus",
+        )
+    except Exception as e:
+        print(f"  Warning: NBM fetch failed ({e}), falling back to IFS")
+        forecast_nbm, hourly_by_date_nbm = forecast, hourly_by_date
+        history_nbm, hist_hourly_nbm     = history,  hist_hourly
+
+    # ── Ensemble: average 6 models' forecasts ────────────────────────────
+    print("Fetching ensemble forecasts (6 models)...")
+    _ens_forecasts: list = []
+    _ens_hourlies:  list = []
+    for mdl in ENSEMBLE_MODELS:
+        try:
+            _f, _h = get_forecast(model=mdl)
+            _ens_forecasts.append(_f)
+            _ens_hourlies.append(_h)
+            print(f"  {mdl}: ok")
+        except Exception as e:
+            print(f"  Warning: {mdl} forecast failed: {e}")
+
+    if _ens_forecasts:
+        forecast_ens, hourly_by_date_ens = _average_forecasts(_ens_forecasts, _ens_hourlies)
+    else:
+        print("  All ensemble models failed — falling back to IFS")
+        forecast_ens, hourly_by_date_ens = forecast, hourly_by_date
+
+    # Ensemble history from pre-built cache (no extra API calls)
+    history_ens, hist_hourly_ens = _load_ens_history(today, history, hist_hourly)
 
     with open(LAST_FORECAST_PATH, "w") as f:
         json.dump({
@@ -275,16 +431,10 @@ def main():
             "hourly_history": {d: h for d, h in hist_hourly.items()},
         }, f, indent=2)
 
-    # Combined hourly lookup (historical + forecast) for hours_since_rain accuracy
-    all_hourly = {**hist_hourly, **hourly_by_date}
-
-    def _prev_hourly(target: date) -> list[list[dict]]:
-        result = []
-        for i in range(1, 8):
-            h = all_hourly.get((target - timedelta(days=i)).isoformat())
-            if h:
-                result.append(h)
-        return result
+    # Combined hourly lookups (historical + forecast) for each source
+    all_hourly     = {**hist_hourly,     **hourly_by_date}
+    all_hourly_nbm = {**hist_hourly_nbm, **hourly_by_date_nbm}
+    all_hourly_ens = {**hist_hourly_ens, **hourly_by_date_ens}
 
     results = {}
     snapshots = load_snapshots()
@@ -301,25 +451,37 @@ def main():
                           if r.get("soil_moisture_deep") is not None), 0.25)
 
         days = []
-        for i, fday in enumerate(forecast):
+        for i in range(len(forecast)):
+            fday     = forecast[i]
+            fday_nbm = forecast_nbm[i] if i < len(forecast_nbm) else fday
+            fday_ens = forecast_ens[i] if i < len(forecast_ens) else fday
+
             if i == 0:
-                hist = history
+                hist   = history
+                hist_n = history_nbm
+                hist_e = history_ens
             else:
-                confirmed = [
-                    {
-                        "date":               forecast[j]["date"],
-                        "precip_mm":          forecast[j]["precip_mm"],
-                        "temp_max_c":         forecast[j]["temp_max_c"],
-                        "temp_min_c":         forecast[j]["temp_min_c"],
-                        "soil_moisture":      forecast[j]["soil_moisture"] if forecast[j].get("soil_moisture") is not None else last_surface,
-                        "soil_moisture_deep": forecast[j].get("soil_moisture_deep") if forecast[j].get("soil_moisture_deep") is not None else last_deep,
-                    }
-                    for j in range(i)
-                ]
-                hist = history + confirmed
+                def _make_confirmed(src_forecast, src_history, _i=i):
+                    return src_history + [
+                        {
+                            "date":               src_forecast[j]["date"],
+                            "precip_mm":          src_forecast[j]["precip_mm"],
+                            "temp_max_c":         src_forecast[j]["temp_max_c"],
+                            "temp_min_c":         src_forecast[j]["temp_min_c"],
+                            "soil_moisture":      (src_forecast[j]["soil_moisture"]
+                                                   if src_forecast[j].get("soil_moisture") is not None
+                                                   else last_surface),
+                            "soil_moisture_deep": (src_forecast[j].get("soil_moisture_deep")
+                                                   if src_forecast[j].get("soil_moisture_deep") is not None
+                                                   else last_deep),
+                        }
+                        for j in range(_i)
+                    ]
+                hist   = _make_confirmed(forecast,     history)
+                hist_n = _make_confirmed(forecast_nbm, history_nbm)
+                hist_e = _make_confirmed(forecast_ens, history_ens)
 
             prior = prior_report_for_day(recent_report, i)
-            feats = build_features(hist, fday, trail["trail_id"], prior)
 
             label_date = date.fromisoformat(fday["date"])
             if i == 0:
@@ -329,38 +491,108 @@ def main():
             else:
                 day_name = label_date.strftime("%a %b %-d")
 
+            # Ensemble drives all UX signals/features
+            feats_ens = build_features(hist_e, fday_ens, trail["trail_id"], prior)
+
             precip_2d = round(sum(r["precip_mm"] for r in hist[-2:]), 1) if len(hist) >= 2 else 0.0
             day_entry = {
                 "date": fday["date"],
                 "day_name": day_name,
-                "signal": weather_signal(fday, feats),
-                "forecast_precip_mm": fday["precip_mm"],
+                "signal": weather_signal(fday_ens, feats_ens),
+                "forecast_precip_mm": fday_ens["precip_mm"],
                 "signals": {
-                    "forecast_precip_mm": round(fday["precip_mm"] or 0.0, 1),
+                    "forecast_precip_mm": round(fday_ens["precip_mm"] or 0.0, 1),
                     "precip_2d_mm": precip_2d,
-                    "soil_moisture": round(feats["soil_moisture"], 3),
-                    "soil_moisture_deep": round(feats["soil_moisture_deep"], 3),
-                    "sunrise": fday.get("sunrise"),
-                    "sunset": fday.get("sunset"),
+                    "soil_moisture": round(feats_ens["soil_moisture"], 3),
+                    "soil_moisture_deep": round(feats_ens["soil_moisture_deep"], 3),
+                    "sunrise": fday_ens.get("sunrise"),
+                    "sunset": fday_ens.get("sunset"),
                 },
                 "features": {k: round(v, 4) if isinstance(v, float) else v
-                             for k, v in feats.items() if k in FEATURE_COLUMNS},
+                             for k, v in feats_ens.items() if k in FEATURE_COLUMNS},
             }
 
             # Intraday slots for all 7 forecast days
-            hourly_for_day = hourly_by_date.get(fday["date"], [])
-            if intraday_model and hourly_for_day:
-                ph = _prev_hourly(label_date)
-                day_entry["slots"] = predict_slots(
-                    intraday_model, hist, fday, hourly_for_day, trail["trail_id"], prior, ph
+            hourly_for_day     = hourly_by_date.get(fday["date"], [])
+            hourly_for_day_nbm = hourly_by_date_nbm.get(fday["date"], [])
+            hourly_for_day_ens = hourly_by_date_ens.get(fday["date"], [])
+
+            if intraday_model_ens and hourly_for_day_ens:
+                ph_ens = _prev_hourly(label_date, all_hourly_ens)
+                ph_ifs = _prev_hourly(label_date, all_hourly)
+                ph_nbm = _prev_hourly(label_date, all_hourly_nbm)
+
+                slots_ens = predict_slots(
+                    intraday_model_ens, hist_e, fday_ens, hourly_for_day_ens,
+                    trail["trail_id"], prior, ph_ens,
                 )
+                slots_ifs = (
+                    predict_slots(intraday_model, hist, fday, hourly_for_day,
+                                  trail["trail_id"], prior, ph_ifs)
+                    if intraday_model and hourly_for_day else None
+                )
+                slots_nbm = (
+                    predict_slots(intraday_model_nbm, hist_n, fday_nbm, hourly_for_day_nbm,
+                                  trail["trail_id"], prior, ph_nbm)
+                    if intraday_model_nbm and hourly_for_day_nbm else None
+                )
+
+                # Annotate each slot with all 3 scores
+                for j, slot in enumerate(slots_ens):
+                    slot["model_scores"] = {
+                        "ifs":      slots_ifs[j]["score"] if slots_ifs else None,
+                        "nbm":      slots_nbm[j]["score"] if slots_nbm else None,
+                        "ensemble": slot["score"],
+                    }
+
+                # Write-once snapshot uses ensemble features
                 for hour in TIME_SLOTS:
                     snap_key = f"{key}:{fday['date']}:{hour}"
                     if snap_key not in snapshots["intraday"]:
-                        ifeats = build_intraday_features(hist, fday, hourly_for_day, hour, trail["trail_id"], prior, ph)
+                        ifeats = build_intraday_features(
+                            hist_e, fday_ens, hourly_for_day_ens, hour,
+                            trail["trail_id"], prior, ph_ens,
+                        )
                         snapshots["intraday"][snap_key] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
-                # Derive day score from intraday slot scores
-                day_entry["score"] = round(sum(s["score"] for s in day_entry["slots"]) / len(day_entry["slots"]), 3)
+
+                ens_day_score = round(sum(s["score"] for s in slots_ens) / len(slots_ens), 3)
+                ifs_day_score = (round(sum(s["score"] for s in slots_ifs) / len(slots_ifs), 3)
+                                 if slots_ifs else None)
+                nbm_day_score = (round(sum(s["score"] for s in slots_nbm) / len(slots_nbm), 3)
+                                 if slots_nbm else None)
+
+                day_entry["slots"] = slots_ens
+                day_entry["score"] = ens_day_score          # ensemble is primary
+                day_entry["model_scores"] = {
+                    "ifs":      ifs_day_score,
+                    "nbm":      nbm_day_score,
+                    "ensemble": ens_day_score,
+                }
+
+            elif intraday_model and hourly_for_day:
+                # Ensemble model unavailable — fall back to IFS only
+                ph_ifs = _prev_hourly(label_date, all_hourly)
+                slots_ifs = predict_slots(
+                    intraday_model, hist, fday, hourly_for_day,
+                    trail["trail_id"], prior, ph_ifs,
+                )
+                for j, slot in enumerate(slots_ifs):
+                    slot["model_scores"] = {"ifs": slot["score"], "nbm": None, "ensemble": None}
+
+                for hour in TIME_SLOTS:
+                    snap_key = f"{key}:{fday['date']}:{hour}"
+                    if snap_key not in snapshots["intraday"]:
+                        ifeats = build_intraday_features(
+                            hist, fday, hourly_for_day, hour,
+                            trail["trail_id"], prior, ph_ifs,
+                        )
+                        snapshots["intraday"][snap_key] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
+
+                ifs_day_score = round(sum(s["score"] for s in slots_ifs) / len(slots_ifs), 3)
+                day_entry["slots"]        = slots_ifs
+                day_entry["score"]        = ifs_day_score
+                day_entry["model_scores"] = {"ifs": ifs_day_score, "nbm": None, "ensemble": None}
+
             else:
                 day_entry["score"] = None
 
@@ -381,18 +613,24 @@ def main():
         json.dump(output, f, indent=2)
 
     save_snapshots(snapshots)
-    print(f"Wrote {OUTPUT_PATH}")
+    print(f"\nWrote {OUTPUT_PATH}")
     for key, trail_data in results.items():
         print(f"\n{trail_data['trail_name']}:")
         for d in trail_data["days"]:
+            ms = d.get("model_scores") or {}
             if d.get("score") is not None:
                 bar = "█" * int(d["score"] * 10)
-                print(f"  {d['day_name']:12s} {bar:10s} {d['score']:.0%}  {d['signal']}")
+                ifs_s = f" IFS:{ms['ifs']:.0%}" if ms.get("ifs") is not None else ""
+                nbm_s = f" NBM:{ms['nbm']:.0%}" if ms.get("nbm") is not None else ""
+                print(f"  {d['day_name']:12s} {bar:10s} {d['score']:.0%}  {d['signal']}{ifs_s}{nbm_s}")
             else:
                 print(f"  {d['day_name']:12s} {'no data':10s}  {d['signal']}")
             if "slots" in d:
                 for slot in d["slots"]:
-                    print(f"    {slot['slot']:6s} {slot['score']:.0%}")
+                    sms = slot.get("model_scores") or {}
+                    ifs_s = f" ifs:{sms['ifs']:.0%}" if sms.get("ifs") is not None else ""
+                    nbm_s = f" nbm:{sms['nbm']:.0%}" if sms.get("nbm") is not None else ""
+                    print(f"    {slot['slot']:6s} {slot['score']:.0%}{ifs_s}{nbm_s}")
         rr = trail_data["recent_report"]
         if rr:
             trust = " (TRUSTED)" if rr["trusted"] else ""

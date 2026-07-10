@@ -37,8 +37,16 @@ jobs:
             && echo "Fetched $(python3 -c 'import json,sys; print(len(json.load(open("data/user_feedback.json"))))') votes" \
             || echo "[]" > data/user_feedback.json
 
+      - name: Extend alternative weather caches
+        run: python src/fetch_alt_weather.py
+
       - name: Retrain models
         run: python src/train.py
+
+      - name: Retrain NBM and ensemble models
+        run: |
+          python src/train.py --source nbm
+          python src/train.py --source ensemble
 
       - name: Run predictions with new model
         run: |
@@ -52,6 +60,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add model/ data/mtb_scrape_raw.csv data/user_feedback.json docs/predictions.json data/feature_snapshots.json data/weather_cache.json
+          git add model/ data/mtb_scrape_raw.csv data/user_feedback.json docs/predictions.json data/feature_snapshots.json data/weather_cache.json data/weather_cache_nbm.json data/weather_cache_ensemble.json
           git diff --staged --quiet || git commit -m "chore: retrain model — ${{ github.event.inputs.reason }}"
           git push
