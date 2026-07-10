@@ -256,27 +256,6 @@ def _persist_forecast_probs(forecast: list) -> None:
             json.dump(cache, f, indent=2)
 
 
-def _persist_forecast_hourly(hourly_by_date: dict, tomorrow: date) -> dict:
-    """Save tomorrow's hourly forecast to cache (overwrite). Return cached hourly keyed by date.
-
-    At each predict run we freeze tomorrow's complete 24h picture. When tomorrow
-    becomes today, slot predictions use this frozen forecast instead of the live
-    API's mid-day view of already-elapsed hours.
-    """
-    if WEATHER_CACHE_PATH.exists():
-        with open(WEATHER_CACHE_PATH) as f:
-            cache = json.load(f)
-    else:
-        cache = {}
-    forecast_hourly = cache.setdefault("forecast_hourly", {})
-    tmw_str = tomorrow.isoformat()
-    if tmw_str in hourly_by_date:
-        forecast_hourly[tmw_str] = hourly_by_date[tmw_str]
-    with open(WEATHER_CACHE_PATH, "w") as f:
-        json.dump(cache, f, indent=2)
-    return forecast_hourly
-
-
 def main():
     OUTPUT_PATH.parent.mkdir(exist_ok=True)
     intraday_model = joblib.load(INTRADAY_MODEL_PATH) if INTRADAY_MODEL_PATH.exists() else None
@@ -285,7 +264,6 @@ def main():
     tomorrow = today + timedelta(days=1)
     forecast, hourly_by_date = get_forecast()  # daily + hourly in one call
     _persist_forecast_probs(forecast)
-    frozen_hourly = _persist_forecast_hourly(hourly_by_date, tomorrow)
     history, hist_hourly = get_historical_forecast(today - timedelta(days=14), today - timedelta(days=1))
 
     with open(LAST_FORECAST_PATH, "w") as f:
@@ -370,19 +348,17 @@ def main():
             }
 
             # Intraday slots for all 7 forecast days
-            fday_date_str = fday["date"]
-            if fday_date_str == today.isoformat():
-                hourly_for_day = frozen_hourly.get(fday_date_str) or hourly_by_date.get(fday_date_str, [])
-            else:
-                hourly_for_day = hourly_by_date.get(fday_date_str, [])
+            hourly_for_day = hourly_by_date.get(fday["date"], [])
             if intraday_model and hourly_for_day:
                 ph = _prev_hourly(label_date)
                 day_entry["slots"] = predict_slots(
                     intraday_model, hist, fday, hourly_for_day, trail["trail_id"], prior, ph
                 )
                 for hour in TIME_SLOTS:
-                    ifeats = build_intraday_features(hist, fday, hourly_for_day, hour, trail["trail_id"], prior, ph)
-                    snapshots["intraday"][f"{key}:{fday['date']}:{hour}"] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
+                    snap_key = f"{key}:{fday['date']}:{hour}"
+                    if snap_key not in snapshots["intraday"]:
+                        ifeats = build_intraday_features(hist, fday, hourly_for_day, hour, trail["trail_id"], prior, ph)
+                        snapshots["intraday"][snap_key] = {c: ifeats[c] for c in INTRADAY_FEATURE_COLUMNS}
                 # Derive day score from intraday slot scores
                 day_entry["score"] = round(sum(s["score"] for s in day_entry["slots"]) / len(day_entry["slots"]), 3)
             else:
