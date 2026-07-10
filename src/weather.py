@@ -82,7 +82,7 @@ def _apply_midnight_soil(daily: list[dict], midnight_soil: dict[str, tuple]) -> 
                 entry["soil_moisture_deep"] = ms[1]
 
 
-def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
+def get_forecast(model: str = "best_match") -> tuple[list[dict], dict[str, list[dict]]]:
     """Fetch 7-day daily forecast + hourly precip/soil in one call.
 
     Returns (daily_list, hourly_by_date).  Daily soil moisture is set from
@@ -97,6 +97,7 @@ def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
             "hourly":       _HOURLY_VARS,
             "timezone":     "America/New_York",
             "forecast_days": 7,
+            "models":       model,
         },
     )
     data  = resp.json()
@@ -109,7 +110,7 @@ def get_forecast() -> tuple[list[dict], dict[str, list[dict]]]:
     return daily, hourly_by_date
 
 
-def get_historical_forecast(start: date, end: date) -> tuple[list[dict], dict[str, list[dict]]]:
+def get_historical_forecast(start: date, end: date, model: str = "best_match") -> tuple[list[dict], dict[str, list[dict]]]:
     """Fetch daily weather + hourly precip/soil from the historical forecast API.
 
     Uses the same IFS model as get_forecast() so training and inference see
@@ -127,6 +128,7 @@ def get_historical_forecast(start: date, end: date) -> tuple[list[dict], dict[st
             "daily":      ",".join(DAILY_VARS),
             "hourly":     _HOURLY_VARS,
             "timezone":   "America/New_York",
+            "models":     model,
         },
     )
     data  = resp.json()

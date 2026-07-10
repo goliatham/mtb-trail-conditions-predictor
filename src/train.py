@@ -1,5 +1,6 @@
 """Join scraped condition labels with historical weather, train intraday model."""
 
+import argparse
 import csv
 import json
 from collections import defaultdict
@@ -80,10 +81,33 @@ def _get_hourly(label_date, hourly_by_date):
 
 
 def main():
-    INTRADAY_MODEL_PATH.parent.mkdir(exist_ok=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--source", default="ifs", choices=["ifs", "nbm", "ensemble"],
+        help="Weather source: ifs (default), nbm, or ensemble",
+    )
+    args = parser.parse_args()
+
+    _data_dir = WEATHER_CACHE_PATH.parent
+    _model_dir = INTRADAY_MODEL_PATH.parent
+    if args.source == "nbm":
+        cache_path = _data_dir / "weather_cache_nbm.json"
+        model_out  = _model_dir / "model_intraday_nbm.joblib"
+        use_snapshots = False
+    elif args.source == "ensemble":
+        cache_path = _data_dir / "weather_cache_ensemble.json"
+        model_out  = _model_dir / "model_intraday_ensemble.joblib"
+        use_snapshots = False
+    else:
+        cache_path = WEATHER_CACHE_PATH
+        model_out  = INTRADAY_MODEL_PATH
+        use_snapshots = True
+
+    print(f"Source: {args.source}  |  cache: {cache_path.name}  |  out: {model_out.name}")
+    _model_dir.mkdir(exist_ok=True)
 
     labels = load_labels()
-    snapshots = load_snapshots()
+    snapshots = load_snapshots() if use_snapshots else {"intraday": {}}
     print(f"Loaded {len(labels)} labeled records, {len(snapshots.get('intraday', {}))} intraday snapshots")
 
     # Pre-compute the most recent prior report for each (trail_id, date)
@@ -111,7 +135,11 @@ def main():
     bulk_start = valid_dates[0] - timedelta(days=HISTORY_DAYS)
     bulk_end = valid_dates[-1]
 
-    weather_cache = load_weather_cache()
+    if cache_path.exists():
+        with open(cache_path) as f:
+            weather_cache = json.load(f)
+    else:
+        weather_cache = {"hf_daily": {}, "hf_hourly": {}}
     hf_daily  = weather_cache.get("hf_daily",  {})
     hf_hourly = weather_cache.get("hf_hourly", {})
 
@@ -119,7 +147,7 @@ def main():
     all_dates = [bulk_start + timedelta(days=i) for i in range((bulk_end - bulk_start).days + 1)]
     missing = [d for d in all_dates if d.isoformat() not in hf_daily]
 
-    if missing:
+    if missing and args.source == "ifs":
         fetch_start, fetch_end = missing[0], missing[-1]
         print(f"Fetching historical forecast {fetch_start} → {fetch_end} ({len(missing)} new days)...")
         daily_list, new_hourly = get_historical_forecast(fetch_start, fetch_end)
@@ -129,8 +157,11 @@ def main():
             hf_hourly[d] = records
         weather_cache["hf_daily"]  = hf_daily
         weather_cache["hf_hourly"] = hf_hourly
-        save_weather_cache(weather_cache)
+        with open(cache_path, "w") as f:
+            json.dump(weather_cache, f, indent=2)
         print("Weather cache updated.")
+    elif missing:
+        print(f"Warning: {len(missing)} dates missing from {cache_path.name} — run fetch_alt_weather.py first")
     else:
         print(f"Weather cache hit — {len(all_dates)} days already cached.")
 
@@ -256,7 +287,7 @@ def main():
     if intraday_rows:
         X_i = pd.DataFrame(intraday_rows, columns=INTRADAY_FEATURE_COLUMNS)
         train_model(X_i, pd.Series(intraday_targets), pd.Series(intraday_weights),
-                    INTRADAY_FEATURE_COLUMNS, "Intraday model", INTRADAY_MODEL_PATH)
+                    INTRADAY_FEATURE_COLUMNS, f"Intraday model ({args.source})", model_out)
     else:
         print("\nNo hourly data available — intraday model not trained")
 
