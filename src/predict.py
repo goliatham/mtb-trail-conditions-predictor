@@ -540,12 +540,17 @@ def main():
                     if intraday_model_nbm and hourly_for_day_nbm else None
                 )
 
-                # Annotate each slot with all 3 scores
+                # Annotate each slot with all 3 scores and per-model forecast precip
                 for j, slot in enumerate(slots_ens):
                     slot["model_scores"] = {
                         "ifs":      slots_ifs[j]["score"] if slots_ifs else None,
                         "nbm":      slots_nbm[j]["score"] if slots_nbm else None,
                         "ensemble": slot["score"],
+                    }
+                    slot["model_precip"] = {
+                        "ifs":      slots_ifs[j]["precip_midnight_to_slot_mm"] if slots_ifs else None,
+                        "nbm":      slots_nbm[j]["precip_midnight_to_slot_mm"] if slots_nbm else None,
+                        "ensemble": slot["precip_midnight_to_slot_mm"],
                     }
 
                 # Write-once snapshot uses ensemble features

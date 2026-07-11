@@ -285,22 +285,22 @@
       background: #1a1d27;
       border: 1px solid #f59e0b;
       border-radius: 8px;
-      padding: 8px 11px;
+      padding: 8px 10px;
       font-size: 0.7rem;
       color: #e8eaf0;
-      white-space: nowrap;
+      min-width: 170px;
       z-index: 200;
-      text-align: left;
-      line-height: 1.8;
-      pointer-events: none;
       box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     }
     .warn-tip.open { display: block; }
     @media (hover: hover) {
       .warn-wrap:hover .warn-tip { display: block; }
     }
-    .warn-tip-row { display: flex; justify-content: space-between; gap: 16px; }
-    .warn-tip-label { color: #9ca3af; }
+    .warn-table { border-collapse: collapse; width: 100%; }
+    .warn-table th { font-weight: 600; color: #c9d1e8; text-align: center; padding: 0 10px 4px; font-size: 0.68rem; }
+    .warn-table td { text-align: center; padding: 3px 10px; }
+    .warn-table td:first-child { text-align: left; color: #9ca3af; padding-left: 0; }
+    .warn-table tr:not(:first-child) td { border-top: 1px solid rgba(255,255,255,0.07); }
 
     .error-msg { text-align: center; color: #ef4444; padding: 40px; font-size: 0.9rem; }
     .loading { text-align: center; color: #6b7280; padding: 60px; }
@@ -418,22 +418,31 @@
       return diff + ' days ago';
     }
 
-    function warnIcon(s) {
+    function mmStr(v) { return v !== null && v !== undefined ? v.toFixed(1) + 'mm' : '—'; }
+
+    function warnIcon(s, precip2d) {
       const ms = s.model_scores;
       if (!ms || ms.ifs === undefined || ms.nbm === undefined) return '';
       if (Math.abs(ms.ifs - ms.nbm) < 0.25) return '';
-      const fcstMm = (s.features && s.features.forecast_precip_mm !== undefined)
-        ? s.features.forecast_precip_mm.toFixed(1) + 'mm fcst' : '';
-      const rainLine = fcstMm
-        ? `<div class="warn-tip-row"><span class="warn-tip-label">Rain</span><span>${fcstMm}</span></div>` : '';
+      const mp = s.model_precip || {};
       return `
         <div class="warn-wrap">
           <button class="warn-btn" onclick="toggleWarn(event,this)">⚠️</button>
           <div class="warn-tip">
-            <div class="warn-tip-row"><span class="warn-tip-label">IFS</span><span>${pct(ms.ifs)}</span></div>
-            <div class="warn-tip-row"><span class="warn-tip-label">NBM</span><span>${pct(ms.nbm)}</span></div>
-            <div class="warn-tip-row"><span class="warn-tip-label">Ens</span><span>${pct(ms.ensemble)}</span></div>
-            ${rainLine}
+            <table class="warn-table">
+              <tr>
+                <th></th><th>IFS</th><th>NBM</th><th>Ens</th>
+              </tr><tr>
+                <td>%</td>
+                <td>${pct(ms.ifs)}</td><td>${pct(ms.nbm)}</td><td>${pct(ms.ensemble)}</td>
+              </tr><tr>
+                <td>fcst</td>
+                <td>${mmStr(mp.ifs)}</td><td>${mmStr(mp.nbm)}</td><td>${mmStr(mp.ensemble)}</td>
+              </tr><tr>
+                <td>2d</td>
+                <td colspan="3" style="text-align:center">${mmStr(precip2d)}</td>
+              </tr>
+            </table>
           </div>
         </div>`;
     }
@@ -465,7 +474,7 @@
             <div class="slot-time">${s.slot}</div>
             <div class="slot-pct-row">
               <span class="slot-pct">${pct(s.score)}</span>
-              ${warnIcon(s)}
+              ${warnIcon(s, precip2d)}
             </div>
             ${sigHtml}
             ${fbHtml}
