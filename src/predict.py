@@ -515,6 +515,11 @@ def main():
                 },
                 "features": {k: round(v, 4) if isinstance(v, float) else v
                              for k, v in feats_ens.items() if k in FEATURE_COLUMNS},
+                "model_signals": {
+                    "ifs":      {"forecast_precip_mm": round(fday["precip_mm"]     or 0.0, 1), "precip_2d": precip_2d},
+                    "nbm":      {"forecast_precip_mm": round(fday_nbm["precip_mm"] or 0.0, 1), "precip_2d": precip_2d_nbm},
+                    "ensemble": {"forecast_precip_mm": round(fday_ens["precip_mm"] or 0.0, 1), "precip_2d": precip_2d_ens},
+                },
             }
 
             # Intraday slots for all 7 forecast days

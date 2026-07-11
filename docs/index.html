@@ -506,6 +506,34 @@
         </div>`;
     }
 
+    function warnIconDay(day) {
+      const ms = day.model_scores;
+      if (!ms || ms.ifs === undefined || ms.nbm === undefined) return '';
+      if (Math.abs(ms.ifs - ms.nbm) < 0.25) return '';
+      const msi = (day.model_signals || {});
+      const mi = msi.ifs || {}, mn = msi.nbm || {}, me = msi.ensemble || {};
+      return `
+        <div class="warn-wrap">
+          <button class="warn-btn" onclick="toggleWarn(event,this)">⚠️</button>
+          <div class="warn-tip">
+            <table class="warn-table">
+              <tr>
+                <th></th><th>IFS</th><th>NBM</th><th>Ens</th>
+              </tr><tr>
+                <td>%</td>
+                <td>${pct(ms.ifs)}</td><td>${pct(ms.nbm)}</td><td>${pct(ms.ensemble)}</td>
+              </tr><tr>
+                <td>fcst</td>
+                <td>${mmStr(mi.forecast_precip_mm)}</td><td>${mmStr(mn.forecast_precip_mm)}</td><td>${mmStr(me.forecast_precip_mm)}</td>
+              </tr><tr>
+                <td>2d</td>
+                <td>${mmStr(mi.precip_2d)}</td><td>${mmStr(mn.precip_2d)}</td><td>${mmStr(me.precip_2d)}</td>
+              </tr>
+            </table>
+          </div>
+        </div>`;
+    }
+
     function renderWeekCard(day) {
       const s = day.signals || {};
       const sigLines = [];
@@ -516,7 +544,10 @@
       return `
         <div class="day-card" style="background:${scoreColor(day.score)}">
           <div class="card-name">${day.day_name}</div>
-          <div class="card-pct">${pct(day.score)}</div>
+          <div class="slot-pct-row">
+            <span class="card-pct">${pct(day.score)}</span>
+            ${warnIconDay(day)}
+          </div>
           ${sigLines.map(l => `<div class="card-signal">${l}</div>`).join('')}
         </div>`;
     }
