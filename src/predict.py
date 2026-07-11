@@ -288,14 +288,17 @@ def _average_forecasts(
             vals = [e[field] for e in _entries if e.get(field) is not None]
             return sum(vals) / len(vals) if vals else None
 
-        best = forecast_list[0][i] if i < len(forecast_list[0]) else entries[0]
+        best  = forecast_list[0][i] if i < len(forecast_list[0]) else entries[0]
+        # ecmwf_ifs025 is index 1 — provides soil for both historical and forecast dates
+        ecmwf = forecast_list[1][i] if len(forecast_list) > 1 and i < len(forecast_list[1]) else None
+        soil_src = ecmwf if ecmwf and ecmwf.get("soil_moisture") is not None else best
         averaged_daily.append({
             "date":               entries[0]["date"],
             "precip_mm":          _avg_f("precip_mm") or 0.0,
             "temp_max_c":         _avg_f("temp_max_c"),
             "temp_min_c":         _avg_f("temp_min_c"),
-            "soil_moisture":      best.get("soil_moisture"),
-            "soil_moisture_deep": best.get("soil_moisture_deep"),
+            "soil_moisture":      soil_src.get("soil_moisture"),
+            "soil_moisture_deep": soil_src.get("soil_moisture_deep"),
             "precip_prob_pct":    _avg_f("precip_prob_pct"),
             "sunrise":            best.get("sunrise"),
             "sunset":             best.get("sunset"),

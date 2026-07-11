@@ -204,15 +204,17 @@ def main():
                     ens_hf_daily[d] = dict(main_hf_daily[d])
                 continue
 
-            main_entry = main_hf_daily.get(d, {})
+            ecmwf_entry = model_dailies.get("ecmwf_ifs025", {}).get(d, {})
+            main_entry  = main_hf_daily.get(d, {})
             ens_hf_daily[d] = {
                 "date":               d,
                 "precip_mm":          _avg(entries, "precip_mm"),
                 "temp_max_c":         _avg(entries, "temp_max_c"),
                 "temp_min_c":         _avg(entries, "temp_min_c"),
-                # Always use best_match soil moisture (not all models provide it)
-                "soil_moisture":      main_entry.get("soil_moisture"),
-                "soil_moisture_deep": main_entry.get("soil_moisture_deep"),
+                # Use ecmwf_ifs025 soil (available for both historical + forecast);
+                # fall back to best_match if ecmwf doesn't have a value
+                "soil_moisture":      ecmwf_entry.get("soil_moisture") or main_entry.get("soil_moisture"),
+                "soil_moisture_deep": ecmwf_entry.get("soil_moisture_deep") or main_entry.get("soil_moisture_deep"),
                 "precip_prob_pct":    _avg(entries, "precip_prob_pct"),
             }
 
@@ -224,6 +226,30 @@ def main():
                     ens_hf_hourly[d] = averaged
                 elif d in main_hf_hourly:
                     ens_hf_hourly[d] = main_hf_hourly[d]
+
+    # Update soil in ALL existing ensemble entries using ecmwf_ifs025
+    # (covers entries built before this change that used best_match soil)
+    print("\n=== Refreshing ensemble soil from ecmwf_ifs025 ===")
+    all_ens_dates = sorted(ens_hf_daily.keys())
+    if all_ens_dates:
+        ecmwf_start = date.fromisoformat(all_ens_dates[0])
+        ecmwf_end   = date.fromisoformat(all_ens_dates[-1])
+        try:
+            ecmwf_daily, _ = get_historical_forecast(ecmwf_start, ecmwf_end, model="ecmwf_ifs025")
+            ecmwf_soil_map  = {r["date"]: r for r in ecmwf_daily}
+            updated = 0
+            for d, entry in ens_hf_daily.items():
+                ecmwf = ecmwf_soil_map.get(d, {})
+                sm   = ecmwf.get("soil_moisture")
+                smd  = ecmwf.get("soil_moisture_deep")
+                if sm is not None:
+                    entry["soil_moisture"]      = sm
+                    updated += 1
+                if smd is not None:
+                    entry["soil_moisture_deep"] = smd
+            print(f"  Updated soil for {updated} ensemble entries")
+        except Exception as e:
+            print(f"  ERROR refreshing ecmwf soil: {e}")
 
     ens_cache["hf_daily"]  = ens_hf_daily
     ens_cache["hf_hourly"] = ens_hf_hourly
