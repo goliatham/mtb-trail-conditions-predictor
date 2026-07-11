@@ -260,7 +260,7 @@ def main():
                 ifeats = build_intraday_features(history, day_weather, hourly, hour, trail_id, fb_prior, fb_prev_hourly)
             intraday_rows.append([ifeats[col] for col in INTRADAY_FEATURE_COLUMNS])
             intraday_targets.append(slot_label)
-            intraday_weights.append(1.5)  # direct observation — no morning discount
+            intraday_weights.append(3.0)  # direct observation — no morning discount
 
         print(f"  Added {len(feedback) - fb_skipped} feedback rows, skipped {fb_skipped}")
 

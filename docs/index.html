@@ -260,6 +260,48 @@
     .export-btn:hover { border-color: #60a5fa; color: #60a5fa; }
     .export-btn:disabled { opacity: 0.4; cursor: default; }
 
+    /* Model disagreement warning */
+    .slot-pct-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+    .warn-wrap { position: relative; }
+    .warn-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 0.72rem;
+      line-height: 1;
+    }
+    .warn-tip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1d27;
+      border: 1px solid #f59e0b;
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-size: 0.7rem;
+      color: #e8eaf0;
+      white-space: nowrap;
+      z-index: 200;
+      text-align: left;
+      line-height: 1.8;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+    .warn-tip.open { display: block; }
+    @media (hover: hover) {
+      .warn-wrap:hover .warn-tip { display: block; }
+    }
+    .warn-tip-row { display: flex; justify-content: space-between; gap: 16px; }
+    .warn-tip-label { color: #9ca3af; }
+
     .error-msg { text-align: center; color: #ef4444; padding: 40px; font-size: 0.9rem; }
     .loading { text-align: center; color: #6b7280; padding: 60px; }
   </style>
@@ -328,6 +370,17 @@
       });
     }
 
+    function toggleWarn(e, btn) {
+      e.stopPropagation();
+      const tip = btn.nextElementSibling;
+      const isOpen = tip.classList.contains('open');
+      document.querySelectorAll('.warn-tip.open').forEach(t => t.classList.remove('open'));
+      if (!isOpen) tip.classList.add('open');
+    }
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.warn-tip.open').forEach(t => t.classList.remove('open'));
+    });
+
     function exportFeedback() {
       const log = getFeedbackLog();
       if (!log.length) { alert('No feedback recorded yet — vote on some slots first.'); return; }
@@ -365,6 +418,26 @@
       return diff + ' days ago';
     }
 
+    function warnIcon(s) {
+      const ms = s.model_scores;
+      if (!ms || ms.ifs === undefined || ms.nbm === undefined) return '';
+      if (Math.abs(ms.ifs - ms.nbm) < 0.25) return '';
+      const fcstMm = (s.features && s.features.forecast_precip_mm !== undefined)
+        ? s.features.forecast_precip_mm.toFixed(1) + 'mm fcst' : '';
+      const rainLine = fcstMm
+        ? `<div class="warn-tip-row"><span class="warn-tip-label">Rain</span><span>${fcstMm}</span></div>` : '';
+      return `
+        <div class="warn-wrap">
+          <button class="warn-btn" onclick="toggleWarn(event,this)">⚠️</button>
+          <div class="warn-tip">
+            <div class="warn-tip-row"><span class="warn-tip-label">IFS</span><span>${pct(ms.ifs)}</span></div>
+            <div class="warn-tip-row"><span class="warn-tip-label">NBM</span><span>${pct(ms.nbm)}</span></div>
+            <div class="warn-tip-row"><span class="warn-tip-label">Ens</span><span>${pct(ms.ensemble)}</span></div>
+            ${rainLine}
+          </div>
+        </div>`;
+    }
+
     function renderSlots(slots, trailKey, trailId, date, isToday, signals) {
       return `<div class="slots">${slots.map(s => {
         const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
@@ -390,7 +463,10 @@
         return `
           <div class="slot-card" style="background:${scoreColor(s.score)}">
             <div class="slot-time">${s.slot}</div>
-            <div class="slot-pct">${pct(s.score)}</div>
+            <div class="slot-pct-row">
+              <span class="slot-pct">${pct(s.score)}</span>
+              ${warnIcon(s)}
+            </div>
             ${sigHtml}
             ${fbHtml}
           </div>`;
