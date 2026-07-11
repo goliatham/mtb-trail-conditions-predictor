@@ -26,18 +26,37 @@ def build_features(history: list[dict], forecast_day: dict,
                   or None for no known prior report
     """
     precip_history = [r["precip_mm"] for r in history]
-    soil_values = [r["soil_moisture"] for r in history if r["soil_moisture"] is not None]
-    soil_deep_values = [r["soil_moisture_deep"] for r in history if r.get("soil_moisture_deep") is not None]
+    rain_history   = [r.get("rain_mm", r["precip_mm"]) for r in history]
+    snow_history   = [r.get("snow_cm", 0.0) for r in history]
+
+    soil_values      = [r["soil_moisture"]       for r in history if r["soil_moisture"] is not None]
+    soil_deep_values = [r["soil_moisture_deep"]   for r in history if r.get("soil_moisture_deep") is not None]
+    soil_t0_values   = [r["soil_temp_0cm"]        for r in history if r.get("soil_temp_0cm")  is not None]
+    soil_t6_values   = [r["soil_temp_6cm"]        for r in history if r.get("soil_temp_6cm")  is not None]
+    soil_t18_values  = [r["soil_temp_18cm"]       for r in history if r.get("soil_temp_18cm") is not None]
 
     precip_1d = sum(precip_history[-1:])
     precip_3d = sum(precip_history[-3:])
     precip_7d = sum(precip_history[-7:])
 
+    rain_1d = sum(rain_history[-1:])
+    rain_2d = sum(rain_history[-2:])
+    rain_3d = sum(rain_history[-3:])
+    rain_7d = sum(rain_history[-7:])
+
+    snow_1d = sum(snow_history[-1:])
+    snow_2d = sum(snow_history[-2:])
+    snow_3d = sum(snow_history[-3:])
+    snow_7d = sum(snow_history[-7:])
+
     days_since_rain = _days_since_last_rain(precip_history)
     consecutive_dry = _consecutive_dry_days(precip_history)
 
-    soil_moisture = soil_values[-1] if soil_values else 0.2
+    soil_moisture      = soil_values[-1]     if soil_values      else 0.2
     soil_moisture_deep = soil_deep_values[-1] if soil_deep_values else 0.25
+    soil_temp_0cm      = soil_t0_values[-1]  if soil_t0_values   else 10.0
+    soil_temp_6cm      = soil_t6_values[-1]  if soil_t6_values   else 10.0
+    soil_temp_18cm     = soil_t18_values[-1] if soil_t18_values  else 10.0
 
     pred_date = date.fromisoformat(forecast_day["date"])
 
@@ -53,21 +72,32 @@ def build_features(history: list[dict], forecast_day: dict,
 
     raw_prob = forecast_day.get("precip_prob_pct")
     return {
-        "precip_1d_mm": precip_1d,
-        "precip_3d_mm": precip_3d,
-        "precip_7d_mm": precip_7d,
-        "soil_moisture": soil_moisture,
-        "temp_max_c": forecast_day["temp_max_c"] or 20.0,
-        "temp_min_c": forecast_day["temp_min_c"] or 10.0,
-        "days_since_rain": days_since_rain,
-        "consecutive_dry_days": consecutive_dry,
-        "dry_surplus": dry_surplus,
-        "month": pred_date.month,
-        "forecast_precip_mm": forecast_day["precip_mm"] or 0.0,
-        "precip_prob_pct": raw_prob if raw_prob is not None else 50.0,
+        "precip_1d_mm":       precip_1d,
+        "precip_3d_mm":       precip_3d,
+        "precip_7d_mm":       precip_7d,
+        "rain_1d_mm":         rain_1d,
+        "rain_2d_mm":         rain_2d,
+        "rain_3d_mm":         rain_3d,
+        "rain_7d_mm":         rain_7d,
+        "snow_1d_cm":         snow_1d,
+        "snow_2d_cm":         snow_2d,
+        "snow_3d_cm":         snow_3d,
+        "snow_7d_cm":         snow_7d,
+        "soil_moisture":      soil_moisture,
         "soil_moisture_deep": soil_moisture_deep,
+        "soil_temp_0cm":      soil_temp_0cm,
+        "soil_temp_6cm":      soil_temp_6cm,
+        "soil_temp_18cm":     soil_temp_18cm,
+        "temp_max_c":         forecast_day["temp_max_c"] or 20.0,
+        "temp_min_c":         forecast_day["temp_min_c"] or 10.0,
+        "days_since_rain":    days_since_rain,
+        "consecutive_dry_days": consecutive_dry,
+        "dry_surplus":        dry_surplus,
+        "month":              pred_date.month,
+        "forecast_precip_mm": forecast_day["precip_mm"] or 0.0,
+        "precip_prob_pct":    raw_prob if raw_prob is not None else 50.0,
         "prior_report_score": prior_report_score,
-        "trail_id": trail_id,
+        "trail_id":           trail_id,
     }
 
 
@@ -126,10 +156,21 @@ def build_intraday_features(history: list[dict], forecast_day: dict,
     base = build_features(history, forecast_day, trail_id, prior_report)
     precip_to_slot = sum(r["precip_mm"] for r in hourly if r["hour"] < hour)
     precip_3h = sum(r["precip_mm"] for r in hourly if hour - 3 <= r["hour"] < hour)
+
+    # Temperature at slot hour from hourly; interpolate from daily min/max if absent
+    temp_at_slot = next((r["temp_c"] for r in hourly if r.get("hour") == hour and r.get("temp_c") is not None), None)
+    if temp_at_slot is None:
+        t_min = forecast_day.get("temp_min_c") or 10.0
+        t_max = forecast_day.get("temp_max_c") or 20.0
+        # rough diurnal: min at 6am, max at 2pm
+        frac = max(0.0, min(1.0, (hour - 6) / 8.0)) if hour <= 14 else max(0.0, 1.0 - (hour - 14) / 10.0)
+        temp_at_slot = t_min + frac * (t_max - t_min)
+
     base["precip_midnight_to_slot_mm"] = precip_to_slot
-    base["precip_3h_before_slot_mm"] = precip_3h
-    base["hour"] = hour
-    base["hours_since_rain"] = _hours_since_rain(hourly, hour, base["days_since_rain"], history_hourly)
+    base["precip_3h_before_slot_mm"]   = precip_3h
+    base["hour"]                       = hour
+    base["hours_since_rain"]           = _hours_since_rain(hourly, hour, base["days_since_rain"], history_hourly)
+    base["temp_at_slot_c"]             = temp_at_slot
     return base
 
 
@@ -137,8 +178,19 @@ FEATURE_COLUMNS = [
     "precip_1d_mm",
     "precip_3d_mm",
     "precip_7d_mm",
+    "rain_1d_mm",
+    "rain_2d_mm",
+    "rain_3d_mm",
+    "rain_7d_mm",
+    "snow_1d_cm",
+    "snow_2d_cm",
+    "snow_3d_cm",
+    "snow_7d_cm",
     "soil_moisture",
     "soil_moisture_deep",
+    "soil_temp_0cm",
+    "soil_temp_6cm",
+    "soil_temp_18cm",
     "temp_max_c",
     "temp_min_c",
     "days_since_rain",
@@ -157,4 +209,5 @@ INTRADAY_FEATURE_COLUMNS = [
     "precip_3h_before_slot_mm",
     "hour",
     "hours_since_rain",
+    "temp_at_slot_c",
 ]

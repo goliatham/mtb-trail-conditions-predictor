@@ -165,6 +165,31 @@ def main():
     else:
         print(f"Weather cache hit — {len(all_dates)} days already cached.")
 
+    # One-shot backfill: patch new fields (rain_mm, snow_cm, soil_temp_*, temp_c in hourly)
+    # into existing IFS cache entries that pre-date this feature addition.
+    if args.source == "ifs" and hf_daily and any("rain_mm" not in v for v in hf_daily.values()):
+        cached_dates = sorted(hf_daily.keys())
+        bf_start = date.fromisoformat(cached_dates[0])
+        bf_end   = date.fromisoformat(cached_dates[-1])
+        print(f"Backfilling new weather fields ({bf_start} → {bf_end})...")
+        bf_daily, bf_hourly = get_historical_forecast(bf_start, bf_end)
+        new_fields = ("rain_mm", "snow_cm", "soil_temp_0cm", "soil_temp_6cm", "soil_temp_18cm")
+        for r in bf_daily:
+            if r["date"] in hf_daily:
+                for field in new_fields:
+                    if field in r:
+                        hf_daily[r["date"]][field] = r[field]
+        for d, records in bf_hourly.items():
+            if d in hf_hourly:
+                for i, rec in enumerate(hf_hourly[d]):
+                    if i < len(records) and records[i].get("temp_c") is not None:
+                        rec["temp_c"] = records[i]["temp_c"]
+        weather_cache["hf_daily"]  = hf_daily
+        weather_cache["hf_hourly"] = hf_hourly
+        with open(cache_path, "w") as f:
+            json.dump(weather_cache, f, indent=2)
+        print(f"  Backfilled {len(bf_daily)} daily entries.")
+
     weather_by_date = hf_daily
     hourly_by_date  = hf_hourly
 
