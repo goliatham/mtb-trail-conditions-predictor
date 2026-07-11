@@ -497,7 +497,9 @@ def main():
             # Ensemble drives all UX signals/features
             feats_ens = build_features(hist_e, fday_ens, trail["trail_id"], prior)
 
-            precip_2d = round(sum(r["precip_mm"] for r in hist[-2:]), 1) if len(hist) >= 2 else 0.0
+            precip_2d     = round(sum(r["precip_mm"] for r in hist[-2:]),   1) if len(hist)   >= 2 else 0.0
+            precip_2d_nbm = round(sum(r["precip_mm"] for r in hist_n[-2:]), 1) if len(hist_n) >= 2 else 0.0
+            precip_2d_ens = round(sum(r["precip_mm"] for r in hist_e[-2:]), 1) if len(hist_e) >= 2 else 0.0
             day_entry = {
                 "date": fday["date"],
                 "day_name": day_name,
@@ -548,9 +550,9 @@ def main():
                         "ensemble": slot["score"],
                     }
                     slot["model_precip"] = {
-                        "ifs":      slots_ifs[j]["precip_midnight_to_slot_mm"] if slots_ifs else None,
-                        "nbm":      slots_nbm[j]["precip_midnight_to_slot_mm"] if slots_nbm else None,
-                        "ensemble": slot["precip_midnight_to_slot_mm"],
+                        "ifs":      {"fcst": slots_ifs[j]["precip_midnight_to_slot_mm"] if slots_ifs else None, "precip_2d": precip_2d},
+                        "nbm":      {"fcst": slots_nbm[j]["precip_midnight_to_slot_mm"] if slots_nbm else None, "precip_2d": precip_2d_nbm},
+                        "ensemble": {"fcst": slot["precip_midnight_to_slot_mm"], "precip_2d": precip_2d_ens},
                     }
 
                 # Write-once snapshot uses ensemble features

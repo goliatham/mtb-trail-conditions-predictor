@@ -420,11 +420,12 @@
 
     function mmStr(v) { return v !== null && v !== undefined ? v.toFixed(1) + 'mm' : '—'; }
 
-    function warnIcon(s, precip2d) {
+    function warnIcon(s) {
       const ms = s.model_scores;
       if (!ms || ms.ifs === undefined || ms.nbm === undefined) return '';
       if (Math.abs(ms.ifs - ms.nbm) < 0.25) return '';
       const mp = s.model_precip || {};
+      const mpi = mp.ifs || {}, mpn = mp.nbm || {}, mpe = mp.ensemble || {};
       return `
         <div class="warn-wrap">
           <button class="warn-btn" onclick="toggleWarn(event,this)">⚠️</button>
@@ -437,10 +438,10 @@
                 <td>${pct(ms.ifs)}</td><td>${pct(ms.nbm)}</td><td>${pct(ms.ensemble)}</td>
               </tr><tr>
                 <td>fcst</td>
-                <td>${mmStr(mp.ifs)}</td><td>${mmStr(mp.nbm)}</td><td>${mmStr(mp.ensemble)}</td>
+                <td>${mmStr(mpi.fcst)}</td><td>${mmStr(mpn.fcst)}</td><td>${mmStr(mpe.fcst)}</td>
               </tr><tr>
                 <td>2d</td>
-                <td colspan="3" style="text-align:center">${mmStr(precip2d)}</td>
+                <td>${mmStr(mpi.precip_2d)}</td><td>${mmStr(mpn.precip_2d)}</td><td>${mmStr(mpe.precip_2d)}</td>
               </tr>
             </table>
           </div>
@@ -474,7 +475,7 @@
             <div class="slot-time">${s.slot}</div>
             <div class="slot-pct-row">
               <span class="slot-pct">${pct(s.score)}</span>
-              ${warnIcon(s, precip2d)}
+              ${warnIcon(s)}
             </div>
             ${sigHtml}
             ${fbHtml}
