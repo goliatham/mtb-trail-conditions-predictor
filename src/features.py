@@ -28,6 +28,7 @@ def build_features(history: list[dict], forecast_day: dict,
     precip_history = [r["precip_mm"] for r in history]
     rain_history   = [r.get("rain_mm", r["precip_mm"]) for r in history]
     snow_history   = [r.get("snow_cm", 0.0) for r in history]
+    creek_history  = [r.get("creek_peak_ft") for r in history]
 
     soil_values      = [r["soil_moisture"]       for r in history if r["soil_moisture"] is not None]
     soil_deep_values = [r["soil_moisture_deep"]   for r in history if r.get("soil_moisture_deep") is not None]
@@ -51,6 +52,14 @@ def build_features(history: list[dict], forecast_day: dict,
 
     days_since_rain = _days_since_last_rain(precip_history)
     consecutive_dry = _consecutive_dry_days(precip_history)
+
+    def _creek_max(window):
+        vals = [v for v in window if v is not None]
+        return max(vals) if vals else 0.0
+
+    creek_peak_1d  = _creek_max(creek_history[-1:])
+    creek_peak_7d  = _creek_max(creek_history[-7:])
+    creek_peak_14d = _creek_max(creek_history[-14:])
 
     soil_moisture      = soil_values[-1]     if soil_values      else 0.2
     soil_moisture_deep = soil_deep_values[-1] if soil_deep_values else 0.25
@@ -98,6 +107,9 @@ def build_features(history: list[dict], forecast_day: dict,
         "precip_prob_pct":    raw_prob if raw_prob is not None else 50.0,
         "prior_report_score": prior_report_score,
         "trail_id":           trail_id,
+        "creek_peak_1d_ft":   creek_peak_1d,
+        "creek_peak_7d_ft":   creek_peak_7d,
+        "creek_peak_14d_ft":  creek_peak_14d,
     }
 
 
@@ -200,6 +212,9 @@ FEATURE_COLUMNS = [
     "forecast_precip_mm",
     "prior_report_score",
     "trail_id",
+    "creek_peak_1d_ft",
+    "creek_peak_7d_ft",
+    "creek_peak_14d_ft",
 ]
 
 INTRADAY_FEATURE_COLUMNS = [

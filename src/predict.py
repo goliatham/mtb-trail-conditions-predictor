@@ -31,6 +31,7 @@ SNAPSHOTS_PATH     = Path(__file__).parent.parent / "data" / "feature_snapshots.
 WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
 ENS_CACHE_PATH     = Path(__file__).parent.parent / "data" / "weather_cache_ensemble.json"
 LAST_FORECAST_PATH = Path(__file__).parent.parent / "data" / "last_forecast.json"
+CREEK_GAUGE_PATH   = Path(__file__).parent.parent / "data" / "creek_gauge.json"
 _TRUSTED_PATH      = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
 ENSEMBLE_MODELS = [
@@ -373,6 +374,44 @@ def _prev_hourly(target: date, all_h: dict) -> list:
     return result
 
 
+def _refresh_creek_gauge(today: date) -> None:
+    """Fetch any missing gauge days up to yesterday and update the cache file."""
+    import urllib.request
+    from collections import defaultdict
+    cache = json.load(open(CREEK_GAUGE_PATH)) if CREEK_GAUGE_PATH.exists() else {"site": "03228805", "param": "gage_height_ft", "daily_peak": {}}
+    daily_peak = cache.setdefault("daily_peak", {})
+    yesterday = (today - timedelta(days=1)).isoformat()
+    if yesterday in daily_peak:
+        return  # already up to date
+    cached_dates = sorted(daily_peak.keys())
+    start = (date.fromisoformat(cached_dates[-1]) + timedelta(days=1)).isoformat() if cached_dates else (today - timedelta(days=14)).isoformat()
+    url = (f"https://nwis.waterservices.usgs.gov/nwis/iv/?format=json"
+           f"&sites=03228805&startDT={start}&endDT={yesterday}&parameterCd=00065")
+    try:
+        with urllib.request.urlopen(url, timeout=30) as r:
+            data = json.load(r)
+        vals = data["value"]["timeSeries"][0]["values"][0]["value"]
+        by_day = defaultdict(list)
+        for v in vals:
+            if v["value"] not in ("-999999", ""):
+                by_day[v["dateTime"][:10]].append(float(v["value"]))
+        for d, vs in by_day.items():
+            daily_peak[d] = round(max(vs), 2)
+        cache["daily_peak"] = daily_peak
+        CREEK_GAUGE_PATH.write_text(json.dumps(cache, indent=2))
+    except Exception as e:
+        print(f"  Warning: creek gauge refresh failed ({e})")
+
+
+def _inject_creek_gauge(history: list) -> None:
+    """Add creek_peak_ft to each daily entry in a history list in-place."""
+    if not CREEK_GAUGE_PATH.exists():
+        return
+    daily_peak = json.load(open(CREEK_GAUGE_PATH)).get("daily_peak", {})
+    for entry in history:
+        entry["creek_peak_ft"] = daily_peak.get(entry.get("date"))
+
+
 def main():
     OUTPUT_PATH.parent.mkdir(exist_ok=True)
     intraday_model     = joblib.load(INTRADAY_MODEL_PATH)     if INTRADAY_MODEL_PATH.exists()     else None
@@ -424,6 +463,12 @@ def main():
 
     # Ensemble history from pre-built cache (no extra API calls)
     history_ens, hist_hourly_ens = _load_ens_history(today, history, hist_hourly)
+
+    # Creek gauge: refresh cache with any missing recent days, then inject into history
+    _refresh_creek_gauge(today)
+    _inject_creek_gauge(history)
+    _inject_creek_gauge(history_nbm)
+    _inject_creek_gauge(history_ens)
 
     with open(LAST_FORECAST_PATH, "w") as f:
         json.dump({

@@ -24,6 +24,7 @@ FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
 SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
 INTRADAY_MODEL_PATH = Path(__file__).parent.parent / "model" / "model_intraday.joblib"
+CREEK_GAUGE_PATH = Path(__file__).parent.parent / "data" / "creek_gauge.json"
 HISTORY_DAYS = 14
 
 # Reports are almost always posted in the afternoon. Same-day labels are
@@ -189,6 +190,12 @@ def main():
         with open(cache_path, "w") as f:
             json.dump(weather_cache, f, indent=2)
         print(f"  Backfilled {len(bf_daily)} daily entries.")
+
+    # Augment daily entries with creek gauge peak
+    if CREEK_GAUGE_PATH.exists():
+        gauge_daily = json.load(open(CREEK_GAUGE_PATH)).get("daily_peak", {})
+        for d, entry in hf_daily.items():
+            entry["creek_peak_ft"] = gauge_daily.get(d)
 
     weather_by_date = hf_daily
     hourly_by_date  = hf_hourly
