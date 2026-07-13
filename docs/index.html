@@ -419,6 +419,10 @@
     }
 
     function mmStr(v) { return v !== null && v !== undefined ? v.toFixed(1) + 'mm' : '—'; }
+    function hrsStr(h) {
+      if (h === null || h === undefined) return '—';
+      return h >= 48 ? Math.round(h / 24) + 'd dry' : Math.round(h) + 'h dry';
+    }
 
     function warnIcon(s) {
       const ms = s.model_scores;
@@ -442,6 +446,9 @@
               </tr><tr>
                 <td>2d</td>
                 <td>${mmStr(mpi.precip_2d)}</td><td>${mmStr(mpn.precip_2d)}</td><td>${mmStr(mpe.precip_2d)}</td>
+              </tr><tr>
+                <td>dry</td>
+                <td>${hrsStr(mpi.hours_since_rain)}</td><td>${hrsStr(mpn.hours_since_rain)}</td><td>${hrsStr(mpe.hours_since_rain)}</td>
               </tr>
             </table>
           </div>
@@ -453,10 +460,13 @@
         const vote = isToday ? getSlotVote(date, trailKey, s.slot) : null;
         const hasIntraday = s.precip_midnight_to_slot_mm !== undefined;
         const precip2d = (signals && signals.precip_2d_mm) || 0;
+        const hsr = s.features && s.features.hours_since_rain !== undefined
+            ? hrsStr(s.features.hours_since_rain) : null;
         const sigHtml = hasIntraday ? `
           <div class="slot-signals">
             <span>${s.precip_midnight_to_slot_mm}mm fcst</span>
             <span>${precip2d}mm 2d</span>
+            ${hsr ? `<span>${hsr}</span>` : ''}
           </div>` : '';
         const fbHtml = isToday ? `
           <div class="slot-feedback">
@@ -512,6 +522,8 @@
       if (Math.abs(ms.ifs - ms.nbm) < 0.25) return '';
       const msi = (day.model_signals || {});
       const mi = msi.ifs || {}, mn = msi.nbm || {}, me = msi.ensemble || {};
+      const s0mp = (day.slots && day.slots[0] && day.slots[0].model_precip) || {};
+      const hsi = (s0mp.ifs || {}).hours_since_rain, hsn = (s0mp.nbm || {}).hours_since_rain, hse = (s0mp.ensemble || {}).hours_since_rain;
       return `
         <div class="warn-wrap">
           <button class="warn-btn" onclick="toggleWarn(event,this)">⚠️</button>
@@ -528,6 +540,9 @@
               </tr><tr>
                 <td>2d</td>
                 <td>${mmStr(mi.precip_2d)}</td><td>${mmStr(mn.precip_2d)}</td><td>${mmStr(me.precip_2d)}</td>
+              </tr><tr>
+                <td>dry</td>
+                <td>${hrsStr(hsi)}</td><td>${hrsStr(hsn)}</td><td>${hrsStr(hse)}</td>
               </tr>
             </table>
           </div>

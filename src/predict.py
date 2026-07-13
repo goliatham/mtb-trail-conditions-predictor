@@ -599,10 +599,14 @@ def main():
                         "nbm":      slots_nbm[j]["score"] if slots_nbm else None,
                         "ensemble": slot["score"],
                     }
+                    def _hsr(slots, j):
+                        f = slots[j].get("features", {}) if slots else {}
+                        v = f.get("hours_since_rain")
+                        return round(v) if v is not None else None
                     slot["model_precip"] = {
-                        "ifs":      {"fcst": slots_ifs[j]["precip_midnight_to_slot_mm"] if slots_ifs else None, "precip_2d": precip_2d},
-                        "nbm":      {"fcst": slots_nbm[j]["precip_midnight_to_slot_mm"] if slots_nbm else None, "precip_2d": precip_2d_nbm},
-                        "ensemble": {"fcst": slot["precip_midnight_to_slot_mm"], "precip_2d": precip_2d_ens},
+                        "ifs":      {"fcst": slots_ifs[j]["precip_midnight_to_slot_mm"] if slots_ifs else None, "precip_2d": precip_2d, "hours_since_rain": _hsr(slots_ifs, j)},
+                        "nbm":      {"fcst": slots_nbm[j]["precip_midnight_to_slot_mm"] if slots_nbm else None, "precip_2d": precip_2d_nbm, "hours_since_rain": _hsr(slots_nbm, j)},
+                        "ensemble": {"fcst": slot["precip_midnight_to_slot_mm"], "precip_2d": precip_2d_ens, "hours_since_rain": _hsr(slots_ens, j)},
                     }
 
                 # Write-once snapshot uses ensemble features
