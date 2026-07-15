@@ -341,10 +341,11 @@ def write_feature_importances():
     imps = {name: dict(zip(cols, m.feature_importances_)) for name, m in loaded.items()}
     sorted_cols = sorted(cols, key=lambda c: imps.get("IFS", imps[next(iter(imps))]).get(c, 0), reverse=True)
 
-    header_cells = "".join(f"<th>{n}</th>" for n in loaded)
+    col_names = list(loaded.keys())
+    header_cells = "".join(f'<th onclick="sortBy({i+1})" data-col="{i+1}">{n} <span class="arrow"></span></th>' for i, n in enumerate(col_names))
     rows = ""
     for c in sorted_cols:
-        cells = "".join(f"<td>{imps[n].get(c, 0):.3f}</td>" for n in loaded)
+        cells = "".join(f'<td>{imps[n].get(c, 0):.3f}</td>' for n in col_names)
         rows += f"<tr><td>{c}</td>{cells}</tr>\n"
 
     updated = date.today().isoformat()
@@ -359,19 +360,48 @@ def write_feature_importances():
   p.sub {{ color: #888; margin-top: 0; font-size: 0.85rem; }}
   table {{ border-collapse: collapse; margin-top: 1rem; }}
   th, td {{ padding: 4px 14px; text-align: left; border-bottom: 1px solid #333; }}
-  th {{ color: #aaa; font-size: 0.8rem; }}
+  th {{ color: #aaa; font-size: 0.8rem; cursor: pointer; user-select: none; }}
+  th:hover {{ color: #eee; }}
+  th .arrow {{ font-size: 0.7rem; margin-left: 3px; color: #555; }}
+  th.sorted .arrow {{ color: #c9d1e8; }}
   td:first-child {{ color: #ccc; min-width: 240px; }}
+  td:not(:first-child) {{ text-align: right; }}
   tr:hover td {{ background: #1e1e1e; }}
 </style>
 </head>
 <body>
 <h2>Intraday model — feature importances</h2>
-<p class="sub">Sorted by IFS weight &middot; updated {updated}</p>
-<table>
-<thead><tr><th>Feature</th>{header_cells}</tr></thead>
+<p class="sub">Click a column to sort &middot; updated {updated}</p>
+<table id="t">
+<thead><tr><th onclick="sortBy(0)" data-col="0">Feature <span class="arrow"></span></th>{header_cells}</tr></thead>
 <tbody>
 {rows}</tbody>
 </table>
+<script>
+  var asc = {{}};
+  function sortBy(col) {{
+    var tb = document.querySelector('#t tbody');
+    var rows = Array.from(tb.rows);
+    var dir = asc[col] = !asc[col];
+    rows.sort(function(a, b) {{
+      var av = a.cells[col].textContent.trim();
+      var bv = b.cells[col].textContent.trim();
+      var an = parseFloat(av), bn = parseFloat(bv);
+      var cmp = isNaN(an) ? av.localeCompare(bv) : an - bn;
+      return dir ? cmp : -cmp;
+    }});
+    rows.forEach(function(r) {{ tb.appendChild(r); }});
+    document.querySelectorAll('th').forEach(function(th) {{
+      th.classList.remove('sorted');
+      th.querySelector('.arrow').textContent = '';
+    }});
+    var th = document.querySelectorAll('th')[col];
+    th.classList.add('sorted');
+    th.querySelector('.arrow').textContent = dir ? '▲' : '▼';
+  }}
+  // default: sort by IFS desc
+  sortBy(1);
+</script>
 </body>
 </html>"""
     (DOCS_PATH / "feature_importances.html").write_text(html)
