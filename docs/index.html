@@ -449,6 +449,9 @@
               </tr><tr>
                 <td>dry</td>
                 <td>${hrsStr(mpi.hours_since_rain)}</td><td>${hrsStr(mpn.hours_since_rain)}</td><td>${hrsStr(mpe.hours_since_rain)}</td>
+              </tr><tr>
+                <td>7d</td>
+                <td>${mmStr(mpi.rain_7d_mm)}</td><td>${mmStr(mpn.rain_7d_mm)}</td><td>${mmStr(mpe.rain_7d_mm)}</td>
               </tr>
             </table>
           </div>
@@ -462,11 +465,14 @@
         const precip2d = (signals && signals.precip_2d_mm) || 0;
         const hsr = s.features && s.features.hours_since_rain !== undefined
             ? hrsStr(s.features.hours_since_rain) : null;
+        const r7d = s.features && s.features.rain_7d_mm !== undefined
+            ? s.features.rain_7d_mm.toFixed(1) + 'mm 7d' : null;
         const sigHtml = hasIntraday ? `
           <div class="slot-signals">
             <span>${s.precip_midnight_to_slot_mm}mm fcst</span>
             <span>${precip2d}mm 2d</span>
             ${hsr ? `<span>${hsr}</span>` : ''}
+            ${r7d ? `<span>${r7d}</span>` : ''}
           </div>` : '';
         const fbHtml = isToday ? `
           <div class="slot-feedback">
@@ -543,6 +549,9 @@
               </tr><tr>
                 <td>dry</td>
                 <td>${hrsStr(hsi)}</td><td>${hrsStr(hsn)}</td><td>${hrsStr(hse)}</td>
+              </tr><tr>
+                <td>7d</td>
+                <td>${mmStr(mi.rain_7d_mm)}</td><td>${mmStr(mn.rain_7d_mm)}</td><td>${mmStr(me.rain_7d_mm)}</td>
               </tr>
             </table>
           </div>
