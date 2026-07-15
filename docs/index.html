@@ -298,6 +298,7 @@
     }
     .warn-table { border-collapse: collapse; width: 100%; }
     .warn-table th { font-weight: 600; color: #c9d1e8; text-align: center; padding: 0 10px 4px; font-size: 0.68rem; }
+    .warn-table th a { color: inherit; text-decoration: none; border-bottom: 1px dotted #6b7280; }
     .warn-table td { text-align: center; padding: 3px 10px; }
     .warn-table td:first-child { text-align: left; color: #9ca3af; padding-left: 0; }
     .warn-table tr:not(:first-child) td { border-top: 1px solid rgba(255,255,255,0.07); }
@@ -436,7 +437,7 @@
           <div class="warn-tip">
             <table class="warn-table">
               <tr>
-                <th></th><th>IFS</th><th>NBM</th><th>Ens</th>
+                <th></th><th><a href="feature_importances.html" target="_blank">IFS</a></th><th><a href="feature_importances.html" target="_blank">NBM</a></th><th><a href="feature_importances.html" target="_blank">Ens</a></th>
               </tr><tr>
                 <td>%</td>
                 <td>${pct(ms.ifs)}</td><td>${pct(ms.nbm)}</td><td>${pct(ms.ensemble)}</td>
@@ -536,7 +537,7 @@
           <div class="warn-tip">
             <table class="warn-table">
               <tr>
-                <th></th><th>IFS</th><th>NBM</th><th>Ens</th>
+                <th></th><th><a href="feature_importances.html" target="_blank">IFS</a></th><th><a href="feature_importances.html" target="_blank">NBM</a></th><th><a href="feature_importances.html" target="_blank">Ens</a></th>
               </tr><tr>
                 <td>%</td>
                 <td>${pct(ms.ifs)}</td><td>${pct(ms.nbm)}</td><td>${pct(ms.ensemble)}</td>

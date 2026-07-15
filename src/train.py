@@ -19,7 +19,8 @@ from features import (
 )
 from weather import get_historical_forecast
 
-DATA_PATH = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
+DATA_PATH    = Path(__file__).parent.parent / "data" / "mtb_scrape_raw.csv"
+DOCS_PATH    = Path(__file__).parent.parent / "docs"
 FEEDBACK_PATH = Path(__file__).parent.parent / "data" / "user_feedback.json"
 SNAPSHOTS_PATH = Path(__file__).parent.parent / "data" / "feature_snapshots.json"
 WEATHER_CACHE_PATH = Path(__file__).parent.parent / "data" / "weather_cache.json"
@@ -324,5 +325,59 @@ def main():
         print("\nNo hourly data available — intraday model not trained")
 
 
+def write_feature_importances():
+    """Write docs/feature_importances.html with per-model intraday feature importance table."""
+    model_dir = INTRADAY_MODEL_PATH.parent
+    model_files = {
+        "IFS":      INTRADAY_MODEL_PATH,
+        "NBM":      model_dir / "model_intraday_nbm.joblib",
+        "Ensemble": model_dir / "model_intraday_ensemble.joblib",
+    }
+    loaded = {name: joblib.load(p) for name, p in model_files.items() if p.exists()}
+    if not loaded:
+        return
+
+    cols = INTRADAY_FEATURE_COLUMNS
+    imps = {name: dict(zip(cols, m.feature_importances_)) for name, m in loaded.items()}
+    sorted_cols = sorted(cols, key=lambda c: imps.get("IFS", imps[next(iter(imps))]).get(c, 0), reverse=True)
+
+    header_cells = "".join(f"<th>{n}</th>" for n in loaded)
+    rows = ""
+    for c in sorted_cols:
+        cells = "".join(f"<td>{imps[n].get(c, 0):.3f}</td>" for n in loaded)
+        rows += f"<tr><td>{c}</td>{cells}</tr>\n"
+
+    updated = date.today().isoformat()
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Feature Importances — MTCP</title>
+<style>
+  body {{ font-family: monospace; padding: 1.5rem; background: #111; color: #eee; }}
+  h2 {{ margin-bottom: 0.25rem; }}
+  p.sub {{ color: #888; margin-top: 0; font-size: 0.85rem; }}
+  table {{ border-collapse: collapse; margin-top: 1rem; }}
+  th, td {{ padding: 4px 14px; text-align: left; border-bottom: 1px solid #333; }}
+  th {{ color: #aaa; font-size: 0.8rem; }}
+  td:first-child {{ color: #ccc; min-width: 240px; }}
+  tr:hover td {{ background: #1e1e1e; }}
+</style>
+</head>
+<body>
+<h2>Intraday model — feature importances</h2>
+<p class="sub">Sorted by IFS weight &middot; updated {updated}</p>
+<table>
+<thead><tr><th>Feature</th>{header_cells}</tr></thead>
+<tbody>
+{rows}</tbody>
+</table>
+</body>
+</html>"""
+    (DOCS_PATH / "feature_importances.html").write_text(html)
+    print(f"Wrote feature importances -> docs/feature_importances.html")
+
+
 if __name__ == "__main__":
     main()
+    write_feature_importances()
