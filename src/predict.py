@@ -166,12 +166,6 @@ def good_score(proba, classes):
     return round(score, 3)
 
 
-def _avg(*vals):
-    """Average non-None values; returns 0.0 if all are None."""
-    vs = [v for v in vals if v is not None]
-    return round(sum(vs) / len(vs), 1) if vs else 0.0
-
-
 def weather_signal(fday, feats):
     if fday["precip_mm"] > 5:
         return f'{fday["precip_mm"]:.1f}mm rain forecast'
@@ -557,10 +551,12 @@ def main():
             rain_3d_to_7d     = round(rain_7d     - precip_2d,     1)
             rain_3d_to_7d_nbm = round(rain_7d_nbm - precip_2d_nbm, 1)
             rain_3d_to_7d_ens = round(rain_7d_ens - precip_2d_ens, 1)
-            # Canonical values: average across all three model caches.
-            # Historical rain is the same real-world event — models should not diverge.
-            precip_2d_canon     = _avg(precip_2d, precip_2d_nbm, precip_2d_ens)
-            rain_3d_to_7d_canon = _avg(rain_3d_to_7d, rain_3d_to_7d_nbm, rain_3d_to_7d_ens)
+            # Canonical values: use ensemble cache directly.
+            # The ensemble averages 6 NWP models (best_match, ecmwf_ifs025, ncep_nbm_conus,
+            # ukmo_seamless, meteofrance_seamless, jma_seamless) and is the best available
+            # historical rain estimate. Averaging IFS+NBM+Ensemble would double-count two members.
+            precip_2d_canon     = precip_2d_ens
+            rain_3d_to_7d_canon = rain_3d_to_7d_ens
             day_entry = {
                 "date": fday["date"],
                 "day_name": day_name,
