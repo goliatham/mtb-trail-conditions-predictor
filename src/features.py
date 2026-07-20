@@ -43,7 +43,8 @@ def build_features(history: list[dict], forecast_day: dict,
     rain_1d = sum(rain_history[-1:])
     rain_2d = sum(rain_history[-2:])
     rain_3d = sum(rain_history[-3:])
-    rain_7d = sum(rain_history[-7:])
+    rain_7d         = sum(rain_history[-7:])
+    rain_3d_to_7d   = rain_7d - rain_2d
 
     snow_1d = sum(snow_history[-1:])
     snow_2d = sum(snow_history[-2:])
@@ -87,7 +88,7 @@ def build_features(history: list[dict], forecast_day: dict,
         "rain_1d_mm":         rain_1d,
         "rain_2d_mm":         rain_2d,
         "rain_3d_mm":         rain_3d,
-        "rain_7d_mm":         rain_7d,
+        "rain_3d_to_7d_mm":   rain_3d_to_7d,
         "snow_1d_cm":         snow_1d,
         "snow_2d_cm":         snow_2d,
         "snow_3d_cm":         snow_3d,
@@ -193,7 +194,7 @@ FEATURE_COLUMNS = [
     "rain_1d_mm",
     "rain_2d_mm",
     "rain_3d_mm",
-    "rain_7d_mm",
+    "rain_3d_to_7d_mm",
     "snow_1d_cm",
     "snow_2d_cm",
     "snow_3d_cm",
