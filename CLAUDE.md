@@ -80,3 +80,21 @@ Any change to `src/features.py` or `src/train.py` is **not complete** until:
    - `docs/predictions.json`
 
 The model files must be trained on the same feature set `predict.py` uses — shipping code without updated models breaks the GitHub Actions predict workflow.
+
+### Per-model data consistency
+
+Each of the three ML models (IFS, NBM, Ensemble) must use its **own** data source end-to-end — both for historical features and forecast features. Do not share or average weather/precipitation data across models unless explicitly instructed.
+
+| Feature | IFS model | NBM model | Ensemble model |
+|---|---|---|---|
+| Historical weather cache | `hist` (best_match) | `hist_n` (ncep_nbm_conus) | `hist_e` (ensemble cache) |
+| Forecast precipitation | IFS forecast | NBM forecast | Average of 6 NWP models |
+| `precip_2d`, `rain_3d_to_7d_mm`, `hours_since_rain` | From IFS cache | From NBM cache | From ensemble cache |
+
+**Intentional exceptions — these ARE shared across all three models:**
+
+- **Soil features** (`soil_moisture`, `soil_moisture_deep`, `soil_temp_*`): sourced from `best_match`/`ecmwf_ifs025` only, because other NWP models don't reliably provide soil data. See `_average_forecasts()` comment in `predict.py`.
+- **`prior_report_score`**: derived from MTBProject trail condition report, fetched once per trail and shared across all three models.
+- **Training labels / user vote scores**: from Cloudflare KV (user feedback), shared across all models — these are ground truth, not model-specific inputs.
+
+If you find yourself writing `precip_2d_canon` or averaging weather cache values across models, stop and re-read this rule.
