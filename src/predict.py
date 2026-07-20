@@ -551,12 +551,6 @@ def main():
             rain_3d_to_7d     = round(rain_7d     - precip_2d,     1)
             rain_3d_to_7d_nbm = round(rain_7d_nbm - precip_2d_nbm, 1)
             rain_3d_to_7d_ens = round(rain_7d_ens - precip_2d_ens, 1)
-            # Canonical values: use ensemble cache directly.
-            # The ensemble averages 6 NWP models (best_match, ecmwf_ifs025, ncep_nbm_conus,
-            # ukmo_seamless, meteofrance_seamless, jma_seamless) and is the best available
-            # historical rain estimate. Averaging IFS+NBM+Ensemble would double-count two members.
-            precip_2d_canon     = precip_2d_ens
-            rain_3d_to_7d_canon = rain_3d_to_7d_ens
             day_entry = {
                 "date": fday["date"],
                 "day_name": day_name,
@@ -564,7 +558,7 @@ def main():
                 "forecast_precip_mm": fday_ens["precip_mm"],
                 "signals": {
                     "forecast_precip_mm": round(fday_ens["precip_mm"] or 0.0, 1),
-                    "precip_2d_mm": precip_2d_canon,
+                    "precip_2d_mm": precip_2d,
                     "soil_moisture": round(feats_ens["soil_moisture"], 3),
                     "soil_moisture_deep": round(feats_ens["soil_moisture_deep"], 3),
                     "sunrise": fday_ens.get("sunrise"),
@@ -573,9 +567,9 @@ def main():
                 "features": {k: round(v, 4) if isinstance(v, float) else v
                              for k, v in feats_ens.items() if k in FEATURE_COLUMNS},
                 "model_signals": {
-                    "ifs":      {"forecast_precip_mm": round(fday["precip_mm"]     or 0.0, 1), "precip_2d": precip_2d_canon, "rain_3d_to_7d_mm": rain_3d_to_7d_canon},
-                    "nbm":      {"forecast_precip_mm": round(fday_nbm["precip_mm"] or 0.0, 1), "precip_2d": precip_2d_canon, "rain_3d_to_7d_mm": rain_3d_to_7d_canon},
-                    "ensemble": {"forecast_precip_mm": round(fday_ens["precip_mm"] or 0.0, 1), "precip_2d": precip_2d_canon, "rain_3d_to_7d_mm": rain_3d_to_7d_canon},
+                    "ifs":      {"forecast_precip_mm": round(fday["precip_mm"]     or 0.0, 1), "precip_2d": precip_2d,     "rain_3d_to_7d_mm": rain_3d_to_7d},
+                    "nbm":      {"forecast_precip_mm": round(fday_nbm["precip_mm"] or 0.0, 1), "precip_2d": precip_2d_nbm, "rain_3d_to_7d_mm": rain_3d_to_7d_nbm},
+                    "ensemble": {"forecast_precip_mm": round(fday_ens["precip_mm"] or 0.0, 1), "precip_2d": precip_2d_ens, "rain_3d_to_7d_mm": rain_3d_to_7d_ens},
                 },
             }
 
@@ -616,9 +610,9 @@ def main():
                         v = f.get("hours_since_rain")
                         return round(v) if v is not None else None
                     slot["model_precip"] = {
-                        "ifs":      {"fcst": slots_ifs[j]["precip_midnight_to_slot_mm"] if slots_ifs else None, "precip_2d": precip_2d_canon, "hours_since_rain": _hsr(slots_ifs, j), "rain_3d_to_7d_mm": rain_3d_to_7d_canon},
-                        "nbm":      {"fcst": slots_nbm[j]["precip_midnight_to_slot_mm"] if slots_nbm else None, "precip_2d": precip_2d_canon, "hours_since_rain": _hsr(slots_nbm, j), "rain_3d_to_7d_mm": rain_3d_to_7d_canon},
-                        "ensemble": {"fcst": slot["precip_midnight_to_slot_mm"],                                "precip_2d": precip_2d_canon, "hours_since_rain": _hsr(slots_ens, j), "rain_3d_to_7d_mm": rain_3d_to_7d_canon},
+                        "ifs":      {"fcst": slots_ifs[j]["precip_midnight_to_slot_mm"] if slots_ifs else None, "precip_2d": precip_2d,     "hours_since_rain": _hsr(slots_ifs, j), "rain_3d_to_7d_mm": rain_3d_to_7d},
+                        "nbm":      {"fcst": slots_nbm[j]["precip_midnight_to_slot_mm"] if slots_nbm else None, "precip_2d": precip_2d_nbm, "hours_since_rain": _hsr(slots_nbm, j), "rain_3d_to_7d_mm": rain_3d_to_7d_nbm},
+                        "ensemble": {"fcst": slot["precip_midnight_to_slot_mm"],                                "precip_2d": precip_2d_ens, "hours_since_rain": _hsr(slots_ens, j), "rain_3d_to_7d_mm": rain_3d_to_7d_ens},
                     }
 
                 # Write-once snapshot uses ensemble features
