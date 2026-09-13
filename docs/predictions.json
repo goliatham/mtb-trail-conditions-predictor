@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T12:56:14.995203Z",
+  "generated_at": "2026-09-13T13:04:01.025961Z",
   "trails": {
     "phase1": {
       "trail_name": "Alum Creek Phase 1",
@@ -7,36 +7,36 @@
         {
           "date": "2026-09-13",
           "day_name": "Today",
-          "signal": "Soil 0.30",
+          "signal": "24.0mm rain yesterday",
           "forecast_precip_mm": 2.5166666666666666,
           "signals": {
             "forecast_precip_mm": 2.5,
             "precip_2d_mm": 3.1,
-            "soil_moisture": 0.303,
-            "soil_moisture_deep": 0.308,
+            "soil_moisture": 0.245,
+            "soil_moisture_deep": 0.189,
             "sunrise": "07:10",
             "sunset": "19:43"
           },
           "features": {
-            "precip_1d_mm": 3.1,
-            "precip_3d_mm": 4.5,
-            "precip_7d_mm": 94.2,
-            "rain_1d_mm": 3.1,
-            "rain_2d_mm": 3.1,
-            "rain_3d_mm": 4.5,
-            "rain_3d_to_7d_mm": 91.1,
+            "precip_1d_mm": 24.05,
+            "precip_3d_mm": 28.2667,
+            "precip_7d_mm": 50.5667,
+            "rain_1d_mm": 24.05,
+            "rain_2d_mm": 24.4667,
+            "rain_3d_mm": 28.2667,
+            "rain_3d_to_7d_mm": 26.1,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.3034,
-            "soil_moisture_deep": 0.3085,
+            "soil_moisture": 0.245,
+            "soil_moisture_deep": 0.189,
             "soil_temp_0cm": 18.8,
             "soil_temp_6cm": 21.4,
             "soil_temp_18cm": 22.6,
             "temp_max_c": 27.7833,
             "temp_min_c": 19.3,
-            "days_since_rain": 3,
+            "days_since_rain": 0,
             "consecutive_dry_days": 0,
             "dry_surplus": -3,
             "forecast_precip_mm": 2.5167,
@@ -59,35 +59,35 @@
             },
             "ensemble": {
               "forecast_precip_mm": 2.5,
-              "precip_2d": 3.1,
-              "rain_3d_to_7d_mm": 91.1
+              "precip_2d": 24.5,
+              "rain_3d_to_7d_mm": 26.1
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.82,
+              "score": 0.051,
               "proba": [
-                0.18,
-                0.82
+                0.949,
+                0.051
               ],
               "precip_midnight_to_slot_mm": 1.1,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -104,13 +104,13 @@
                 "precip_midnight_to_slot_mm": 1.0667,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 21.0,
+                "hours_since_rain": 8.0,
                 "temp_at_slot_c": 20.3604
               },
               "model_scores": {
-                "ifs": 0.909,
-                "nbm": 0.417,
-                "ensemble": 0.82
+                "ifs": 0.709,
+                "nbm": 0.297,
+                "ensemble": 0.051
               },
               "model_precip": {
                 "ifs": {
@@ -127,36 +127,36 @@
                 },
                 "ensemble": {
                   "fcst": 1.1,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 21,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 8,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.835,
+              "score": 0.054,
               "proba": [
-                0.165,
-                0.835
+                0.946,
+                0.054
               ],
               "precip_midnight_to_slot_mm": 1.1,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -173,13 +173,13 @@
                 "precip_midnight_to_slot_mm": 1.0667,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 25.0,
+                "hours_since_rain": 12.0,
                 "temp_at_slot_c": 24.6021
               },
               "model_scores": {
-                "ifs": 0.894,
-                "nbm": 0.417,
-                "ensemble": 0.835
+                "ifs": 0.746,
+                "nbm": 0.273,
+                "ensemble": 0.054
               },
               "model_precip": {
                 "ifs": {
@@ -196,36 +196,36 @@
                 },
                 "ensemble": {
                   "fcst": 1.1,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 25,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 12,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.866,
+              "score": 0.059,
               "proba": [
-                0.134,
-                0.866
+                0.941,
+                0.059
               ],
               "precip_midnight_to_slot_mm": 1.1,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -242,13 +242,13 @@
                 "precip_midnight_to_slot_mm": 1.1333,
                 "precip_3h_before_slot_mm": 0.0667,
                 "hour": 15,
-                "hours_since_rain": 29.0,
+                "hours_since_rain": 16.0,
                 "temp_at_slot_c": 26.935
               },
               "model_scores": {
-                "ifs": 0.894,
-                "nbm": 0.417,
-                "ensemble": 0.866
+                "ifs": 0.716,
+                "nbm": 0.273,
+                "ensemble": 0.059
               },
               "model_precip": {
                 "ifs": {
@@ -265,36 +265,36 @@
                 },
                 "ensemble": {
                   "fcst": 1.1,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 29,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 16,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.824,
+              "score": 0.054,
               "proba": [
-                0.176,
-                0.824
+                0.946,
+                0.054
               ],
               "precip_midnight_to_slot_mm": 1.5,
               "precip_3h_before_slot_mm": 0.3,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -311,13 +311,13 @@
                 "precip_midnight_to_slot_mm": 1.4667,
                 "precip_3h_before_slot_mm": 0.2833,
                 "hour": 19,
-                "hours_since_rain": 33.0,
+                "hours_since_rain": 20.0,
                 "temp_at_slot_c": 23.5417
               },
               "model_scores": {
-                "ifs": 0.876,
-                "nbm": 0.338,
-                "ensemble": 0.824
+                "ifs": 0.743,
+                "nbm": 0.132,
+                "ensemble": 0.054
               },
               "model_precip": {
                 "ifs": {
@@ -334,18 +334,18 @@
                 },
                 "ensemble": {
                   "fcst": 1.5,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 33,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 20,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             }
           ],
-          "score": 0.836,
+          "score": 0.054,
           "model_scores": {
-            "ifs": 0.893,
-            "nbm": 0.397,
-            "ensemble": 0.836
+            "ifs": 0.729,
+            "nbm": 0.244,
+            "ensemble": 0.054
           }
         },
         {
@@ -363,12 +363,12 @@
           },
           "features": {
             "precip_1d_mm": 2.5167,
-            "precip_3d_mm": 5.6167,
-            "precip_7d_mm": 96.7167,
+            "precip_3d_mm": 26.9833,
+            "precip_7d_mm": 53.0667,
             "rain_1d_mm": 2.5167,
-            "rain_2d_mm": 5.6167,
-            "rain_3d_mm": 5.6167,
-            "rain_3d_to_7d_mm": 91.1,
+            "rain_2d_mm": 26.5667,
+            "rain_3d_mm": 26.9833,
+            "rain_3d_to_7d_mm": 26.5,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -380,7 +380,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 21.8667,
             "temp_min_c": 13.6667,
-            "days_since_rain": 4,
+            "days_since_rain": 1,
             "consecutive_dry_days": 0,
             "dry_surplus": -3,
             "forecast_precip_mm": 0.0167,
@@ -403,29 +403,29 @@
             },
             "ensemble": {
               "forecast_precip_mm": 0.0,
-              "precip_2d": 5.6,
-              "rain_3d_to_7d_mm": 91.1
+              "precip_2d": 26.6,
+              "rain_3d_to_7d_mm": 26.5
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.962,
+              "score": 0.822,
               "proba": [
-                0.038,
-                0.962
+                0.178,
+                0.822
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -448,13 +448,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 45.0,
+                "hours_since_rain": 32.0,
                 "temp_at_slot_c": 14.6917
               },
               "model_scores": {
-                "ifs": 0.874,
-                "nbm": 0.488,
-                "ensemble": 0.962
+                "ifs": 0.848,
+                "nbm": 0.64,
+                "ensemble": 0.822
               },
               "model_precip": {
                 "ifs": {
@@ -471,30 +471,30 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 45,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 32,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.977,
+              "score": 0.861,
               "proba": [
-                0.023,
-                0.977
+                0.139,
+                0.861
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -517,13 +517,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 49.0,
+                "hours_since_rain": 36.0,
                 "temp_at_slot_c": 18.7917
               },
               "model_scores": {
-                "ifs": 0.874,
-                "nbm": 0.285,
-                "ensemble": 0.977
+                "ifs": 0.848,
+                "nbm": 0.52,
+                "ensemble": 0.861
               },
               "model_precip": {
                 "ifs": {
@@ -540,30 +540,30 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 49,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 36,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.977,
+              "score": 0.849,
               "proba": [
-                0.023,
-                0.977
+                0.151,
+                0.849
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -586,13 +586,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
-                "hours_since_rain": 53.0,
+                "hours_since_rain": 40.0,
                 "temp_at_slot_c": 21.0467
               },
               "model_scores": {
-                "ifs": 0.874,
-                "nbm": 0.285,
-                "ensemble": 0.977
+                "ifs": 0.848,
+                "nbm": 0.52,
+                "ensemble": 0.849
               },
               "model_precip": {
                 "ifs": {
@@ -609,30 +609,30 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 53,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 40,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.976,
+              "score": 0.861,
               "proba": [
-                0.024,
-                0.976
+                0.139,
+                0.861
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -655,13 +655,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
-                "hours_since_rain": 57.0,
+                "hours_since_rain": 44.0,
                 "temp_at_slot_c": 17.7667
               },
               "model_scores": {
-                "ifs": 0.881,
-                "nbm": 0.285,
-                "ensemble": 0.976
+                "ifs": 0.846,
+                "nbm": 0.52,
+                "ensemble": 0.861
               },
               "model_precip": {
                 "ifs": {
@@ -678,18 +678,18 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 57,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 44,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             }
           ],
-          "score": 0.973,
+          "score": 0.848,
           "model_scores": {
-            "ifs": 0.876,
-            "nbm": 0.336,
-            "ensemble": 0.973
+            "ifs": 0.848,
+            "nbm": 0.55,
+            "ensemble": 0.848
           }
         },
         {
@@ -707,12 +707,12 @@
           },
           "features": {
             "precip_1d_mm": 0.0167,
-            "precip_3d_mm": 5.6333,
-            "precip_7d_mm": 96.7333,
+            "precip_3d_mm": 26.5833,
+            "precip_7d_mm": 53.0833,
             "rain_1d_mm": 0.0167,
             "rain_2d_mm": 2.5333,
-            "rain_3d_mm": 5.6333,
-            "rain_3d_to_7d_mm": 94.2,
+            "rain_3d_mm": 26.5833,
+            "rain_3d_to_7d_mm": 50.55,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -724,7 +724,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 28.4333,
             "temp_min_c": 13.7833,
-            "days_since_rain": 5,
+            "days_since_rain": 2,
             "consecutive_dry_days": 1,
             "dry_surplus": -2,
             "forecast_precip_mm": 0.0,
@@ -748,28 +748,28 @@
             "ensemble": {
               "forecast_precip_mm": 0.0,
               "precip_2d": 2.5,
-              "rain_3d_to_7d_mm": 94.2
+              "rain_3d_to_7d_mm": 50.6
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.983,
+              "score": 0.96,
               "proba": [
-                0.017,
-                0.983
+                0.04,
+                0.96
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -792,13 +792,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 69.0,
+                "hours_since_rain": 56.0,
                 "temp_at_slot_c": 15.6146
               },
               "model_scores": {
-                "ifs": 0.967,
-                "nbm": 0.773,
-                "ensemble": 0.983
+                "ifs": 0.953,
+                "nbm": 0.789,
+                "ensemble": 0.96
               },
               "model_precip": {
                 "ifs": {
@@ -816,29 +816,29 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 69,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 56,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.984,
+              "score": 0.962,
               "proba": [
-                0.016,
-                0.984
+                0.038,
+                0.962
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -861,13 +861,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 73.0,
+                "hours_since_rain": 60.0,
                 "temp_at_slot_c": 22.9396
               },
               "model_scores": {
-                "ifs": 0.967,
-                "nbm": 0.615,
-                "ensemble": 0.984
+                "ifs": 0.953,
+                "nbm": 0.741,
+                "ensemble": 0.962
               },
               "model_precip": {
                 "ifs": {
@@ -885,29 +885,29 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 73,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 60,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.984,
+              "score": 0.962,
               "proba": [
-                0.016,
-                0.984
+                0.038,
+                0.962
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -930,13 +930,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
-                "hours_since_rain": 77.0,
+                "hours_since_rain": 64.0,
                 "temp_at_slot_c": 26.9683
               },
               "model_scores": {
-                "ifs": 0.962,
-                "nbm": 0.593,
-                "ensemble": 0.984
+                "ifs": 0.955,
+                "nbm": 0.727,
+                "ensemble": 0.962
               },
               "model_precip": {
                 "ifs": {
@@ -954,29 +954,29 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 77,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 64,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.982,
+              "score": 0.956,
               "proba": [
-                0.018,
-                0.982
+                0.044,
+                0.956
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -999,13 +999,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
-                "hours_since_rain": 81.0,
+                "hours_since_rain": 68.0,
                 "temp_at_slot_c": 21.1083
               },
               "model_scores": {
-                "ifs": 0.96,
-                "nbm": 0.593,
-                "ensemble": 0.982
+                "ifs": 0.954,
+                "nbm": 0.649,
+                "ensemble": 0.956
               },
               "model_precip": {
                 "ifs": {
@@ -1023,17 +1023,17 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 81,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 68,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             }
           ],
-          "score": 0.983,
+          "score": 0.96,
           "model_scores": {
-            "ifs": 0.964,
-            "nbm": 0.643,
-            "ensemble": 0.983
+            "ifs": 0.954,
+            "nbm": 0.727,
+            "ensemble": 0.96
           }
         },
         {
@@ -1052,11 +1052,11 @@
           "features": {
             "precip_1d_mm": 0.0,
             "precip_3d_mm": 2.5333,
-            "precip_7d_mm": 96.7333,
+            "precip_7d_mm": 52.7833,
             "rain_1d_mm": 0.0,
             "rain_2d_mm": 0.0167,
             "rain_3d_mm": 2.5333,
-            "rain_3d_to_7d_mm": 96.7167,
+            "rain_3d_to_7d_mm": 52.7667,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -1068,7 +1068,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 29.7667,
             "temp_min_c": 20.9833,
-            "days_since_rain": 6,
+            "days_since_rain": 3,
             "consecutive_dry_days": 2,
             "dry_surplus": -1,
             "forecast_precip_mm": 2.3833,
@@ -1092,28 +1092,28 @@
             "ensemble": {
               "forecast_precip_mm": 2.4,
               "precip_2d": 0.0,
-              "rain_3d_to_7d_mm": 96.7
+              "rain_3d_to_7d_mm": 52.8
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.697,
+              "score": 0.776,
               "proba": [
-                0.303,
-                0.697
+                0.224,
+                0.776
               ],
               "precip_midnight_to_slot_mm": 0.9,
               "precip_3h_before_slot_mm": 0.2,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1136,13 +1136,13 @@
                 "precip_midnight_to_slot_mm": 0.9333,
                 "precip_3h_before_slot_mm": 0.1667,
                 "hour": 7,
-                "hours_since_rain": 93.0,
+                "hours_since_rain": 80.0,
                 "temp_at_slot_c": 22.0813
               },
               "model_scores": {
-                "ifs": 0.316,
-                "nbm": 0.235,
-                "ensemble": 0.697
+                "ifs": 0.36,
+                "nbm": 0.167,
+                "ensemble": 0.776
               },
               "model_precip": {
                 "ifs": {
@@ -1160,29 +1160,29 @@
                 "ensemble": {
                   "fcst": 0.9,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 93,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 80,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.617,
+              "score": 0.776,
               "proba": [
-                0.383,
-                0.617
+                0.224,
+                0.776
               ],
               "precip_midnight_to_slot_mm": 1.6,
               "precip_3h_before_slot_mm": 0.4,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1205,13 +1205,13 @@
                 "precip_midnight_to_slot_mm": 1.6,
                 "precip_3h_before_slot_mm": 0.45,
                 "hour": 11,
-                "hours_since_rain": 97.0,
+                "hours_since_rain": 84.0,
                 "temp_at_slot_c": 26.4729
               },
               "model_scores": {
-                "ifs": 0.132,
-                "nbm": 0.351,
-                "ensemble": 0.617
+                "ifs": 0.2,
+                "nbm": 0.273,
+                "ensemble": 0.776
               },
               "model_precip": {
                 "ifs": {
@@ -1229,29 +1229,29 @@
                 "ensemble": {
                   "fcst": 1.6,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 97,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 84,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.617,
+              "score": 0.789,
               "proba": [
-                0.383,
-                0.617
+                0.211,
+                0.789
               ],
               "precip_midnight_to_slot_mm": 1.7,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1274,13 +1274,13 @@
                 "precip_midnight_to_slot_mm": 1.7,
                 "precip_3h_before_slot_mm": 0.05,
                 "hour": 15,
-                "hours_since_rain": 101.0,
+                "hours_since_rain": 88.0,
                 "temp_at_slot_c": 28.8883
               },
               "model_scores": {
-                "ifs": 0.439,
-                "nbm": 0.351,
-                "ensemble": 0.617
+                "ifs": 0.442,
+                "nbm": 0.273,
+                "ensemble": 0.789
               },
               "model_precip": {
                 "ifs": {
@@ -1298,29 +1298,29 @@
                 "ensemble": {
                   "fcst": 1.7,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 101,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 88,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.617,
+              "score": 0.637,
               "proba": [
-                0.383,
-                0.617
+                0.363,
+                0.637
               ],
               "precip_midnight_to_slot_mm": 2.4,
               "precip_3h_before_slot_mm": 0.5,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1343,13 +1343,13 @@
                 "precip_midnight_to_slot_mm": 2.4167,
                 "precip_3h_before_slot_mm": 0.5333,
                 "hour": 19,
-                "hours_since_rain": 105.0,
+                "hours_since_rain": 92.0,
                 "temp_at_slot_c": 25.375
               },
               "model_scores": {
-                "ifs": 0.321,
-                "nbm": 0.156,
-                "ensemble": 0.617
+                "ifs": 0.455,
+                "nbm": 0.123,
+                "ensemble": 0.637
               },
               "model_precip": {
                 "ifs": {
@@ -1367,17 +1367,17 @@
                 "ensemble": {
                   "fcst": 2.4,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 105,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 92,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             }
           ],
-          "score": 0.637,
+          "score": 0.745,
           "model_scores": {
-            "ifs": 0.302,
-            "nbm": 0.273,
-            "ensemble": 0.637
+            "ifs": 0.364,
+            "nbm": 0.209,
+            "ensemble": 0.745
           }
         },
         {
@@ -1396,11 +1396,11 @@
           "features": {
             "precip_1d_mm": 2.3833,
             "precip_3d_mm": 2.4,
-            "precip_7d_mm": 9.4167,
+            "precip_7d_mm": 33.1833,
             "rain_1d_mm": 2.3833,
             "rain_2d_mm": 2.3833,
             "rain_3d_mm": 2.4,
-            "rain_3d_to_7d_mm": 7.0333,
+            "rain_3d_to_7d_mm": 30.8,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -1412,7 +1412,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 27.56,
             "temp_min_c": 19.92,
-            "days_since_rain": 7,
+            "days_since_rain": 4,
             "consecutive_dry_days": 0,
             "dry_surplus": -3,
             "forecast_precip_mm": 3.0667,
@@ -1436,28 +1436,28 @@
             "ensemble": {
               "forecast_precip_mm": 3.1,
               "precip_2d": 2.4,
-              "rain_3d_to_7d_mm": 7.0
+              "rain_3d_to_7d_mm": 30.8
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.948,
+              "score": 0.561,
               "proba": [
-                0.052,
-                0.948
+                0.439,
+                0.561
               ],
               "precip_midnight_to_slot_mm": 0.6,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1480,13 +1480,13 @@
                 "precip_midnight_to_slot_mm": 0.6167,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 117.0,
+                "hours_since_rain": 104.0,
                 "temp_at_slot_c": 20.875
               },
               "model_scores": {
-                "ifs": 0.727,
-                "nbm": 0.978,
-                "ensemble": 0.948
+                "ifs": 0.334,
+                "nbm": 0.824,
+                "ensemble": 0.561
               },
               "model_precip": {
                 "ifs": {
@@ -1504,29 +1504,29 @@
                 "ensemble": {
                   "fcst": 0.6,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 117,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 104,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.957,
+              "score": 0.577,
               "proba": [
-                0.043,
-                0.957
+                0.423,
+                0.577
               ],
               "precip_midnight_to_slot_mm": 0.8,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1549,13 +1549,13 @@
                 "precip_midnight_to_slot_mm": 0.7667,
                 "precip_3h_before_slot_mm": 0.15,
                 "hour": 11,
-                "hours_since_rain": 121.0,
+                "hours_since_rain": 108.0,
                 "temp_at_slot_c": 24.695
               },
               "model_scores": {
-                "ifs": 0.727,
-                "nbm": 0.974,
-                "ensemble": 0.957
+                "ifs": 0.281,
+                "nbm": 0.803,
+                "ensemble": 0.577
               },
               "model_precip": {
                 "ifs": {
@@ -1573,29 +1573,29 @@
                 "ensemble": {
                   "fcst": 0.8,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 121,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 108,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.957,
+              "score": 0.596,
               "proba": [
-                0.043,
-                0.957
+                0.404,
+                0.596
               ],
               "precip_midnight_to_slot_mm": 1.0,
               "precip_3h_before_slot_mm": 0.2,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1618,13 +1618,13 @@
                 "precip_midnight_to_slot_mm": 1.0167,
                 "precip_3h_before_slot_mm": 0.1833,
                 "hour": 15,
-                "hours_since_rain": 125.0,
+                "hours_since_rain": 112.0,
                 "temp_at_slot_c": 26.796
               },
               "model_scores": {
-                "ifs": 0.727,
-                "nbm": 0.974,
-                "ensemble": 0.957
+                "ifs": 0.27,
+                "nbm": 0.803,
+                "ensemble": 0.596
               },
               "model_precip": {
                 "ifs": {
@@ -1642,29 +1642,29 @@
                 "ensemble": {
                   "fcst": 1.0,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 125,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 112,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.399,
+              "score": 0.119,
               "proba": [
-                0.601,
-                0.399
+                0.881,
+                0.119
               ],
               "precip_midnight_to_slot_mm": 2.2,
               "precip_3h_before_slot_mm": 0.9,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1687,13 +1687,13 @@
                 "precip_midnight_to_slot_mm": 2.2167,
                 "precip_3h_before_slot_mm": 0.8833,
                 "hour": 19,
-                "hours_since_rain": 129.0,
+                "hours_since_rain": 116.0,
                 "temp_at_slot_c": 23.74
               },
               "model_scores": {
-                "ifs": 0.722,
-                "nbm": 0.947,
-                "ensemble": 0.399
+                "ifs": 0.301,
+                "nbm": 0.648,
+                "ensemble": 0.119
               },
               "model_precip": {
                 "ifs": {
@@ -1711,17 +1711,17 @@
                 "ensemble": {
                   "fcst": 2.2,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 129,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 116,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             }
           ],
-          "score": 0.815,
+          "score": 0.463,
           "model_scores": {
-            "ifs": 0.726,
-            "nbm": 0.968,
-            "ensemble": 0.815
+            "ifs": 0.296,
+            "nbm": 0.77,
+            "ensemble": 0.463
           }
         },
         {
@@ -1740,11 +1740,11 @@
           "features": {
             "precip_1d_mm": 3.0667,
             "precip_3d_mm": 5.45,
-            "precip_7d_mm": 11.0833,
+            "precip_7d_mm": 32.45,
             "rain_1d_mm": 3.0667,
             "rain_2d_mm": 5.45,
             "rain_3d_mm": 5.45,
-            "rain_3d_to_7d_mm": 5.6333,
+            "rain_3d_to_7d_mm": 27.0,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -1756,7 +1756,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 25.1,
             "temp_min_c": 17.44,
-            "days_since_rain": 8,
+            "days_since_rain": 5,
             "consecutive_dry_days": 0,
             "dry_surplus": -3,
             "forecast_precip_mm": 0.8667,
@@ -1780,28 +1780,28 @@
             "ensemble": {
               "forecast_precip_mm": 0.9,
               "precip_2d": 5.4,
-              "rain_3d_to_7d_mm": 5.7
+              "rain_3d_to_7d_mm": 27.0
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.967,
+              "score": 0.798,
               "proba": [
-                0.033,
-                0.967
+                0.202,
+                0.798
               ],
               "precip_midnight_to_slot_mm": 0.2,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1824,13 +1824,13 @@
                 "precip_midnight_to_slot_mm": 0.2,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 141.0,
+                "hours_since_rain": 128.0,
                 "temp_at_slot_c": 18.3975
               },
               "model_scores": {
-                "ifs": 0.971,
-                "nbm": 0.967,
-                "ensemble": 0.967
+                "ifs": 0.838,
+                "nbm": 0.734,
+                "ensemble": 0.798
               },
               "model_precip": {
                 "ifs": {
@@ -1848,29 +1848,29 @@
                 "ensemble": {
                   "fcst": 0.2,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 141,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 128,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.985,
+              "score": 0.834,
               "proba": [
-                0.015,
-                0.985
+                0.166,
+                0.834
               ],
               "precip_midnight_to_slot_mm": 0.2,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1893,13 +1893,13 @@
                 "precip_midnight_to_slot_mm": 0.2,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 145.0,
+                "hours_since_rain": 132.0,
                 "temp_at_slot_c": 22.2275
               },
               "model_scores": {
-                "ifs": 0.971,
-                "nbm": 0.967,
-                "ensemble": 0.985
+                "ifs": 0.838,
+                "nbm": 0.716,
+                "ensemble": 0.834
               },
               "model_precip": {
                 "ifs": {
@@ -1917,29 +1917,29 @@
                 "ensemble": {
                   "fcst": 0.2,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 145,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 132,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.985,
+              "score": 0.834,
               "proba": [
-                0.015,
-                0.985
+                0.166,
+                0.834
               ],
               "precip_midnight_to_slot_mm": 0.2,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -1962,13 +1962,13 @@
                 "precip_midnight_to_slot_mm": 0.2,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
-                "hours_since_rain": 149.0,
+                "hours_since_rain": 136.0,
                 "temp_at_slot_c": 24.334
               },
               "model_scores": {
-                "ifs": 0.971,
-                "nbm": 0.961,
-                "ensemble": 0.985
+                "ifs": 0.87,
+                "nbm": 0.706,
+                "ensemble": 0.834
               },
               "model_precip": {
                 "ifs": {
@@ -1986,29 +1986,29 @@
                 "ensemble": {
                   "fcst": 0.2,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 149,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 136,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.98,
+              "score": 0.782,
               "proba": [
-                0.02,
-                0.98
+                0.218,
+                0.782
               ],
               "precip_midnight_to_slot_mm": 0.3,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -2031,13 +2031,13 @@
                 "precip_midnight_to_slot_mm": 0.2667,
                 "precip_3h_before_slot_mm": 0.05,
                 "hour": 19,
-                "hours_since_rain": 153.0,
+                "hours_since_rain": 140.0,
                 "temp_at_slot_c": 21.27
               },
               "model_scores": {
-                "ifs": 0.973,
-                "nbm": 0.954,
-                "ensemble": 0.98
+                "ifs": 0.835,
+                "nbm": 0.583,
+                "ensemble": 0.782
               },
               "model_precip": {
                 "ifs": {
@@ -2055,17 +2055,17 @@
                 "ensemble": {
                   "fcst": 0.3,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 153,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 140,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             }
           ],
-          "score": 0.979,
+          "score": 0.812,
           "model_scores": {
-            "ifs": 0.971,
-            "nbm": 0.962,
-            "ensemble": 0.979
+            "ifs": 0.845,
+            "nbm": 0.685,
+            "ensemble": 0.812
           }
         },
         {
@@ -2084,11 +2084,11 @@
           "features": {
             "precip_1d_mm": 0.8667,
             "precip_3d_mm": 6.3167,
-            "precip_7d_mm": 11.95,
+            "precip_7d_mm": 32.9,
             "rain_1d_mm": 0.8667,
             "rain_2d_mm": 3.9333,
             "rain_3d_mm": 6.3167,
-            "rain_3d_to_7d_mm": 8.0167,
+            "rain_3d_to_7d_mm": 28.9667,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -2100,7 +2100,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 25.75,
             "temp_min_c": 16.425,
-            "days_since_rain": 9,
+            "days_since_rain": 6,
             "consecutive_dry_days": 1,
             "dry_surplus": -2,
             "forecast_precip_mm": 2.5833,
@@ -2124,28 +2124,28 @@
             "ensemble": {
               "forecast_precip_mm": 2.6,
               "precip_2d": 3.9,
-              "rain_3d_to_7d_mm": 8.1
+              "rain_3d_to_7d_mm": 29.0
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.991,
+              "score": 0.873,
               "proba": [
-                0.009,
-                0.991
+                0.127,
+                0.873
               ],
               "precip_midnight_to_slot_mm": 0.1,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -2168,13 +2168,13 @@
                 "precip_midnight_to_slot_mm": 0.1167,
                 "precip_3h_before_slot_mm": 0.05,
                 "hour": 7,
-                "hours_since_rain": 165.0,
+                "hours_since_rain": 152.0,
                 "temp_at_slot_c": 17.5906
               },
               "model_scores": {
-                "ifs": 0.987,
-                "nbm": 0.734,
-                "ensemble": 0.991
+                "ifs": 0.973,
+                "nbm": 0.034,
+                "ensemble": 0.873
               },
               "model_precip": {
                 "ifs": {
@@ -2192,29 +2192,29 @@
                 "ensemble": {
                   "fcst": 0.1,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 165,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 152,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.989,
+              "score": 0.881,
               "proba": [
-                0.011,
-                0.989
+                0.119,
+                0.881
               ],
               "precip_midnight_to_slot_mm": 0.3,
               "precip_3h_before_slot_mm": 0.2,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -2237,13 +2237,13 @@
                 "precip_midnight_to_slot_mm": 0.35,
                 "precip_3h_before_slot_mm": 0.2167,
                 "hour": 11,
-                "hours_since_rain": 169.0,
+                "hours_since_rain": 156.0,
                 "temp_at_slot_c": 22.2531
               },
               "model_scores": {
-                "ifs": 0.987,
-                "nbm": 0.519,
-                "ensemble": 0.989
+                "ifs": 0.973,
+                "nbm": 0.013,
+                "ensemble": 0.881
               },
               "model_precip": {
                 "ifs": {
@@ -2261,29 +2261,29 @@
                 "ensemble": {
                   "fcst": 0.3,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 169,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 156,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.989,
+              "score": 0.881,
               "proba": [
-                0.011,
-                0.989
+                0.119,
+                0.881
               ],
               "precip_midnight_to_slot_mm": 0.7,
               "precip_3h_before_slot_mm": 0.3,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -2306,13 +2306,13 @@
                 "precip_midnight_to_slot_mm": 0.75,
                 "precip_3h_before_slot_mm": 0.3,
                 "hour": 15,
-                "hours_since_rain": 173.0,
+                "hours_since_rain": 160.0,
                 "temp_at_slot_c": 24.8175
               },
               "model_scores": {
-                "ifs": 0.987,
-                "nbm": 0.411,
-                "ensemble": 0.989
+                "ifs": 0.977,
+                "nbm": 0.005,
+                "ensemble": 0.881
               },
               "model_precip": {
                 "ifs": {
@@ -2330,29 +2330,29 @@
                 "ensemble": {
                   "fcst": 0.7,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 173,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 160,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.738,
+              "score": 0.332,
               "proba": [
-                0.262,
-                0.738
+                0.668,
+                0.332
               ],
               "precip_midnight_to_slot_mm": 2.7,
               "precip_3h_before_slot_mm": 1.4,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -2375,13 +2375,13 @@
                 "precip_midnight_to_slot_mm": 2.6833,
                 "precip_3h_before_slot_mm": 1.45,
                 "hour": 19,
-                "hours_since_rain": 177.0,
+                "hours_since_rain": 164.0,
                 "temp_at_slot_c": 21.0875
               },
               "model_scores": {
-                "ifs": 0.988,
-                "nbm": 0.462,
-                "ensemble": 0.738
+                "ifs": 0.977,
+                "nbm": 0.015,
+                "ensemble": 0.332
               },
               "model_precip": {
                 "ifs": {
@@ -2399,17 +2399,17 @@
                 "ensemble": {
                   "fcst": 2.7,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 177,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 164,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             }
           ],
-          "score": 0.927,
+          "score": 0.742,
           "model_scores": {
-            "ifs": 0.987,
-            "nbm": 0.532,
-            "ensemble": 0.927
+            "ifs": 0.975,
+            "nbm": 0.017,
+            "ensemble": 0.742
           }
         }
       ],
@@ -2429,36 +2429,36 @@
         {
           "date": "2026-09-13",
           "day_name": "Today",
-          "signal": "Soil 0.30",
+          "signal": "24.0mm rain yesterday",
           "forecast_precip_mm": 2.5166666666666666,
           "signals": {
             "forecast_precip_mm": 2.5,
             "precip_2d_mm": 3.1,
-            "soil_moisture": 0.303,
-            "soil_moisture_deep": 0.308,
+            "soil_moisture": 0.245,
+            "soil_moisture_deep": 0.189,
             "sunrise": "07:10",
             "sunset": "19:43"
           },
           "features": {
-            "precip_1d_mm": 3.1,
-            "precip_3d_mm": 4.5,
-            "precip_7d_mm": 94.2,
-            "rain_1d_mm": 3.1,
-            "rain_2d_mm": 3.1,
-            "rain_3d_mm": 4.5,
-            "rain_3d_to_7d_mm": 91.1,
+            "precip_1d_mm": 24.05,
+            "precip_3d_mm": 28.2667,
+            "precip_7d_mm": 50.5667,
+            "rain_1d_mm": 24.05,
+            "rain_2d_mm": 24.4667,
+            "rain_3d_mm": 28.2667,
+            "rain_3d_to_7d_mm": 26.1,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.3034,
-            "soil_moisture_deep": 0.3085,
+            "soil_moisture": 0.245,
+            "soil_moisture_deep": 0.189,
             "soil_temp_0cm": 18.8,
             "soil_temp_6cm": 21.4,
             "soil_temp_18cm": 22.6,
             "temp_max_c": 27.7833,
             "temp_min_c": 19.3,
-            "days_since_rain": 3,
+            "days_since_rain": 0,
             "consecutive_dry_days": 0,
             "dry_surplus": -2,
             "forecast_precip_mm": 2.5167,
@@ -2481,35 +2481,35 @@
             },
             "ensemble": {
               "forecast_precip_mm": 2.5,
-              "precip_2d": 3.1,
-              "rain_3d_to_7d_mm": 91.1
+              "precip_2d": 24.5,
+              "rain_3d_to_7d_mm": 26.1
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.722,
+              "score": 0.066,
               "proba": [
-                0.278,
-                0.722
+                0.934,
+                0.066
               ],
               "precip_midnight_to_slot_mm": 1.1,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -2526,13 +2526,13 @@
                 "precip_midnight_to_slot_mm": 1.0667,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 21.0,
+                "hours_since_rain": 8.0,
                 "temp_at_slot_c": 20.3604
               },
               "model_scores": {
-                "ifs": 0.826,
-                "nbm": 0.416,
-                "ensemble": 0.722
+                "ifs": 0.634,
+                "nbm": 0.377,
+                "ensemble": 0.066
               },
               "model_precip": {
                 "ifs": {
@@ -2549,36 +2549,36 @@
                 },
                 "ensemble": {
                   "fcst": 1.1,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 21,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 8,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.624,
+              "score": 0.065,
               "proba": [
-                0.376,
-                0.624
+                0.935,
+                0.065
               ],
               "precip_midnight_to_slot_mm": 1.1,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -2595,13 +2595,13 @@
                 "precip_midnight_to_slot_mm": 1.0667,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 25.0,
+                "hours_since_rain": 12.0,
                 "temp_at_slot_c": 24.6021
               },
               "model_scores": {
-                "ifs": 0.8,
-                "nbm": 0.416,
-                "ensemble": 0.624
+                "ifs": 0.676,
+                "nbm": 0.349,
+                "ensemble": 0.065
               },
               "model_precip": {
                 "ifs": {
@@ -2618,36 +2618,36 @@
                 },
                 "ensemble": {
                   "fcst": 1.1,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 25,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 12,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.728,
+              "score": 0.07,
               "proba": [
-                0.272,
-                0.728
+                0.93,
+                0.07
               ],
               "precip_midnight_to_slot_mm": 1.1,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -2664,13 +2664,13 @@
                 "precip_midnight_to_slot_mm": 1.1333,
                 "precip_3h_before_slot_mm": 0.0667,
                 "hour": 15,
-                "hours_since_rain": 29.0,
+                "hours_since_rain": 16.0,
                 "temp_at_slot_c": 26.935
               },
               "model_scores": {
-                "ifs": 0.8,
-                "nbm": 0.416,
-                "ensemble": 0.728
+                "ifs": 0.642,
+                "nbm": 0.349,
+                "ensemble": 0.07
               },
               "model_precip": {
                 "ifs": {
@@ -2687,36 +2687,36 @@
                 },
                 "ensemble": {
                   "fcst": 1.1,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 29,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 16,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.661,
+              "score": 0.065,
               "proba": [
-                0.339,
-                0.661
+                0.935,
+                0.065
               ],
               "precip_midnight_to_slot_mm": 1.5,
               "precip_3h_before_slot_mm": 0.3,
               "features": {
-                "precip_1d_mm": 3.1,
-                "precip_3d_mm": 4.5,
-                "precip_7d_mm": 94.2,
-                "rain_1d_mm": 3.1,
-                "rain_2d_mm": 3.1,
-                "rain_3d_mm": 4.5,
-                "rain_3d_to_7d_mm": 91.1,
+                "precip_1d_mm": 24.05,
+                "precip_3d_mm": 28.2667,
+                "precip_7d_mm": 50.5667,
+                "rain_1d_mm": 24.05,
+                "rain_2d_mm": 24.4667,
+                "rain_3d_mm": 28.2667,
+                "rain_3d_to_7d_mm": 26.1,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.3034,
-                "soil_moisture_deep": 0.3085,
+                "soil_moisture": 0.245,
+                "soil_moisture_deep": 0.189,
                 "soil_temp_0cm": 18.8,
                 "soil_temp_6cm": 21.4,
                 "soil_temp_18cm": 22.6,
@@ -2733,13 +2733,13 @@
                 "precip_midnight_to_slot_mm": 1.4667,
                 "precip_3h_before_slot_mm": 0.2833,
                 "hour": 19,
-                "hours_since_rain": 33.0,
+                "hours_since_rain": 20.0,
                 "temp_at_slot_c": 23.5417
               },
               "model_scores": {
-                "ifs": 0.771,
-                "nbm": 0.335,
-                "ensemble": 0.661
+                "ifs": 0.673,
+                "nbm": 0.178,
+                "ensemble": 0.065
               },
               "model_precip": {
                 "ifs": {
@@ -2756,18 +2756,18 @@
                 },
                 "ensemble": {
                   "fcst": 1.5,
-                  "precip_2d": 3.1,
-                  "hours_since_rain": 33,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 24.5,
+                  "hours_since_rain": 20,
+                  "rain_3d_to_7d_mm": 26.1
                 }
               }
             }
           ],
-          "score": 0.684,
+          "score": 0.067,
           "model_scores": {
-            "ifs": 0.799,
-            "nbm": 0.396,
-            "ensemble": 0.684
+            "ifs": 0.656,
+            "nbm": 0.313,
+            "ensemble": 0.067
           }
         },
         {
@@ -2785,12 +2785,12 @@
           },
           "features": {
             "precip_1d_mm": 2.5167,
-            "precip_3d_mm": 5.6167,
-            "precip_7d_mm": 96.7167,
+            "precip_3d_mm": 26.9833,
+            "precip_7d_mm": 53.0667,
             "rain_1d_mm": 2.5167,
-            "rain_2d_mm": 5.6167,
-            "rain_3d_mm": 5.6167,
-            "rain_3d_to_7d_mm": 91.1,
+            "rain_2d_mm": 26.5667,
+            "rain_3d_mm": 26.9833,
+            "rain_3d_to_7d_mm": 26.5,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -2802,7 +2802,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 21.8667,
             "temp_min_c": 13.6667,
-            "days_since_rain": 4,
+            "days_since_rain": 1,
             "consecutive_dry_days": 0,
             "dry_surplus": -2,
             "forecast_precip_mm": 0.0167,
@@ -2825,29 +2825,29 @@
             },
             "ensemble": {
               "forecast_precip_mm": 0.0,
-              "precip_2d": 5.6,
-              "rain_3d_to_7d_mm": 91.1
+              "precip_2d": 26.6,
+              "rain_3d_to_7d_mm": 26.5
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.967,
+              "score": 0.905,
               "proba": [
-                0.033,
-                0.967
+                0.095,
+                0.905
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -2870,13 +2870,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 45.0,
+                "hours_since_rain": 32.0,
                 "temp_at_slot_c": 14.6917
               },
               "model_scores": {
-                "ifs": 0.904,
-                "nbm": 0.488,
-                "ensemble": 0.967
+                "ifs": 0.848,
+                "nbm": 0.708,
+                "ensemble": 0.905
               },
               "model_precip": {
                 "ifs": {
@@ -2893,30 +2893,30 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 45,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 32,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.966,
+              "score": 0.907,
               "proba": [
-                0.034,
-                0.966
+                0.093,
+                0.907
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -2939,13 +2939,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 49.0,
+                "hours_since_rain": 36.0,
                 "temp_at_slot_c": 18.7917
               },
               "model_scores": {
-                "ifs": 0.904,
-                "nbm": 0.285,
-                "ensemble": 0.966
+                "ifs": 0.848,
+                "nbm": 0.596,
+                "ensemble": 0.907
               },
               "model_precip": {
                 "ifs": {
@@ -2962,30 +2962,30 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 49,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 36,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.966,
+              "score": 0.898,
               "proba": [
-                0.034,
-                0.966
+                0.102,
+                0.898
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3008,13 +3008,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
-                "hours_since_rain": 53.0,
+                "hours_since_rain": 40.0,
                 "temp_at_slot_c": 21.0467
               },
               "model_scores": {
-                "ifs": 0.904,
-                "nbm": 0.285,
-                "ensemble": 0.966
+                "ifs": 0.848,
+                "nbm": 0.596,
+                "ensemble": 0.898
               },
               "model_precip": {
                 "ifs": {
@@ -3031,30 +3031,30 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 53,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 40,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.964,
+              "score": 0.907,
               "proba": [
-                0.036,
-                0.964
+                0.093,
+                0.907
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.5167,
-                "precip_3d_mm": 5.6167,
-                "precip_7d_mm": 96.7167,
+                "precip_3d_mm": 26.9833,
+                "precip_7d_mm": 53.0667,
                 "rain_1d_mm": 2.5167,
-                "rain_2d_mm": 5.6167,
-                "rain_3d_mm": 5.6167,
-                "rain_3d_to_7d_mm": 91.1,
+                "rain_2d_mm": 26.5667,
+                "rain_3d_mm": 26.9833,
+                "rain_3d_to_7d_mm": 26.5,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3077,13 +3077,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
-                "hours_since_rain": 57.0,
+                "hours_since_rain": 44.0,
                 "temp_at_slot_c": 17.7667
               },
               "model_scores": {
-                "ifs": 0.909,
-                "nbm": 0.285,
-                "ensemble": 0.964
+                "ifs": 0.846,
+                "nbm": 0.596,
+                "ensemble": 0.907
               },
               "model_precip": {
                 "ifs": {
@@ -3100,18 +3100,18 @@
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 5.6,
-                  "hours_since_rain": 57,
-                  "rain_3d_to_7d_mm": 91.1
+                  "precip_2d": 26.6,
+                  "hours_since_rain": 44,
+                  "rain_3d_to_7d_mm": 26.5
                 }
               }
             }
           ],
-          "score": 0.966,
+          "score": 0.904,
           "model_scores": {
-            "ifs": 0.905,
-            "nbm": 0.336,
-            "ensemble": 0.966
+            "ifs": 0.848,
+            "nbm": 0.624,
+            "ensemble": 0.904
           }
         },
         {
@@ -3129,12 +3129,12 @@
           },
           "features": {
             "precip_1d_mm": 0.0167,
-            "precip_3d_mm": 5.6333,
-            "precip_7d_mm": 96.7333,
+            "precip_3d_mm": 26.5833,
+            "precip_7d_mm": 53.0833,
             "rain_1d_mm": 0.0167,
             "rain_2d_mm": 2.5333,
-            "rain_3d_mm": 5.6333,
-            "rain_3d_to_7d_mm": 94.2,
+            "rain_3d_mm": 26.5833,
+            "rain_3d_to_7d_mm": 50.55,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -3146,7 +3146,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 28.4333,
             "temp_min_c": 13.7833,
-            "days_since_rain": 5,
+            "days_since_rain": 2,
             "consecutive_dry_days": 1,
             "dry_surplus": -1,
             "forecast_precip_mm": 0.0,
@@ -3170,28 +3170,28 @@
             "ensemble": {
               "forecast_precip_mm": 0.0,
               "precip_2d": 2.5,
-              "rain_3d_to_7d_mm": 94.2
+              "rain_3d_to_7d_mm": 50.6
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.983,
+              "score": 0.962,
               "proba": [
-                0.017,
-                0.983
+                0.038,
+                0.962
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3214,13 +3214,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 69.0,
+                "hours_since_rain": 56.0,
                 "temp_at_slot_c": 15.6146
               },
               "model_scores": {
-                "ifs": 0.967,
-                "nbm": 0.773,
-                "ensemble": 0.983
+                "ifs": 0.953,
+                "nbm": 0.824,
+                "ensemble": 0.962
               },
               "model_precip": {
                 "ifs": {
@@ -3238,29 +3238,29 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 69,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 56,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.984,
+              "score": 0.964,
               "proba": [
-                0.016,
-                0.984
+                0.036,
+                0.964
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3283,13 +3283,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 73.0,
+                "hours_since_rain": 60.0,
                 "temp_at_slot_c": 22.9396
               },
               "model_scores": {
-                "ifs": 0.967,
-                "nbm": 0.615,
-                "ensemble": 0.984
+                "ifs": 0.953,
+                "nbm": 0.782,
+                "ensemble": 0.964
               },
               "model_precip": {
                 "ifs": {
@@ -3307,29 +3307,29 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 73,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 60,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.984,
+              "score": 0.964,
               "proba": [
-                0.016,
-                0.984
+                0.036,
+                0.964
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3352,13 +3352,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
-                "hours_since_rain": 77.0,
+                "hours_since_rain": 64.0,
                 "temp_at_slot_c": 26.9683
               },
               "model_scores": {
-                "ifs": 0.962,
-                "nbm": 0.593,
-                "ensemble": 0.984
+                "ifs": 0.955,
+                "nbm": 0.77,
+                "ensemble": 0.964
               },
               "model_precip": {
                 "ifs": {
@@ -3376,29 +3376,29 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 77,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 64,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.982,
+              "score": 0.958,
               "proba": [
-                0.018,
-                0.982
+                0.042,
+                0.958
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 0.0167,
-                "precip_3d_mm": 5.6333,
-                "precip_7d_mm": 96.7333,
+                "precip_3d_mm": 26.5833,
+                "precip_7d_mm": 53.0833,
                 "rain_1d_mm": 0.0167,
                 "rain_2d_mm": 2.5333,
-                "rain_3d_mm": 5.6333,
-                "rain_3d_to_7d_mm": 94.2,
+                "rain_3d_mm": 26.5833,
+                "rain_3d_to_7d_mm": 50.55,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3421,13 +3421,13 @@
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
-                "hours_since_rain": 81.0,
+                "hours_since_rain": 68.0,
                 "temp_at_slot_c": 21.1083
               },
               "model_scores": {
-                "ifs": 0.96,
-                "nbm": 0.593,
-                "ensemble": 0.982
+                "ifs": 0.954,
+                "nbm": 0.698,
+                "ensemble": 0.958
               },
               "model_precip": {
                 "ifs": {
@@ -3445,17 +3445,17 @@
                 "ensemble": {
                   "fcst": 0.0,
                   "precip_2d": 2.5,
-                  "hours_since_rain": 81,
-                  "rain_3d_to_7d_mm": 94.2
+                  "hours_since_rain": 68,
+                  "rain_3d_to_7d_mm": 50.6
                 }
               }
             }
           ],
-          "score": 0.983,
+          "score": 0.962,
           "model_scores": {
-            "ifs": 0.964,
-            "nbm": 0.643,
-            "ensemble": 0.983
+            "ifs": 0.954,
+            "nbm": 0.768,
+            "ensemble": 0.962
           }
         },
         {
@@ -3474,11 +3474,11 @@
           "features": {
             "precip_1d_mm": 0.0,
             "precip_3d_mm": 2.5333,
-            "precip_7d_mm": 96.7333,
+            "precip_7d_mm": 52.7833,
             "rain_1d_mm": 0.0,
             "rain_2d_mm": 0.0167,
             "rain_3d_mm": 2.5333,
-            "rain_3d_to_7d_mm": 96.7167,
+            "rain_3d_to_7d_mm": 52.7667,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -3490,7 +3490,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 29.7667,
             "temp_min_c": 20.9833,
-            "days_since_rain": 6,
+            "days_since_rain": 3,
             "consecutive_dry_days": 2,
             "dry_surplus": 0,
             "forecast_precip_mm": 2.3833,
@@ -3514,28 +3514,28 @@
             "ensemble": {
               "forecast_precip_mm": 2.4,
               "precip_2d": 0.0,
-              "rain_3d_to_7d_mm": 96.7
+              "rain_3d_to_7d_mm": 52.8
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.697,
+              "score": 0.776,
               "proba": [
-                0.303,
-                0.697
+                0.224,
+                0.776
               ],
               "precip_midnight_to_slot_mm": 0.9,
               "precip_3h_before_slot_mm": 0.2,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3558,13 +3558,13 @@
                 "precip_midnight_to_slot_mm": 0.9333,
                 "precip_3h_before_slot_mm": 0.1667,
                 "hour": 7,
-                "hours_since_rain": 93.0,
+                "hours_since_rain": 80.0,
                 "temp_at_slot_c": 22.0813
               },
               "model_scores": {
-                "ifs": 0.316,
-                "nbm": 0.235,
-                "ensemble": 0.697
+                "ifs": 0.36,
+                "nbm": 0.201,
+                "ensemble": 0.776
               },
               "model_precip": {
                 "ifs": {
@@ -3582,29 +3582,29 @@
                 "ensemble": {
                   "fcst": 0.9,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 93,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 80,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.617,
+              "score": 0.776,
               "proba": [
-                0.383,
-                0.617
+                0.224,
+                0.776
               ],
               "precip_midnight_to_slot_mm": 1.6,
               "precip_3h_before_slot_mm": 0.4,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3627,13 +3627,13 @@
                 "precip_midnight_to_slot_mm": 1.6,
                 "precip_3h_before_slot_mm": 0.45,
                 "hour": 11,
-                "hours_since_rain": 97.0,
+                "hours_since_rain": 84.0,
                 "temp_at_slot_c": 26.4729
               },
               "model_scores": {
-                "ifs": 0.132,
-                "nbm": 0.351,
-                "ensemble": 0.617
+                "ifs": 0.2,
+                "nbm": 0.32,
+                "ensemble": 0.776
               },
               "model_precip": {
                 "ifs": {
@@ -3651,29 +3651,29 @@
                 "ensemble": {
                   "fcst": 1.6,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 97,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 84,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.617,
+              "score": 0.789,
               "proba": [
-                0.383,
-                0.617
+                0.211,
+                0.789
               ],
               "precip_midnight_to_slot_mm": 1.7,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3696,13 +3696,13 @@
                 "precip_midnight_to_slot_mm": 1.7,
                 "precip_3h_before_slot_mm": 0.05,
                 "hour": 15,
-                "hours_since_rain": 101.0,
+                "hours_since_rain": 88.0,
                 "temp_at_slot_c": 28.8883
               },
               "model_scores": {
-                "ifs": 0.439,
-                "nbm": 0.351,
-                "ensemble": 0.617
+                "ifs": 0.442,
+                "nbm": 0.32,
+                "ensemble": 0.789
               },
               "model_precip": {
                 "ifs": {
@@ -3720,29 +3720,29 @@
                 "ensemble": {
                   "fcst": 1.7,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 101,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 88,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.617,
+              "score": 0.637,
               "proba": [
-                0.383,
-                0.617
+                0.363,
+                0.637
               ],
               "precip_midnight_to_slot_mm": 2.4,
               "precip_3h_before_slot_mm": 0.5,
               "features": {
                 "precip_1d_mm": 0.0,
                 "precip_3d_mm": 2.5333,
-                "precip_7d_mm": 96.7333,
+                "precip_7d_mm": 52.7833,
                 "rain_1d_mm": 0.0,
                 "rain_2d_mm": 0.0167,
                 "rain_3d_mm": 2.5333,
-                "rain_3d_to_7d_mm": 96.7167,
+                "rain_3d_to_7d_mm": 52.7667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3765,13 +3765,13 @@
                 "precip_midnight_to_slot_mm": 2.4167,
                 "precip_3h_before_slot_mm": 0.5333,
                 "hour": 19,
-                "hours_since_rain": 105.0,
+                "hours_since_rain": 92.0,
                 "temp_at_slot_c": 25.375
               },
               "model_scores": {
-                "ifs": 0.321,
-                "nbm": 0.156,
-                "ensemble": 0.617
+                "ifs": 0.455,
+                "nbm": 0.149,
+                "ensemble": 0.637
               },
               "model_precip": {
                 "ifs": {
@@ -3789,17 +3789,17 @@
                 "ensemble": {
                   "fcst": 2.4,
                   "precip_2d": 0.0,
-                  "hours_since_rain": 105,
-                  "rain_3d_to_7d_mm": 96.7
+                  "hours_since_rain": 92,
+                  "rain_3d_to_7d_mm": 52.8
                 }
               }
             }
           ],
-          "score": 0.637,
+          "score": 0.745,
           "model_scores": {
-            "ifs": 0.302,
-            "nbm": 0.273,
-            "ensemble": 0.637
+            "ifs": 0.364,
+            "nbm": 0.247,
+            "ensemble": 0.745
           }
         },
         {
@@ -3818,11 +3818,11 @@
           "features": {
             "precip_1d_mm": 2.3833,
             "precip_3d_mm": 2.4,
-            "precip_7d_mm": 9.4167,
+            "precip_7d_mm": 33.1833,
             "rain_1d_mm": 2.3833,
             "rain_2d_mm": 2.3833,
             "rain_3d_mm": 2.4,
-            "rain_3d_to_7d_mm": 7.0333,
+            "rain_3d_to_7d_mm": 30.8,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -3834,7 +3834,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 27.56,
             "temp_min_c": 19.92,
-            "days_since_rain": 7,
+            "days_since_rain": 4,
             "consecutive_dry_days": 0,
             "dry_surplus": -2,
             "forecast_precip_mm": 3.0667,
@@ -3858,28 +3858,28 @@
             "ensemble": {
               "forecast_precip_mm": 3.1,
               "precip_2d": 2.4,
-              "rain_3d_to_7d_mm": 7.0
+              "rain_3d_to_7d_mm": 30.8
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.945,
+              "score": 0.593,
               "proba": [
-                0.055,
-                0.945
+                0.407,
+                0.593
               ],
               "precip_midnight_to_slot_mm": 0.6,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3902,13 +3902,13 @@
                 "precip_midnight_to_slot_mm": 0.6167,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 117.0,
+                "hours_since_rain": 104.0,
                 "temp_at_slot_c": 20.875
               },
               "model_scores": {
-                "ifs": 0.218,
-                "nbm": 0.98,
-                "ensemble": 0.945
+                "ifs": 0.196,
+                "nbm": 0.846,
+                "ensemble": 0.593
               },
               "model_precip": {
                 "ifs": {
@@ -3926,29 +3926,29 @@
                 "ensemble": {
                   "fcst": 0.6,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 117,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 104,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.923,
+              "score": 0.592,
               "proba": [
-                0.077,
-                0.923
+                0.408,
+                0.592
               ],
               "precip_midnight_to_slot_mm": 0.8,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -3971,13 +3971,13 @@
                 "precip_midnight_to_slot_mm": 0.7667,
                 "precip_3h_before_slot_mm": 0.15,
                 "hour": 11,
-                "hours_since_rain": 121.0,
+                "hours_since_rain": 108.0,
                 "temp_at_slot_c": 24.695
               },
               "model_scores": {
-                "ifs": 0.218,
-                "nbm": 0.976,
-                "ensemble": 0.923
+                "ifs": 0.159,
+                "nbm": 0.827,
+                "ensemble": 0.592
               },
               "model_precip": {
                 "ifs": {
@@ -3995,29 +3995,29 @@
                 "ensemble": {
                   "fcst": 0.8,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 121,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 108,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.923,
+              "score": 0.611,
               "proba": [
-                0.077,
-                0.923
+                0.389,
+                0.611
               ],
               "precip_midnight_to_slot_mm": 1.0,
               "precip_3h_before_slot_mm": 0.2,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4040,13 +4040,13 @@
                 "precip_midnight_to_slot_mm": 1.0167,
                 "precip_3h_before_slot_mm": 0.1833,
                 "hour": 15,
-                "hours_since_rain": 125.0,
+                "hours_since_rain": 112.0,
                 "temp_at_slot_c": 26.796
               },
               "model_scores": {
-                "ifs": 0.218,
-                "nbm": 0.976,
-                "ensemble": 0.923
+                "ifs": 0.152,
+                "nbm": 0.827,
+                "ensemble": 0.611
               },
               "model_precip": {
                 "ifs": {
@@ -4064,29 +4064,29 @@
                 "ensemble": {
                   "fcst": 1.0,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 125,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 112,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.243,
+              "score": 0.126,
               "proba": [
-                0.757,
-                0.243
+                0.874,
+                0.126
               ],
               "precip_midnight_to_slot_mm": 2.2,
               "precip_3h_before_slot_mm": 0.9,
               "features": {
                 "precip_1d_mm": 2.3833,
                 "precip_3d_mm": 2.4,
-                "precip_7d_mm": 9.4167,
+                "precip_7d_mm": 33.1833,
                 "rain_1d_mm": 2.3833,
                 "rain_2d_mm": 2.3833,
                 "rain_3d_mm": 2.4,
-                "rain_3d_to_7d_mm": 7.0333,
+                "rain_3d_to_7d_mm": 30.8,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4109,13 +4109,13 @@
                 "precip_midnight_to_slot_mm": 2.2167,
                 "precip_3h_before_slot_mm": 0.8833,
                 "hour": 19,
-                "hours_since_rain": 129.0,
+                "hours_since_rain": 116.0,
                 "temp_at_slot_c": 23.74
               },
               "model_scores": {
-                "ifs": 0.214,
-                "nbm": 0.95,
-                "ensemble": 0.243
+                "ifs": 0.172,
+                "nbm": 0.683,
+                "ensemble": 0.126
               },
               "model_precip": {
                 "ifs": {
@@ -4133,17 +4133,17 @@
                 "ensemble": {
                   "fcst": 2.2,
                   "precip_2d": 2.4,
-                  "hours_since_rain": 129,
-                  "rain_3d_to_7d_mm": 7.0
+                  "hours_since_rain": 116,
+                  "rain_3d_to_7d_mm": 30.8
                 }
               }
             }
           ],
-          "score": 0.758,
+          "score": 0.481,
           "model_scores": {
-            "ifs": 0.217,
-            "nbm": 0.97,
-            "ensemble": 0.758
+            "ifs": 0.17,
+            "nbm": 0.796,
+            "ensemble": 0.481
           }
         },
         {
@@ -4162,11 +4162,11 @@
           "features": {
             "precip_1d_mm": 3.0667,
             "precip_3d_mm": 5.45,
-            "precip_7d_mm": 11.0833,
+            "precip_7d_mm": 32.45,
             "rain_1d_mm": 3.0667,
             "rain_2d_mm": 5.45,
             "rain_3d_mm": 5.45,
-            "rain_3d_to_7d_mm": 5.6333,
+            "rain_3d_to_7d_mm": 27.0,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -4178,7 +4178,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 25.1,
             "temp_min_c": 17.44,
-            "days_since_rain": 8,
+            "days_since_rain": 5,
             "consecutive_dry_days": 0,
             "dry_surplus": -2,
             "forecast_precip_mm": 0.8667,
@@ -4202,28 +4202,28 @@
             "ensemble": {
               "forecast_precip_mm": 0.9,
               "precip_2d": 5.4,
-              "rain_3d_to_7d_mm": 5.7
+              "rain_3d_to_7d_mm": 27.0
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.97,
+              "score": 0.844,
               "proba": [
-                0.03,
-                0.97
+                0.156,
+                0.844
               ],
               "precip_midnight_to_slot_mm": 0.2,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4246,13 +4246,13 @@
                 "precip_midnight_to_slot_mm": 0.2,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 141.0,
+                "hours_since_rain": 128.0,
                 "temp_at_slot_c": 18.3975
               },
               "model_scores": {
-                "ifs": 0.829,
-                "nbm": 0.969,
-                "ensemble": 0.97
+                "ifs": 0.774,
+                "nbm": 0.764,
+                "ensemble": 0.844
               },
               "model_precip": {
                 "ifs": {
@@ -4270,29 +4270,29 @@
                 "ensemble": {
                   "fcst": 0.2,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 141,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 128,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.975,
+              "score": 0.854,
               "proba": [
-                0.025,
-                0.975
+                0.146,
+                0.854
               ],
               "precip_midnight_to_slot_mm": 0.2,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4315,13 +4315,13 @@
                 "precip_midnight_to_slot_mm": 0.2,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 145.0,
+                "hours_since_rain": 132.0,
                 "temp_at_slot_c": 22.2275
               },
               "model_scores": {
-                "ifs": 0.829,
-                "nbm": 0.969,
-                "ensemble": 0.975
+                "ifs": 0.774,
+                "nbm": 0.747,
+                "ensemble": 0.854
               },
               "model_precip": {
                 "ifs": {
@@ -4339,29 +4339,29 @@
                 "ensemble": {
                   "fcst": 0.2,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 145,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 132,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.975,
+              "score": 0.854,
               "proba": [
-                0.025,
-                0.975
+                0.146,
+                0.854
               ],
               "precip_midnight_to_slot_mm": 0.2,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4384,13 +4384,13 @@
                 "precip_midnight_to_slot_mm": 0.2,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
-                "hours_since_rain": 149.0,
+                "hours_since_rain": 136.0,
                 "temp_at_slot_c": 24.334
               },
               "model_scores": {
-                "ifs": 0.829,
-                "nbm": 0.964,
-                "ensemble": 0.975
+                "ifs": 0.8,
+                "nbm": 0.738,
+                "ensemble": 0.854
               },
               "model_precip": {
                 "ifs": {
@@ -4408,29 +4408,29 @@
                 "ensemble": {
                   "fcst": 0.2,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 149,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 136,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.969,
+              "score": 0.831,
               "proba": [
-                0.031,
-                0.969
+                0.169,
+                0.831
               ],
               "precip_midnight_to_slot_mm": 0.3,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 3.0667,
                 "precip_3d_mm": 5.45,
-                "precip_7d_mm": 11.0833,
+                "precip_7d_mm": 32.45,
                 "rain_1d_mm": 3.0667,
                 "rain_2d_mm": 5.45,
                 "rain_3d_mm": 5.45,
-                "rain_3d_to_7d_mm": 5.6333,
+                "rain_3d_to_7d_mm": 27.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4453,13 +4453,13 @@
                 "precip_midnight_to_slot_mm": 0.2667,
                 "precip_3h_before_slot_mm": 0.05,
                 "hour": 19,
-                "hours_since_rain": 153.0,
+                "hours_since_rain": 140.0,
                 "temp_at_slot_c": 21.27
               },
               "model_scores": {
-                "ifs": 0.838,
-                "nbm": 0.957,
-                "ensemble": 0.969
+                "ifs": 0.771,
+                "nbm": 0.621,
+                "ensemble": 0.831
               },
               "model_precip": {
                 "ifs": {
@@ -4477,17 +4477,17 @@
                 "ensemble": {
                   "fcst": 0.3,
                   "precip_2d": 5.4,
-                  "hours_since_rain": 153,
-                  "rain_3d_to_7d_mm": 5.7
+                  "hours_since_rain": 140,
+                  "rain_3d_to_7d_mm": 27.0
                 }
               }
             }
           ],
-          "score": 0.972,
+          "score": 0.846,
           "model_scores": {
-            "ifs": 0.831,
-            "nbm": 0.965,
-            "ensemble": 0.972
+            "ifs": 0.78,
+            "nbm": 0.718,
+            "ensemble": 0.846
           }
         },
         {
@@ -4506,11 +4506,11 @@
           "features": {
             "precip_1d_mm": 0.8667,
             "precip_3d_mm": 6.3167,
-            "precip_7d_mm": 11.95,
+            "precip_7d_mm": 32.9,
             "rain_1d_mm": 0.8667,
             "rain_2d_mm": 3.9333,
             "rain_3d_mm": 6.3167,
-            "rain_3d_to_7d_mm": 8.0167,
+            "rain_3d_to_7d_mm": 28.9667,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
@@ -4522,7 +4522,7 @@
             "soil_temp_18cm": 22.6,
             "temp_max_c": 25.75,
             "temp_min_c": 16.425,
-            "days_since_rain": 9,
+            "days_since_rain": 6,
             "consecutive_dry_days": 1,
             "dry_surplus": -1,
             "forecast_precip_mm": 2.5833,
@@ -4546,28 +4546,28 @@
             "ensemble": {
               "forecast_precip_mm": 2.6,
               "precip_2d": 3.9,
-              "rain_3d_to_7d_mm": 8.1
+              "rain_3d_to_7d_mm": 29.0
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.991,
+              "score": 0.873,
               "proba": [
-                0.009,
-                0.991
+                0.127,
+                0.873
               ],
               "precip_midnight_to_slot_mm": 0.1,
               "precip_3h_before_slot_mm": 0.1,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4590,13 +4590,13 @@
                 "precip_midnight_to_slot_mm": 0.1167,
                 "precip_3h_before_slot_mm": 0.05,
                 "hour": 7,
-                "hours_since_rain": 165.0,
+                "hours_since_rain": 152.0,
                 "temp_at_slot_c": 17.5906
               },
               "model_scores": {
-                "ifs": 0.99,
-                "nbm": 0.734,
-                "ensemble": 0.991
+                "ifs": 0.973,
+                "nbm": 0.034,
+                "ensemble": 0.873
               },
               "model_precip": {
                 "ifs": {
@@ -4614,29 +4614,29 @@
                 "ensemble": {
                   "fcst": 0.1,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 165,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 152,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.989,
+              "score": 0.881,
               "proba": [
-                0.011,
-                0.989
+                0.119,
+                0.881
               ],
               "precip_midnight_to_slot_mm": 0.3,
               "precip_3h_before_slot_mm": 0.2,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4659,13 +4659,13 @@
                 "precip_midnight_to_slot_mm": 0.35,
                 "precip_3h_before_slot_mm": 0.2167,
                 "hour": 11,
-                "hours_since_rain": 169.0,
+                "hours_since_rain": 156.0,
                 "temp_at_slot_c": 22.2531
               },
               "model_scores": {
-                "ifs": 0.99,
-                "nbm": 0.519,
-                "ensemble": 0.989
+                "ifs": 0.973,
+                "nbm": 0.013,
+                "ensemble": 0.881
               },
               "model_precip": {
                 "ifs": {
@@ -4683,29 +4683,29 @@
                 "ensemble": {
                   "fcst": 0.3,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 169,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 156,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.989,
+              "score": 0.881,
               "proba": [
-                0.011,
-                0.989
+                0.119,
+                0.881
               ],
               "precip_midnight_to_slot_mm": 0.7,
               "precip_3h_before_slot_mm": 0.3,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4728,13 +4728,13 @@
                 "precip_midnight_to_slot_mm": 0.75,
                 "precip_3h_before_slot_mm": 0.3,
                 "hour": 15,
-                "hours_since_rain": 173.0,
+                "hours_since_rain": 160.0,
                 "temp_at_slot_c": 24.8175
               },
               "model_scores": {
-                "ifs": 0.99,
-                "nbm": 0.411,
-                "ensemble": 0.989
+                "ifs": 0.977,
+                "nbm": 0.005,
+                "ensemble": 0.881
               },
               "model_precip": {
                 "ifs": {
@@ -4752,29 +4752,29 @@
                 "ensemble": {
                   "fcst": 0.7,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 173,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 160,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.738,
+              "score": 0.332,
               "proba": [
-                0.262,
-                0.738
+                0.668,
+                0.332
               ],
               "precip_midnight_to_slot_mm": 2.7,
               "precip_3h_before_slot_mm": 1.4,
               "features": {
                 "precip_1d_mm": 0.8667,
                 "precip_3d_mm": 6.3167,
-                "precip_7d_mm": 11.95,
+                "precip_7d_mm": 32.9,
                 "rain_1d_mm": 0.8667,
                 "rain_2d_mm": 3.9333,
                 "rain_3d_mm": 6.3167,
-                "rain_3d_to_7d_mm": 8.0167,
+                "rain_3d_to_7d_mm": 28.9667,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
@@ -4797,13 +4797,13 @@
                 "precip_midnight_to_slot_mm": 2.6833,
                 "precip_3h_before_slot_mm": 1.45,
                 "hour": 19,
-                "hours_since_rain": 177.0,
+                "hours_since_rain": 164.0,
                 "temp_at_slot_c": 21.0875
               },
               "model_scores": {
-                "ifs": 0.991,
-                "nbm": 0.462,
-                "ensemble": 0.738
+                "ifs": 0.977,
+                "nbm": 0.015,
+                "ensemble": 0.332
               },
               "model_precip": {
                 "ifs": {
@@ -4821,17 +4821,17 @@
                 "ensemble": {
                   "fcst": 2.7,
                   "precip_2d": 3.9,
-                  "hours_since_rain": 177,
-                  "rain_3d_to_7d_mm": 8.1
+                  "hours_since_rain": 164,
+                  "rain_3d_to_7d_mm": 29.0
                 }
               }
             }
           ],
-          "score": 0.927,
+          "score": 0.742,
           "model_scores": {
-            "ifs": 0.99,
-            "nbm": 0.532,
-            "ensemble": 0.927
+            "ifs": 0.975,
+            "nbm": 0.017,
+            "ensemble": 0.742
           }
         }
       ],
