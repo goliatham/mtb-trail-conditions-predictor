@@ -1,362 +1,18 @@
 {
-  "generated_at": "2026-10-18T20:55:48.062260Z",
+  "generated_at": "2026-10-19T05:05:54.544381Z",
   "trails": {
     "phase1": {
       "trail_name": "Alum Creek Phase 1",
       "days": [
         {
-          "date": "2026-10-18",
-          "day_name": "Today",
-          "signal": "Soil 0.35",
-          "forecast_precip_mm": 0.0,
-          "signals": {
-            "forecast_precip_mm": 0.0,
-            "precip_2d_mm": 1.1,
-            "soil_moisture": 0.35,
-            "soil_moisture_deep": 0.246,
-            "sunrise": "07:45",
-            "sunset": "18:47"
-          },
-          "features": {
-            "precip_1d_mm": 0.55,
-            "precip_3d_mm": 11.45,
-            "precip_7d_mm": 25.2667,
-            "rain_1d_mm": 0.55,
-            "rain_2d_mm": 10.1,
-            "rain_3d_mm": 11.45,
-            "rain_3d_to_7d_mm": 15.1667,
-            "snow_1d_cm": 0.0,
-            "snow_2d_cm": 0.0,
-            "snow_3d_cm": 0.0,
-            "snow_7d_cm": 0.0,
-            "soil_moisture": 0.35,
-            "soil_moisture_deep": 0.2456,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 15.2667,
-            "temp_min_c": 2.25,
-            "days_since_rain": 1,
-            "consecutive_dry_days": 1,
-            "dry_surplus": -2,
-            "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.6514,
-            "trail_id": 0,
-            "creek_peak_1d_ft": 2.14,
-            "creek_peak_7d_ft": 2.14,
-            "creek_peak_14d_ft": 2.14
-          },
-          "model_signals": {
-            "ifs": {
-              "forecast_precip_mm": 0.0,
-              "precip_2d": 1.1,
-              "rain_3d_to_7d_mm": 23.2
-            },
-            "nbm": {
-              "forecast_precip_mm": 0.0,
-              "precip_2d": 11.7,
-              "rain_3d_to_7d_mm": 7.3
-            },
-            "ensemble": {
-              "forecast_precip_mm": 0.0,
-              "precip_2d": 10.1,
-              "rain_3d_to_7d_mm": 15.2
-            }
-          },
-          "slots": [
-            {
-              "slot": "7am",
-              "hour": 7,
-              "score": 0.954,
-              "proba": [
-                0.046,
-                0.954
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0,
-              "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
-                "snow_1d_cm": 0.0,
-                "snow_2d_cm": 0.0,
-                "snow_3d_cm": 0.0,
-                "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -2,
-                "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.6514,
-                "trail_id": 0,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
-                "creek_peak_14d_ft": 2.14,
-                "precip_midnight_to_slot_mm": 0.0,
-                "precip_3h_before_slot_mm": 0.0,
-                "hour": 7,
-                "hours_since_rain": 53.0,
-                "temp_at_slot_c": 3.8771
-              },
-              "model_scores": {
-                "ifs": 0.982,
-                "nbm": 0.957,
-                "ensemble": 0.954
-              },
-              "model_precip": {
-                "ifs": {
-                  "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 84,
-                  "rain_3d_to_7d_mm": 23.2
-                },
-                "nbm": {
-                  "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 31,
-                  "rain_3d_to_7d_mm": 7.3
-                },
-                "ensemble": {
-                  "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 53,
-                  "rain_3d_to_7d_mm": 15.2
-                }
-              }
-            },
-            {
-              "slot": "11am",
-              "hour": 11,
-              "score": 0.954,
-              "proba": [
-                0.046,
-                0.954
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0,
-              "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
-                "snow_1d_cm": 0.0,
-                "snow_2d_cm": 0.0,
-                "snow_3d_cm": 0.0,
-                "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -2,
-                "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.6514,
-                "trail_id": 0,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
-                "creek_peak_14d_ft": 2.14,
-                "precip_midnight_to_slot_mm": 0.0,
-                "precip_3h_before_slot_mm": 0.0,
-                "hour": 11,
-                "hours_since_rain": 57.0,
-                "temp_at_slot_c": 10.3854
-              },
-              "model_scores": {
-                "ifs": 0.984,
-                "nbm": 0.957,
-                "ensemble": 0.954
-              },
-              "model_precip": {
-                "ifs": {
-                  "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 88,
-                  "rain_3d_to_7d_mm": 23.2
-                },
-                "nbm": {
-                  "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 35,
-                  "rain_3d_to_7d_mm": 7.3
-                },
-                "ensemble": {
-                  "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 57,
-                  "rain_3d_to_7d_mm": 15.2
-                }
-              }
-            },
-            {
-              "slot": "3pm",
-              "hour": 15,
-              "score": 0.954,
-              "proba": [
-                0.046,
-                0.954
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0,
-              "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
-                "snow_1d_cm": 0.0,
-                "snow_2d_cm": 0.0,
-                "snow_3d_cm": 0.0,
-                "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -2,
-                "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.6514,
-                "trail_id": 0,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
-                "creek_peak_14d_ft": 2.14,
-                "precip_midnight_to_slot_mm": 0.0,
-                "precip_3h_before_slot_mm": 0.0,
-                "hour": 15,
-                "hours_since_rain": 61.0,
-                "temp_at_slot_c": 13.965
-              },
-              "model_scores": {
-                "ifs": 0.984,
-                "nbm": 0.957,
-                "ensemble": 0.954
-              },
-              "model_precip": {
-                "ifs": {
-                  "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 92,
-                  "rain_3d_to_7d_mm": 23.2
-                },
-                "nbm": {
-                  "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 39,
-                  "rain_3d_to_7d_mm": 7.3
-                },
-                "ensemble": {
-                  "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 61,
-                  "rain_3d_to_7d_mm": 15.2
-                }
-              }
-            },
-            {
-              "slot": "7pm",
-              "hour": 19,
-              "score": 0.954,
-              "proba": [
-                0.046,
-                0.954
-              ],
-              "precip_midnight_to_slot_mm": 0.0,
-              "precip_3h_before_slot_mm": 0.0,
-              "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
-                "snow_1d_cm": 0.0,
-                "snow_2d_cm": 0.0,
-                "snow_3d_cm": 0.0,
-                "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -2,
-                "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.6514,
-                "trail_id": 0,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
-                "creek_peak_14d_ft": 2.14,
-                "precip_midnight_to_slot_mm": 0.0,
-                "precip_3h_before_slot_mm": 0.0,
-                "hour": 19,
-                "hours_since_rain": 65.0,
-                "temp_at_slot_c": 8.7583
-              },
-              "model_scores": {
-                "ifs": 0.984,
-                "nbm": 0.957,
-                "ensemble": 0.954
-              },
-              "model_precip": {
-                "ifs": {
-                  "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 96,
-                  "rain_3d_to_7d_mm": 23.2
-                },
-                "nbm": {
-                  "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 43,
-                  "rain_3d_to_7d_mm": 7.3
-                },
-                "ensemble": {
-                  "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 65,
-                  "rain_3d_to_7d_mm": 15.2
-                }
-              }
-            }
-          ],
-          "score": 0.954,
-          "model_scores": {
-            "ifs": 0.984,
-            "nbm": 0.957,
-            "ensemble": 0.954
-          }
-        },
-        {
           "date": "2026-10-19",
-          "day_name": "Tomorrow",
-          "signal": "Soil 0.30",
+          "day_name": "Today",
+          "signal": "Soil 0.25",
           "forecast_precip_mm": 0.0,
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.298,
+            "soil_moisture": 0.253,
             "soil_moisture_deep": 0.243,
             "sunrise": "07:46",
             "sunset": "18:45"
@@ -373,20 +29,20 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.298,
+            "soil_moisture": 0.2526,
             "soil_moisture_deep": 0.2431,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 17.7833,
-            "temp_min_c": 4.25,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.9333,
+            "temp_min_c": 4.4,
             "days_since_rain": 2,
             "consecutive_dry_days": 2,
             "dry_surplus": -1,
             "forecast_precip_mm": 0.0,
             "prior_report_score": 0.5647,
             "trail_id": 0,
-            "creek_peak_1d_ft": 0.0,
+            "creek_peak_1d_ft": 2.12,
             "creek_peak_7d_ft": 2.14,
             "creek_peak_14d_ft": 2.14
           },
@@ -411,10 +67,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.969,
+              "score": 0.997,
               "proba": [
-                0.031,
-                0.969
+                0.003,
+                0.997
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -430,31 +86,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": -1,
                 "forecast_precip_mm": 0.0,
                 "prior_report_score": 0.5647,
                 "trail_id": 0,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 77.0,
-                "temp_at_slot_c": 5.9417
+                "temp_at_slot_c": 6.0917
               },
               "model_scores": {
-                "ifs": 0.987,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.984,
+                "nbm": 0.976,
+                "ensemble": 0.997
               },
               "model_precip": {
                 "ifs": {
@@ -480,10 +136,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.969,
+              "score": 0.997,
               "proba": [
-                0.031,
-                0.969
+                0.003,
+                0.997
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -499,31 +155,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": -1,
                 "forecast_precip_mm": 0.0,
                 "prior_report_score": 0.5647,
                 "trail_id": 0,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 81.0,
-                "temp_at_slot_c": 12.7083
+                "temp_at_slot_c": 12.8583
               },
               "model_scores": {
-                "ifs": 0.991,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.989,
+                "nbm": 0.976,
+                "ensemble": 0.997
               },
               "model_precip": {
                 "ifs": {
@@ -549,10 +205,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.969,
+              "score": 0.997,
               "proba": [
-                0.031,
-                0.969
+                0.003,
+                0.997
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -568,31 +224,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": -1,
                 "forecast_precip_mm": 0.0,
                 "prior_report_score": 0.5647,
                 "trail_id": 0,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 85.0,
-                "temp_at_slot_c": 16.43
+                "temp_at_slot_c": 16.58
               },
               "model_scores": {
-                "ifs": 0.991,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.989,
+                "nbm": 0.976,
+                "ensemble": 0.997
               },
               "model_precip": {
                 "ifs": {
@@ -618,10 +274,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.969,
+              "score": 0.997,
               "proba": [
-                0.031,
-                0.969
+                0.003,
+                0.997
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -637,31 +293,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": -1,
                 "forecast_precip_mm": 0.0,
                 "prior_report_score": 0.5647,
                 "trail_id": 0,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 89.0,
-                "temp_at_slot_c": 11.0167
+                "temp_at_slot_c": 11.1667
               },
               "model_scores": {
-                "ifs": 0.991,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.989,
+                "nbm": 0.976,
+                "ensemble": 0.997
               },
               "model_precip": {
                 "ifs": {
@@ -685,23 +341,23 @@
               }
             }
           ],
-          "score": 0.969,
+          "score": 0.997,
           "model_scores": {
-            "ifs": 0.99,
-            "nbm": 0.98,
-            "ensemble": 0.969
+            "ifs": 0.988,
+            "nbm": 0.976,
+            "ensemble": 0.997
           }
         },
         {
           "date": "2026-10-20",
-          "day_name": "Tue Oct 20",
+          "day_name": "Tomorrow",
           "signal": "3 dry days",
           "forecast_precip_mm": 0.0,
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.278,
-            "soil_moisture_deep": 0.244,
+            "soil_moisture": 0.273,
+            "soil_moisture_deep": 0.241,
             "sunrise": "07:47",
             "sunset": "18:44"
           },
@@ -717,13 +373,13 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.278,
-            "soil_moisture_deep": 0.2438,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 18.75,
-            "temp_min_c": 5.0833,
+            "soil_moisture": 0.273,
+            "soil_moisture_deep": 0.2415,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 18.7167,
+            "temp_min_c": 5.4167,
             "days_since_rain": 3,
             "consecutive_dry_days": 3,
             "dry_surplus": 0,
@@ -755,10 +411,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -774,13 +430,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
@@ -793,12 +449,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 101.0,
-                "temp_at_slot_c": 6.7917
+                "temp_at_slot_c": 7.0792
               },
               "model_scores": {
                 "ifs": 0.957,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -824,10 +480,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -843,13 +499,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
@@ -862,12 +518,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 105.0,
-                "temp_at_slot_c": 13.625
+                "temp_at_slot_c": 13.7292
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -893,10 +549,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -912,13 +568,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
@@ -931,12 +587,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 109.0,
-                "temp_at_slot_c": 17.3833
+                "temp_at_slot_c": 17.3867
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -962,10 +618,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -981,13 +637,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
@@ -1000,12 +656,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 113.0,
-                "temp_at_slot_c": 11.9167
+                "temp_at_slot_c": 12.0667
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -1029,11 +685,11 @@
               }
             }
           ],
-          "score": 0.969,
+          "score": 0.986,
           "model_scores": {
             "ifs": 0.967,
-            "nbm": 0.98,
-            "ensemble": 0.969
+            "nbm": 0.978,
+            "ensemble": 0.986
           }
         },
         {
@@ -1044,8 +700,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.259,
-            "soil_moisture_deep": 0.241,
+            "soil_moisture": 0.255,
+            "soil_moisture_deep": 0.239,
             "sunrise": "07:49",
             "sunset": "18:43"
           },
@@ -1061,13 +717,13 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.259,
-            "soil_moisture_deep": 0.241,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 17.8,
-            "temp_min_c": 5.6,
+            "soil_moisture": 0.255,
+            "soil_moisture_deep": 0.2388,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.8667,
+            "temp_min_c": 5.7333,
             "days_since_rain": 4,
             "consecutive_dry_days": 4,
             "dry_surplus": 1,
@@ -1099,10 +755,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1118,13 +774,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
@@ -1137,12 +793,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 125.0,
-                "temp_at_slot_c": 7.125
+                "temp_at_slot_c": 7.25
               },
               "model_scores": {
                 "ifs": 0.957,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1168,10 +824,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1187,13 +843,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
@@ -1206,12 +862,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 129.0,
-                "temp_at_slot_c": 13.225
+                "temp_at_slot_c": 13.3167
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1237,10 +893,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1256,13 +912,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
@@ -1275,12 +931,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 133.0,
-                "temp_at_slot_c": 16.58
+                "temp_at_slot_c": 16.6533
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1306,10 +962,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1325,13 +981,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
@@ -1344,12 +1000,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 137.0,
-                "temp_at_slot_c": 11.7
+                "temp_at_slot_c": 11.8
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1373,11 +1029,11 @@
               }
             }
           ],
-          "score": 0.976,
+          "score": 0.989,
           "model_scores": {
             "ifs": 0.967,
-            "nbm": 0.978,
-            "ensemble": 0.976
+            "nbm": 0.977,
+            "ensemble": 0.989
           }
         },
         {
@@ -1388,8 +1044,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.244,
-            "soil_moisture_deep": 0.238,
+            "soil_moisture": 0.24,
+            "soil_moisture_deep": 0.235,
             "sunrise": "07:50",
             "sunset": "18:41"
           },
@@ -1405,13 +1061,13 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.244,
-            "soil_moisture_deep": 0.2377,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 17.78,
-            "temp_min_c": 5.4,
+            "soil_moisture": 0.24,
+            "soil_moisture_deep": 0.2355,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.4167,
+            "temp_min_c": 4.85,
             "days_since_rain": 5,
             "consecutive_dry_days": 5,
             "dry_surplus": 2,
@@ -1443,10 +1099,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1462,13 +1118,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
@@ -1481,12 +1137,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 149.0,
-                "temp_at_slot_c": 6.9475
+                "temp_at_slot_c": 6.4208
               },
               "model_scores": {
                 "ifs": 0.959,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1512,10 +1168,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1531,13 +1187,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
@@ -1550,12 +1206,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 153.0,
-                "temp_at_slot_c": 13.1375
+                "temp_at_slot_c": 12.7042
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1581,10 +1237,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1600,13 +1256,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
@@ -1619,12 +1275,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 157.0,
-                "temp_at_slot_c": 16.542
+                "temp_at_slot_c": 16.16
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1650,10 +1306,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1669,13 +1325,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
@@ -1688,12 +1344,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 161.0,
-                "temp_at_slot_c": 11.59
+                "temp_at_slot_c": 11.1333
               },
               "model_scores": {
                 "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1717,11 +1373,11 @@
               }
             }
           ],
-          "score": 0.976,
+          "score": 0.989,
           "model_scores": {
             "ifs": 0.967,
-            "nbm": 0.978,
-            "ensemble": 0.976
+            "nbm": 0.977,
+            "ensemble": 0.989
           }
         },
         {
@@ -1732,8 +1388,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.233,
-            "soil_moisture_deep": 0.235,
+            "soil_moisture": 0.229,
+            "soil_moisture_deep": 0.233,
             "sunrise": "07:51",
             "sunset": "18:40"
           },
@@ -1749,13 +1405,13 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.233,
-            "soil_moisture_deep": 0.2348,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 16.84,
-            "temp_min_c": 7.38,
+            "soil_moisture": 0.229,
+            "soil_moisture_deep": 0.2326,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 16.9,
+            "temp_min_c": 7.46,
             "days_since_rain": 6,
             "consecutive_dry_days": 6,
             "dry_surplus": 3,
@@ -1787,10 +1443,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1806,13 +1462,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
@@ -1825,12 +1481,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 173.0,
-                "temp_at_slot_c": 8.5625
+                "temp_at_slot_c": 8.64
               },
               "model_scores": {
-                "ifs": 0.959,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.953,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1856,10 +1512,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1875,13 +1531,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
@@ -1894,12 +1550,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 177.0,
-                "temp_at_slot_c": 13.2925
+                "temp_at_slot_c": 13.36
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.966,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1925,10 +1581,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -1944,13 +1600,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
@@ -1963,12 +1619,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 181.0,
-                "temp_at_slot_c": 15.894
+                "temp_at_slot_c": 15.956
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.966,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -1994,10 +1650,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2013,13 +1669,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
@@ -2032,12 +1688,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 185.0,
-                "temp_at_slot_c": 12.11
+                "temp_at_slot_c": 12.18
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.966,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -2061,11 +1717,11 @@
               }
             }
           ],
-          "score": 0.976,
+          "score": 0.989,
           "model_scores": {
-            "ifs": 0.967,
-            "nbm": 0.978,
-            "ensemble": 0.976
+            "ifs": 0.963,
+            "nbm": 0.977,
+            "ensemble": 0.989
           }
         },
         {
@@ -2076,8 +1732,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.222,
-            "soil_moisture_deep": 0.232,
+            "soil_moisture": 0.218,
+            "soil_moisture_deep": 0.23,
             "sunrise": "07:52",
             "sunset": "18:38"
           },
@@ -2093,13 +1749,13 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.222,
-            "soil_moisture_deep": 0.2319,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 16.98,
-            "temp_min_c": 5.54,
+            "soil_moisture": 0.218,
+            "soil_moisture_deep": 0.2297,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 16.9,
+            "temp_min_c": 5.06,
             "days_since_rain": 7,
             "consecutive_dry_days": 7,
             "dry_surplus": 4,
@@ -2131,10 +1787,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2150,13 +1806,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
@@ -2169,12 +1825,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 175.0,
-                "temp_at_slot_c": 6.97
+                "temp_at_slot_c": 6.54
               },
               "model_scores": {
                 "ifs": 0.953,
-                "nbm": 0.966,
-                "ensemble": 0.976
+                "nbm": 0.964,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -2200,10 +1856,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2219,13 +1875,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
@@ -2238,12 +1894,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 179.0,
-                "temp_at_slot_c": 12.69
+                "temp_at_slot_c": 12.46
               },
               "model_scores": {
                 "ifs": 0.966,
-                "nbm": 0.966,
-                "ensemble": 0.976
+                "nbm": 0.964,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -2269,10 +1925,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2288,13 +1944,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
@@ -2307,12 +1963,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 183.0,
-                "temp_at_slot_c": 15.836
+                "temp_at_slot_c": 15.716
               },
               "model_scores": {
                 "ifs": 0.966,
-                "nbm": 0.961,
-                "ensemble": 0.976
+                "nbm": 0.958,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -2338,10 +1994,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.959,
+              "score": 0.981,
               "proba": [
-                0.041,
-                0.959
+                0.019,
+                0.981
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2357,13 +2013,13 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
@@ -2376,12 +2032,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 187.0,
-                "temp_at_slot_c": 11.26
+                "temp_at_slot_c": 10.98
               },
               "model_scores": {
                 "ifs": 0.966,
-                "nbm": 0.796,
-                "ensemble": 0.959
+                "nbm": 0.784,
+                "ensemble": 0.981
               },
               "model_precip": {
                 "ifs": {
@@ -2405,380 +2061,380 @@
               }
             }
           ],
-          "score": 0.972,
+          "score": 0.987,
           "model_scores": {
             "ifs": 0.963,
-            "nbm": 0.922,
-            "ensemble": 0.972
+            "nbm": 0.917,
+            "ensemble": 0.987
           }
-        }
-      ],
-      "recent_report": {
-        "date": "2026-10-15",
-        "hours_ago": 72,
-        "color": "green",
-        "label": 2,
-        "username": "irvin-abad",
-        "trusted": false,
-        "comment": "3 days ago: Mostly Dry - Conditions for 13OCT26 - Mostly dry."
-      }
-    },
-    "phase2": {
-      "trail_name": "Alum Creek Phase 2",
-      "days": [
+        },
         {
-          "date": "2026-10-18",
-          "day_name": "Today",
-          "signal": "Soil 0.35",
+          "date": "2026-10-25",
+          "day_name": "Sun Oct 25",
+          "signal": "8 dry days",
           "forecast_precip_mm": 0.0,
           "signals": {
             "forecast_precip_mm": 0.0,
-            "precip_2d_mm": 1.1,
-            "soil_moisture": 0.35,
-            "soil_moisture_deep": 0.246,
-            "sunrise": "07:45",
-            "sunset": "18:47"
+            "precip_2d_mm": 0.0,
+            "soil_moisture": 0.207,
+            "soil_moisture_deep": 0.227,
+            "sunrise": "07:53",
+            "sunset": "18:37"
           },
           "features": {
-            "precip_1d_mm": 0.55,
-            "precip_3d_mm": 11.45,
-            "precip_7d_mm": 25.2667,
-            "rain_1d_mm": 0.55,
-            "rain_2d_mm": 10.1,
-            "rain_3d_mm": 11.45,
-            "rain_3d_to_7d_mm": 15.1667,
+            "precip_1d_mm": 0.0,
+            "precip_3d_mm": 0.0,
+            "precip_7d_mm": 0.0,
+            "rain_1d_mm": 0.0,
+            "rain_2d_mm": 0.0,
+            "rain_3d_mm": 0.0,
+            "rain_3d_to_7d_mm": 0.0,
             "snow_1d_cm": 0.0,
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.35,
-            "soil_moisture_deep": 0.2456,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 15.2667,
-            "temp_min_c": 2.25,
-            "days_since_rain": 1,
-            "consecutive_dry_days": 1,
-            "dry_surplus": -1,
+            "soil_moisture": 0.207,
+            "soil_moisture_deep": 0.2268,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.625,
+            "temp_min_c": 5.425,
+            "days_since_rain": 8,
+            "consecutive_dry_days": 8,
+            "dry_surplus": 5,
             "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.0,
-            "trail_id": 1,
-            "creek_peak_1d_ft": 2.14,
-            "creek_peak_7d_ft": 2.14,
+            "prior_report_score": 0.2397,
+            "trail_id": 0,
+            "creek_peak_1d_ft": 0.0,
+            "creek_peak_7d_ft": 2.12,
             "creek_peak_14d_ft": 2.14
           },
           "model_signals": {
             "ifs": {
               "forecast_precip_mm": 0.0,
-              "precip_2d": 1.1,
-              "rain_3d_to_7d_mm": 23.2
+              "precip_2d": 0.0,
+              "rain_3d_to_7d_mm": 0.0
             },
             "nbm": {
               "forecast_precip_mm": 0.0,
-              "precip_2d": 11.7,
-              "rain_3d_to_7d_mm": 7.3
+              "precip_2d": 0.0,
+              "rain_3d_to_7d_mm": 0.0
             },
             "ensemble": {
               "forecast_precip_mm": 0.0,
-              "precip_2d": 10.1,
-              "rain_3d_to_7d_mm": 15.2
+              "precip_2d": 0.0,
+              "rain_3d_to_7d_mm": 0.0
             }
           },
           "slots": [
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.954,
+              "score": 0.987,
               "proba": [
-                0.046,
-                0.954
+                0.013,
+                0.987
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -1,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
-                "trail_id": 1,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
+                "prior_report_score": 0.2397,
+                "trail_id": 0,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
-                "hours_since_rain": 53.0,
-                "temp_at_slot_c": 3.8771
+                "hours_since_rain": 175.0,
+                "temp_at_slot_c": 6.95
               },
               "model_scores": {
-                "ifs": 0.98,
-                "nbm": 0.974,
-                "ensemble": 0.954
+                "ifs": 0.953,
+                "nbm": 0.964,
+                "ensemble": 0.987
               },
               "model_precip": {
                 "ifs": {
                   "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 84,
-                  "rain_3d_to_7d_mm": 23.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 175,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "nbm": {
                   "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 31,
-                  "rain_3d_to_7d_mm": 7.3
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 175,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 53,
-                  "rain_3d_to_7d_mm": 15.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 175,
+                  "rain_3d_to_7d_mm": 0.0
                 }
               }
             },
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.954,
+              "score": 0.987,
               "proba": [
-                0.046,
-                0.954
+                0.013,
+                0.987
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -1,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
-                "trail_id": 1,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
+                "prior_report_score": 0.2397,
+                "trail_id": 0,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
-                "hours_since_rain": 57.0,
-                "temp_at_slot_c": 10.3854
+                "hours_since_rain": 179.0,
+                "temp_at_slot_c": 13.05
               },
               "model_scores": {
-                "ifs": 0.983,
-                "nbm": 0.974,
-                "ensemble": 0.954
+                "ifs": 0.966,
+                "nbm": 0.964,
+                "ensemble": 0.987
               },
               "model_precip": {
                 "ifs": {
                   "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 88,
-                  "rain_3d_to_7d_mm": 23.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 179,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "nbm": {
                   "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 35,
-                  "rain_3d_to_7d_mm": 7.3
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 179,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 57,
-                  "rain_3d_to_7d_mm": 15.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 179,
+                  "rain_3d_to_7d_mm": 0.0
                 }
               }
             },
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.954,
+              "score": 0.987,
               "proba": [
-                0.046,
-                0.954
+                0.013,
+                0.987
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -1,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
-                "trail_id": 1,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
+                "prior_report_score": 0.2397,
+                "trail_id": 0,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
-                "hours_since_rain": 61.0,
-                "temp_at_slot_c": 13.965
+                "hours_since_rain": 183.0,
+                "temp_at_slot_c": 16.405
               },
               "model_scores": {
-                "ifs": 0.983,
-                "nbm": 0.974,
-                "ensemble": 0.954
+                "ifs": 0.966,
+                "nbm": 0.958,
+                "ensemble": 0.987
               },
               "model_precip": {
                 "ifs": {
                   "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 92,
-                  "rain_3d_to_7d_mm": 23.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 183,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "nbm": {
                   "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 39,
-                  "rain_3d_to_7d_mm": 7.3
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 183,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 61,
-                  "rain_3d_to_7d_mm": 15.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 183,
+                  "rain_3d_to_7d_mm": 0.0
                 }
               }
             },
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.954,
+              "score": 0.978,
               "proba": [
-                0.046,
-                0.954
+                0.022,
+                0.978
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
               "features": {
-                "precip_1d_mm": 0.55,
-                "precip_3d_mm": 11.45,
-                "precip_7d_mm": 25.2667,
-                "rain_1d_mm": 0.55,
-                "rain_2d_mm": 10.1,
-                "rain_3d_mm": 11.45,
-                "rain_3d_to_7d_mm": 15.1667,
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
                 "snow_1d_cm": 0.0,
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.35,
-                "soil_moisture_deep": 0.2456,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 15.2667,
-                "temp_min_c": 2.25,
-                "consecutive_dry_days": 1,
-                "dry_surplus": -1,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
-                "trail_id": 1,
-                "creek_peak_1d_ft": 2.14,
-                "creek_peak_7d_ft": 2.14,
+                "prior_report_score": 0.2397,
+                "trail_id": 0,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
-                "hours_since_rain": 65.0,
-                "temp_at_slot_c": 8.7583
+                "hours_since_rain": 187.0,
+                "temp_at_slot_c": 11.525
               },
               "model_scores": {
-                "ifs": 0.983,
-                "nbm": 0.974,
-                "ensemble": 0.954
+                "ifs": 0.966,
+                "nbm": 0.784,
+                "ensemble": 0.978
               },
               "model_precip": {
                 "ifs": {
                   "fcst": 0.0,
-                  "precip_2d": 1.1,
-                  "hours_since_rain": 96,
-                  "rain_3d_to_7d_mm": 23.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 187,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "nbm": {
                   "fcst": 0.0,
-                  "precip_2d": 11.7,
-                  "hours_since_rain": 43,
-                  "rain_3d_to_7d_mm": 7.3
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 187,
+                  "rain_3d_to_7d_mm": 0.0
                 },
                 "ensemble": {
                   "fcst": 0.0,
-                  "precip_2d": 10.1,
-                  "hours_since_rain": 65,
-                  "rain_3d_to_7d_mm": 15.2
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 187,
+                  "rain_3d_to_7d_mm": 0.0
                 }
               }
             }
           ],
-          "score": 0.954,
+          "score": 0.985,
           "model_scores": {
-            "ifs": 0.982,
-            "nbm": 0.974,
-            "ensemble": 0.954
+            "ifs": 0.963,
+            "nbm": 0.917,
+            "ensemble": 0.985
           }
-        },
+        }
+      ],
+      "recent_report": {
+        "date": "2026-10-15",
+        "hours_ago": 96,
+        "color": "green",
+        "label": 2,
+        "username": "irvin-abad",
+        "trusted": false,
+        "comment": "4 days ago: Mostly Dry - Conditions for 13OCT26 - Mostly dry."
+      }
+    },
+    "phase2": {
+      "trail_name": "Alum Creek Phase 2",
+      "days": [
         {
           "date": "2026-10-19",
-          "day_name": "Tomorrow",
-          "signal": "Soil 0.30",
+          "day_name": "Today",
+          "signal": "Soil 0.25",
           "forecast_precip_mm": 0.0,
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.298,
+            "soil_moisture": 0.253,
             "soil_moisture_deep": 0.243,
             "sunrise": "07:46",
             "sunset": "18:45"
@@ -2795,20 +2451,20 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.298,
+            "soil_moisture": 0.2526,
             "soil_moisture_deep": 0.2431,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 17.7833,
-            "temp_min_c": 4.25,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.9333,
+            "temp_min_c": 4.4,
             "days_since_rain": 2,
             "consecutive_dry_days": 2,
             "dry_surplus": 0,
             "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.0,
+            "prior_report_score": 0.8669,
             "trail_id": 1,
-            "creek_peak_1d_ft": 0.0,
+            "creek_peak_1d_ft": 2.12,
             "creek_peak_7d_ft": 2.14,
             "creek_peak_14d_ft": 2.14
           },
@@ -2833,10 +2489,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.969,
+              "score": 0.996,
               "proba": [
-                0.031,
-                0.969
+                0.004,
+                0.996
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2852,31 +2508,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.8669,
                 "trail_id": 1,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 77.0,
-                "temp_at_slot_c": 5.9417
+                "temp_at_slot_c": 6.0917
               },
               "model_scores": {
-                "ifs": 0.986,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.984,
+                "nbm": 0.976,
+                "ensemble": 0.996
               },
               "model_precip": {
                 "ifs": {
@@ -2902,10 +2558,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.969,
+              "score": 0.996,
               "proba": [
-                0.031,
-                0.969
+                0.004,
+                0.996
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2921,31 +2577,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.8669,
                 "trail_id": 1,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 81.0,
-                "temp_at_slot_c": 12.7083
+                "temp_at_slot_c": 12.8583
               },
               "model_scores": {
-                "ifs": 0.99,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.989,
+                "nbm": 0.976,
+                "ensemble": 0.996
               },
               "model_precip": {
                 "ifs": {
@@ -2971,10 +2627,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.969,
+              "score": 0.996,
               "proba": [
-                0.031,
-                0.969
+                0.004,
+                0.996
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -2990,31 +2646,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.8669,
                 "trail_id": 1,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 85.0,
-                "temp_at_slot_c": 16.43
+                "temp_at_slot_c": 16.58
               },
               "model_scores": {
-                "ifs": 0.99,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.989,
+                "nbm": 0.976,
+                "ensemble": 0.996
               },
               "model_precip": {
                 "ifs": {
@@ -3040,10 +2696,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.969,
+              "score": 0.996,
               "proba": [
-                0.031,
-                0.969
+                0.004,
+                0.996
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3059,31 +2715,31 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.298,
+                "soil_moisture": 0.2526,
                 "soil_moisture_deep": 0.2431,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.7833,
-                "temp_min_c": 4.25,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.9333,
+                "temp_min_c": 4.4,
                 "consecutive_dry_days": 2,
                 "dry_surplus": 0,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.8669,
                 "trail_id": 1,
-                "creek_peak_1d_ft": 0.0,
+                "creek_peak_1d_ft": 2.12,
                 "creek_peak_7d_ft": 2.14,
                 "creek_peak_14d_ft": 2.14,
                 "precip_midnight_to_slot_mm": 0.0,
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 89.0,
-                "temp_at_slot_c": 11.0167
+                "temp_at_slot_c": 11.1667
               },
               "model_scores": {
-                "ifs": 0.99,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.989,
+                "nbm": 0.976,
+                "ensemble": 0.996
               },
               "model_precip": {
                 "ifs": {
@@ -3107,23 +2763,23 @@
               }
             }
           ],
-          "score": 0.969,
+          "score": 0.996,
           "model_scores": {
-            "ifs": 0.989,
-            "nbm": 0.98,
-            "ensemble": 0.969
+            "ifs": 0.988,
+            "nbm": 0.976,
+            "ensemble": 0.996
           }
         },
         {
           "date": "2026-10-20",
-          "day_name": "Tue Oct 20",
+          "day_name": "Tomorrow",
           "signal": "3 dry days",
           "forecast_precip_mm": 0.0,
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.278,
-            "soil_moisture_deep": 0.244,
+            "soil_moisture": 0.273,
+            "soil_moisture_deep": 0.241,
             "sunrise": "07:47",
             "sunset": "18:44"
           },
@@ -3139,18 +2795,18 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.278,
-            "soil_moisture_deep": 0.2438,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 18.75,
-            "temp_min_c": 5.0833,
+            "soil_moisture": 0.273,
+            "soil_moisture_deep": 0.2415,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 18.7167,
+            "temp_min_c": 5.4167,
             "days_since_rain": 3,
             "consecutive_dry_days": 3,
             "dry_surplus": 1,
             "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.0,
+            "prior_report_score": 0.7515,
             "trail_id": 1,
             "creek_peak_1d_ft": 0.0,
             "creek_peak_7d_ft": 2.14,
@@ -3177,10 +2833,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3196,17 +2852,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.7515,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3215,12 +2871,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 101.0,
-                "temp_at_slot_c": 6.7917
+                "temp_at_slot_c": 7.0792
               },
               "model_scores": {
-                "ifs": 0.957,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.96,
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -3246,10 +2902,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3265,17 +2921,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.7515,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3284,12 +2940,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 105.0,
-                "temp_at_slot_c": 13.625
+                "temp_at_slot_c": 13.7292
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.972,
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -3315,10 +2971,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3334,17 +2990,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.7515,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3353,12 +3009,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 109.0,
-                "temp_at_slot_c": 17.3833
+                "temp_at_slot_c": 17.3867
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.972,
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -3384,10 +3040,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.969,
+              "score": 0.986,
               "proba": [
-                0.031,
-                0.969
+                0.014,
+                0.986
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3403,17 +3059,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.278,
-                "soil_moisture_deep": 0.2438,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 18.75,
-                "temp_min_c": 5.0833,
+                "soil_moisture": 0.273,
+                "soil_moisture_deep": 0.2415,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 18.7167,
+                "temp_min_c": 5.4167,
                 "consecutive_dry_days": 3,
                 "dry_surplus": 1,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.7515,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3422,12 +3078,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 113.0,
-                "temp_at_slot_c": 11.9167
+                "temp_at_slot_c": 12.0667
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.969
+                "ifs": 0.972,
+                "nbm": 0.978,
+                "ensemble": 0.986
               },
               "model_precip": {
                 "ifs": {
@@ -3451,11 +3107,11 @@
               }
             }
           ],
-          "score": 0.969,
+          "score": 0.986,
           "model_scores": {
-            "ifs": 0.967,
-            "nbm": 0.98,
-            "ensemble": 0.969
+            "ifs": 0.969,
+            "nbm": 0.978,
+            "ensemble": 0.986
           }
         },
         {
@@ -3466,8 +3122,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.259,
-            "soil_moisture_deep": 0.241,
+            "soil_moisture": 0.255,
+            "soil_moisture_deep": 0.239,
             "sunrise": "07:49",
             "sunset": "18:43"
           },
@@ -3483,18 +3139,18 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.259,
-            "soil_moisture_deep": 0.241,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 17.8,
-            "temp_min_c": 5.6,
+            "soil_moisture": 0.255,
+            "soil_moisture_deep": 0.2388,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.8667,
+            "temp_min_c": 5.7333,
             "days_since_rain": 4,
             "consecutive_dry_days": 4,
             "dry_surplus": 2,
             "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.0,
+            "prior_report_score": 0.6514,
             "trail_id": 1,
             "creek_peak_1d_ft": 0.0,
             "creek_peak_7d_ft": 2.14,
@@ -3521,10 +3177,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3540,17 +3196,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.6514,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3559,12 +3215,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 125.0,
-                "temp_at_slot_c": 7.125
+                "temp_at_slot_c": 7.25
               },
               "model_scores": {
-                "ifs": 0.957,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.96,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -3590,10 +3246,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3609,17 +3265,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.6514,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3628,12 +3284,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 129.0,
-                "temp_at_slot_c": 13.225
+                "temp_at_slot_c": 13.3167
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.972,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -3659,10 +3315,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3678,17 +3334,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.6514,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3697,12 +3353,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 133.0,
-                "temp_at_slot_c": 16.58
+                "temp_at_slot_c": 16.6533
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.972,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -3728,10 +3384,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3747,17 +3403,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.259,
-                "soil_moisture_deep": 0.241,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.8,
-                "temp_min_c": 5.6,
+                "soil_moisture": 0.255,
+                "soil_moisture_deep": 0.2388,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.8667,
+                "temp_min_c": 5.7333,
                 "consecutive_dry_days": 4,
                 "dry_surplus": 2,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.6514,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3766,12 +3422,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 137.0,
-                "temp_at_slot_c": 11.7
+                "temp_at_slot_c": 11.8
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.972,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -3795,11 +3451,11 @@
               }
             }
           ],
-          "score": 0.976,
+          "score": 0.989,
           "model_scores": {
-            "ifs": 0.967,
-            "nbm": 0.978,
-            "ensemble": 0.976
+            "ifs": 0.969,
+            "nbm": 0.977,
+            "ensemble": 0.989
           }
         },
         {
@@ -3810,8 +3466,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.244,
-            "soil_moisture_deep": 0.238,
+            "soil_moisture": 0.24,
+            "soil_moisture_deep": 0.235,
             "sunrise": "07:50",
             "sunset": "18:41"
           },
@@ -3827,18 +3483,18 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.244,
-            "soil_moisture_deep": 0.2377,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 17.78,
-            "temp_min_c": 5.4,
+            "soil_moisture": 0.24,
+            "soil_moisture_deep": 0.2355,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.4167,
+            "temp_min_c": 4.85,
             "days_since_rain": 5,
             "consecutive_dry_days": 5,
             "dry_surplus": 3,
             "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.0,
+            "prior_report_score": 0.5647,
             "trail_id": 1,
             "creek_peak_1d_ft": 0.0,
             "creek_peak_7d_ft": 2.14,
@@ -3865,10 +3521,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3884,17 +3540,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.5647,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3903,12 +3559,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 149.0,
-                "temp_at_slot_c": 6.9475
+                "temp_at_slot_c": 6.4208
               },
               "model_scores": {
-                "ifs": 0.959,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.961,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -3934,10 +3590,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -3953,17 +3609,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.5647,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -3972,12 +3628,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 153.0,
-                "temp_at_slot_c": 13.1375
+                "temp_at_slot_c": 12.7042
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.972,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4003,10 +3659,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4022,17 +3678,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.5647,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4041,12 +3697,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 157.0,
-                "temp_at_slot_c": 16.542
+                "temp_at_slot_c": 16.16
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.972,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4072,10 +3728,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4091,17 +3747,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.244,
-                "soil_moisture_deep": 0.2377,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 17.78,
-                "temp_min_c": 5.4,
+                "soil_moisture": 0.24,
+                "soil_moisture_deep": 0.2355,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.4167,
+                "temp_min_c": 4.85,
                 "consecutive_dry_days": 5,
                 "dry_surplus": 3,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.5647,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4110,12 +3766,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 161.0,
-                "temp_at_slot_c": 11.59
+                "temp_at_slot_c": 11.1333
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.972,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4139,11 +3795,11 @@
               }
             }
           ],
-          "score": 0.976,
+          "score": 0.989,
           "model_scores": {
-            "ifs": 0.967,
-            "nbm": 0.978,
-            "ensemble": 0.976
+            "ifs": 0.969,
+            "nbm": 0.977,
+            "ensemble": 0.989
           }
         },
         {
@@ -4154,8 +3810,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.233,
-            "soil_moisture_deep": 0.235,
+            "soil_moisture": 0.229,
+            "soil_moisture_deep": 0.233,
             "sunrise": "07:51",
             "sunset": "18:40"
           },
@@ -4171,18 +3827,18 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.233,
-            "soil_moisture_deep": 0.2348,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 16.84,
-            "temp_min_c": 7.38,
+            "soil_moisture": 0.229,
+            "soil_moisture_deep": 0.2326,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 16.9,
+            "temp_min_c": 7.46,
             "days_since_rain": 6,
             "consecutive_dry_days": 6,
             "dry_surplus": 4,
             "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.0,
+            "prior_report_score": 0.4895,
             "trail_id": 1,
             "creek_peak_1d_ft": 0.0,
             "creek_peak_7d_ft": 2.14,
@@ -4209,10 +3865,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4228,17 +3884,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4895,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4247,12 +3903,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 173.0,
-                "temp_at_slot_c": 8.5625
+                "temp_at_slot_c": 8.64
               },
               "model_scores": {
-                "ifs": 0.959,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.953,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4278,10 +3934,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4297,17 +3953,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4895,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4316,12 +3972,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 177.0,
-                "temp_at_slot_c": 13.2925
+                "temp_at_slot_c": 13.36
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.98,
-                "ensemble": 0.976
+                "ifs": 0.966,
+                "nbm": 0.978,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4347,10 +4003,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4366,17 +4022,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4895,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4385,12 +4041,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 181.0,
-                "temp_at_slot_c": 15.894
+                "temp_at_slot_c": 15.956
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.966,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4416,10 +4072,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4435,17 +4091,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.233,
-                "soil_moisture_deep": 0.2348,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.84,
-                "temp_min_c": 7.38,
+                "soil_moisture": 0.229,
+                "soil_moisture_deep": 0.2326,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 7.46,
                 "consecutive_dry_days": 6,
                 "dry_surplus": 4,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4895,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4454,12 +4110,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 185.0,
-                "temp_at_slot_c": 12.11
+                "temp_at_slot_c": 12.18
               },
               "model_scores": {
-                "ifs": 0.97,
-                "nbm": 0.976,
-                "ensemble": 0.976
+                "ifs": 0.966,
+                "nbm": 0.975,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4483,11 +4139,11 @@
               }
             }
           ],
-          "score": 0.976,
+          "score": 0.989,
           "model_scores": {
-            "ifs": 0.967,
-            "nbm": 0.978,
-            "ensemble": 0.976
+            "ifs": 0.963,
+            "nbm": 0.977,
+            "ensemble": 0.989
           }
         },
         {
@@ -4498,8 +4154,8 @@
           "signals": {
             "forecast_precip_mm": 0.0,
             "precip_2d_mm": 0.0,
-            "soil_moisture": 0.222,
-            "soil_moisture_deep": 0.232,
+            "soil_moisture": 0.218,
+            "soil_moisture_deep": 0.23,
             "sunrise": "07:52",
             "sunset": "18:38"
           },
@@ -4515,18 +4171,18 @@
             "snow_2d_cm": 0.0,
             "snow_3d_cm": 0.0,
             "snow_7d_cm": 0.0,
-            "soil_moisture": 0.222,
-            "soil_moisture_deep": 0.2319,
-            "soil_temp_0cm": 9.9,
-            "soil_temp_6cm": 12.6,
-            "soil_temp_18cm": 15.9,
-            "temp_max_c": 16.98,
-            "temp_min_c": 5.54,
+            "soil_moisture": 0.218,
+            "soil_moisture_deep": 0.2297,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 16.9,
+            "temp_min_c": 5.06,
             "days_since_rain": 7,
             "consecutive_dry_days": 7,
             "dry_surplus": 5,
             "forecast_precip_mm": 0.0,
-            "prior_report_score": 0.0,
+            "prior_report_score": 0.4244,
             "trail_id": 1,
             "creek_peak_1d_ft": 0.0,
             "creek_peak_7d_ft": 2.14,
@@ -4553,10 +4209,10 @@
             {
               "slot": "7am",
               "hour": 7,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4572,17 +4228,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4244,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4591,12 +4247,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 7,
                 "hours_since_rain": 175.0,
-                "temp_at_slot_c": 6.97
+                "temp_at_slot_c": 6.54
               },
               "model_scores": {
                 "ifs": 0.953,
-                "nbm": 0.966,
-                "ensemble": 0.976
+                "nbm": 0.964,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4622,10 +4278,10 @@
             {
               "slot": "11am",
               "hour": 11,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4641,17 +4297,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4244,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4660,12 +4316,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 11,
                 "hours_since_rain": 179.0,
-                "temp_at_slot_c": 12.69
+                "temp_at_slot_c": 12.46
               },
               "model_scores": {
                 "ifs": 0.966,
-                "nbm": 0.966,
-                "ensemble": 0.976
+                "nbm": 0.964,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4691,10 +4347,10 @@
             {
               "slot": "3pm",
               "hour": 15,
-              "score": 0.976,
+              "score": 0.989,
               "proba": [
-                0.024,
-                0.976
+                0.011,
+                0.989
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4710,17 +4366,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4244,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4729,12 +4385,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 15,
                 "hours_since_rain": 183.0,
-                "temp_at_slot_c": 15.836
+                "temp_at_slot_c": 15.716
               },
               "model_scores": {
                 "ifs": 0.966,
-                "nbm": 0.961,
-                "ensemble": 0.976
+                "nbm": 0.958,
+                "ensemble": 0.989
               },
               "model_precip": {
                 "ifs": {
@@ -4760,10 +4416,10 @@
             {
               "slot": "7pm",
               "hour": 19,
-              "score": 0.959,
+              "score": 0.981,
               "proba": [
-                0.041,
-                0.959
+                0.019,
+                0.981
               ],
               "precip_midnight_to_slot_mm": 0.0,
               "precip_3h_before_slot_mm": 0.0,
@@ -4779,17 +4435,17 @@
                 "snow_2d_cm": 0.0,
                 "snow_3d_cm": 0.0,
                 "snow_7d_cm": 0.0,
-                "soil_moisture": 0.222,
-                "soil_moisture_deep": 0.2319,
-                "soil_temp_0cm": 9.9,
-                "soil_temp_6cm": 12.6,
-                "soil_temp_18cm": 15.9,
-                "temp_max_c": 16.98,
-                "temp_min_c": 5.54,
+                "soil_moisture": 0.218,
+                "soil_moisture_deep": 0.2297,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 16.9,
+                "temp_min_c": 5.06,
                 "consecutive_dry_days": 7,
                 "dry_surplus": 5,
                 "forecast_precip_mm": 0.0,
-                "prior_report_score": 0.0,
+                "prior_report_score": 0.4244,
                 "trail_id": 1,
                 "creek_peak_1d_ft": 0.0,
                 "creek_peak_7d_ft": 2.14,
@@ -4798,12 +4454,12 @@
                 "precip_3h_before_slot_mm": 0.0,
                 "hour": 19,
                 "hours_since_rain": 187.0,
-                "temp_at_slot_c": 11.26
+                "temp_at_slot_c": 10.98
               },
               "model_scores": {
                 "ifs": 0.966,
-                "nbm": 0.796,
-                "ensemble": 0.959
+                "nbm": 0.784,
+                "ensemble": 0.981
               },
               "model_precip": {
                 "ifs": {
@@ -4827,22 +4483,366 @@
               }
             }
           ],
-          "score": 0.972,
+          "score": 0.987,
           "model_scores": {
             "ifs": 0.963,
-            "nbm": 0.922,
-            "ensemble": 0.972
+            "nbm": 0.917,
+            "ensemble": 0.987
+          }
+        },
+        {
+          "date": "2026-10-25",
+          "day_name": "Sun Oct 25",
+          "signal": "8 dry days",
+          "forecast_precip_mm": 0.0,
+          "signals": {
+            "forecast_precip_mm": 0.0,
+            "precip_2d_mm": 0.0,
+            "soil_moisture": 0.207,
+            "soil_moisture_deep": 0.227,
+            "sunrise": "07:53",
+            "sunset": "18:37"
+          },
+          "features": {
+            "precip_1d_mm": 0.0,
+            "precip_3d_mm": 0.0,
+            "precip_7d_mm": 0.0,
+            "rain_1d_mm": 0.0,
+            "rain_2d_mm": 0.0,
+            "rain_3d_mm": 0.0,
+            "rain_3d_to_7d_mm": 0.0,
+            "snow_1d_cm": 0.0,
+            "snow_2d_cm": 0.0,
+            "snow_3d_cm": 0.0,
+            "snow_7d_cm": 0.0,
+            "soil_moisture": 0.207,
+            "soil_moisture_deep": 0.2268,
+            "soil_temp_0cm": 3.9,
+            "soil_temp_6cm": 8.0,
+            "soil_temp_18cm": 12.8,
+            "temp_max_c": 17.625,
+            "temp_min_c": 5.425,
+            "days_since_rain": 8,
+            "consecutive_dry_days": 8,
+            "dry_surplus": 6,
+            "forecast_precip_mm": 0.0,
+            "prior_report_score": 0.3679,
+            "trail_id": 1,
+            "creek_peak_1d_ft": 0.0,
+            "creek_peak_7d_ft": 2.12,
+            "creek_peak_14d_ft": 2.14
+          },
+          "model_signals": {
+            "ifs": {
+              "forecast_precip_mm": 0.0,
+              "precip_2d": 0.0,
+              "rain_3d_to_7d_mm": 0.0
+            },
+            "nbm": {
+              "forecast_precip_mm": 0.0,
+              "precip_2d": 0.0,
+              "rain_3d_to_7d_mm": 0.0
+            },
+            "ensemble": {
+              "forecast_precip_mm": 0.0,
+              "precip_2d": 0.0,
+              "rain_3d_to_7d_mm": 0.0
+            }
+          },
+          "slots": [
+            {
+              "slot": "7am",
+              "hour": 7,
+              "score": 0.987,
+              "proba": [
+                0.013,
+                0.987
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0,
+              "features": {
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
+                "snow_1d_cm": 0.0,
+                "snow_2d_cm": 0.0,
+                "snow_3d_cm": 0.0,
+                "snow_7d_cm": 0.0,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 6,
+                "forecast_precip_mm": 0.0,
+                "prior_report_score": 0.3679,
+                "trail_id": 1,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
+                "creek_peak_14d_ft": 2.14,
+                "precip_midnight_to_slot_mm": 0.0,
+                "precip_3h_before_slot_mm": 0.0,
+                "hour": 7,
+                "hours_since_rain": 175.0,
+                "temp_at_slot_c": 6.95
+              },
+              "model_scores": {
+                "ifs": 0.953,
+                "nbm": 0.956,
+                "ensemble": 0.987
+              },
+              "model_precip": {
+                "ifs": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 175,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "nbm": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 175,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "ensemble": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 175,
+                  "rain_3d_to_7d_mm": 0.0
+                }
+              }
+            },
+            {
+              "slot": "11am",
+              "hour": 11,
+              "score": 0.987,
+              "proba": [
+                0.013,
+                0.987
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0,
+              "features": {
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
+                "snow_1d_cm": 0.0,
+                "snow_2d_cm": 0.0,
+                "snow_3d_cm": 0.0,
+                "snow_7d_cm": 0.0,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 6,
+                "forecast_precip_mm": 0.0,
+                "prior_report_score": 0.3679,
+                "trail_id": 1,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
+                "creek_peak_14d_ft": 2.14,
+                "precip_midnight_to_slot_mm": 0.0,
+                "precip_3h_before_slot_mm": 0.0,
+                "hour": 11,
+                "hours_since_rain": 179.0,
+                "temp_at_slot_c": 13.05
+              },
+              "model_scores": {
+                "ifs": 0.966,
+                "nbm": 0.956,
+                "ensemble": 0.987
+              },
+              "model_precip": {
+                "ifs": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 179,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "nbm": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 179,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "ensemble": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 179,
+                  "rain_3d_to_7d_mm": 0.0
+                }
+              }
+            },
+            {
+              "slot": "3pm",
+              "hour": 15,
+              "score": 0.987,
+              "proba": [
+                0.013,
+                0.987
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0,
+              "features": {
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
+                "snow_1d_cm": 0.0,
+                "snow_2d_cm": 0.0,
+                "snow_3d_cm": 0.0,
+                "snow_7d_cm": 0.0,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 6,
+                "forecast_precip_mm": 0.0,
+                "prior_report_score": 0.3679,
+                "trail_id": 1,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
+                "creek_peak_14d_ft": 2.14,
+                "precip_midnight_to_slot_mm": 0.0,
+                "precip_3h_before_slot_mm": 0.0,
+                "hour": 15,
+                "hours_since_rain": 183.0,
+                "temp_at_slot_c": 16.405
+              },
+              "model_scores": {
+                "ifs": 0.966,
+                "nbm": 0.948,
+                "ensemble": 0.987
+              },
+              "model_precip": {
+                "ifs": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 183,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "nbm": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 183,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "ensemble": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 183,
+                  "rain_3d_to_7d_mm": 0.0
+                }
+              }
+            },
+            {
+              "slot": "7pm",
+              "hour": 19,
+              "score": 0.978,
+              "proba": [
+                0.022,
+                0.978
+              ],
+              "precip_midnight_to_slot_mm": 0.0,
+              "precip_3h_before_slot_mm": 0.0,
+              "features": {
+                "precip_1d_mm": 0.0,
+                "precip_3d_mm": 0.0,
+                "precip_7d_mm": 0.0,
+                "rain_1d_mm": 0.0,
+                "rain_2d_mm": 0.0,
+                "rain_3d_mm": 0.0,
+                "rain_3d_to_7d_mm": 0.0,
+                "snow_1d_cm": 0.0,
+                "snow_2d_cm": 0.0,
+                "snow_3d_cm": 0.0,
+                "snow_7d_cm": 0.0,
+                "soil_moisture": 0.207,
+                "soil_moisture_deep": 0.2268,
+                "soil_temp_0cm": 3.9,
+                "soil_temp_6cm": 8.0,
+                "soil_temp_18cm": 12.8,
+                "temp_max_c": 17.625,
+                "temp_min_c": 5.425,
+                "consecutive_dry_days": 8,
+                "dry_surplus": 6,
+                "forecast_precip_mm": 0.0,
+                "prior_report_score": 0.3679,
+                "trail_id": 1,
+                "creek_peak_1d_ft": 0.0,
+                "creek_peak_7d_ft": 2.12,
+                "creek_peak_14d_ft": 2.14,
+                "precip_midnight_to_slot_mm": 0.0,
+                "precip_3h_before_slot_mm": 0.0,
+                "hour": 19,
+                "hours_since_rain": 187.0,
+                "temp_at_slot_c": 11.525
+              },
+              "model_scores": {
+                "ifs": 0.966,
+                "nbm": 0.784,
+                "ensemble": 0.978
+              },
+              "model_precip": {
+                "ifs": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 187,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "nbm": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 187,
+                  "rain_3d_to_7d_mm": 0.0
+                },
+                "ensemble": {
+                  "fcst": 0.0,
+                  "precip_2d": 0.0,
+                  "hours_since_rain": 187,
+                  "rain_3d_to_7d_mm": 0.0
+                }
+              }
+            }
+          ],
+          "score": 0.985,
+          "model_scores": {
+            "ifs": 0.963,
+            "nbm": 0.911,
+            "ensemble": 0.985
           }
         }
       ],
       "recent_report": {
-        "date": null,
-        "hours_ago": null,
+        "date": "2026-10-19",
+        "hours_ago": 8,
         "color": "green",
         "label": 2,
         "username": "guilherme-andrade",
         "trusted": false,
-        "comment": "4 mins ago: Mostly Dry"
+        "comment": "8 hours ago: Mostly Dry"
       }
     }
   }
