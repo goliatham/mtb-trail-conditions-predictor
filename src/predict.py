@@ -35,8 +35,9 @@ CREEK_GAUGE_PATH   = Path(__file__).parent.parent / "data" / "creek_gauge.json"
 _TRUSTED_PATH      = Path(__file__).parent.parent / "config" / "trusted_users.txt"
 
 ENSEMBLE_MODELS = [
-    "best_match", "ecmwf_ifs025", "ncep_nbm_conus",
-    "ukmo_seamless", "meteofrance_seamless", "jma_seamless",
+    "ncep_nbm_conus",
+    "meteofrance_seamless",
+    "jma_seamless",
 ]
 
 TRAINING_FIELDNAMES = ["date", "trail_key", "trail_id", "label", "color",
@@ -270,9 +271,9 @@ def _average_forecasts(
 ) -> tuple:
     """Average daily forecast and hourly precip across multiple models.
 
-    Uses the first entry in forecast_list (best_match) for soil_moisture,
-    soil_moisture_deep, sunrise, and sunset — other models don't reliably
-    provide soil data.
+    Averages precip and temps across models. Soil fields are left None —
+    caller is responsible for injecting soil from the IFS (ecmwf_ifs025)
+    forecast after this call. Sunrise/sunset taken from first model.
     """
     if not forecast_list:
         return [], {}
@@ -289,20 +290,17 @@ def _average_forecasts(
             vals = [e[field] for e in _entries if e.get(field) is not None]
             return sum(vals) / len(vals) if vals else None
 
-        best  = forecast_list[0][i] if i < len(forecast_list[0]) else entries[0]
-        # ecmwf_ifs025 is index 1 — provides soil for both historical and forecast dates
-        ecmwf = forecast_list[1][i] if len(forecast_list) > 1 and i < len(forecast_list[1]) else None
-        soil_src = ecmwf if ecmwf and ecmwf.get("soil_moisture") is not None else best
+        first = forecast_list[0][i] if i < len(forecast_list[0]) else entries[0]
         averaged_daily.append({
             "date":               entries[0]["date"],
             "precip_mm":          _avg_f("precip_mm") or 0.0,
             "temp_max_c":         _avg_f("temp_max_c"),
             "temp_min_c":         _avg_f("temp_min_c"),
-            "soil_moisture":      soil_src.get("soil_moisture"),
-            "soil_moisture_deep": soil_src.get("soil_moisture_deep"),
+            "soil_moisture":      None,  # injected from IFS after this call
+            "soil_moisture_deep": None,
             "precip_prob_pct":    _avg_f("precip_prob_pct"),
-            "sunrise":            best.get("sunrise"),
-            "sunset":             best.get("sunset"),
+            "sunrise":            first.get("sunrise"),
+            "sunset":             first.get("sunset"),
         })
 
     # Average hourly precip across models
@@ -421,12 +419,13 @@ def main():
     today    = date.today()
     tomorrow = today + timedelta(days=1)
 
-    # ── IFS (best_match) ──────────────────────────────────────────────────
+    # ── IFS (ecmwf_ifs025) ───────────────────────────────────────────────
     print("Fetching IFS forecast/history...")
-    forecast, hourly_by_date = get_forecast()
+    forecast, hourly_by_date = get_forecast(model="ecmwf_ifs025")
     _persist_forecast_probs(forecast)
     history, hist_hourly = get_historical_forecast(
-        today - timedelta(days=14), today - timedelta(days=1)
+        today - timedelta(days=14), today - timedelta(days=1),
+        model="ecmwf_ifs025",
     )
 
     # ── NBM ───────────────────────────────────────────────────────────────
@@ -457,6 +456,11 @@ def main():
 
     if _ens_forecasts:
         forecast_ens, hourly_by_date_ens = _average_forecasts(_ens_forecasts, _ens_hourlies)
+        ifs_by_date = {d["date"]: d for d in forecast}
+        for day in forecast_ens:
+            ifs_day = ifs_by_date.get(day["date"], {})
+            day["soil_moisture"]      = ifs_day.get("soil_moisture")
+            day["soil_moisture_deep"] = ifs_day.get("soil_moisture_deep")
     else:
         print("  All ensemble models failed — falling back to IFS")
         forecast_ens, hourly_by_date_ens = forecast, hourly_by_date

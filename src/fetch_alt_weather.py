@@ -18,12 +18,9 @@ MAIN_CACHE = BUILDERS / "data" / "weather_cache.json"
 NBM_CACHE  = BUILDERS / "data" / "weather_cache_nbm.json"
 ENS_CACHE  = BUILDERS / "data" / "weather_cache_ensemble.json"
 
-# The 6 models for ensemble (best_match is already in main cache)
+# High-signal models for ensemble (ratio >7.0 on rideable vs not-rideable days)
 ENSEMBLE_MODELS = [
-    "best_match",
-    "ecmwf_ifs025",
     "ncep_nbm_conus",
-    "ukmo_seamless",
     "meteofrance_seamless",
     "jma_seamless",
 ]
@@ -45,7 +42,7 @@ def save_cache(path, cache):
 
 
 def overlay_soil(daily_list, main_hf_daily):
-    """Copy soil moisture + soil temp from main (best_match) cache when model doesn't provide them."""
+    """Copy soil moisture + soil temp from main (ecmwf_ifs025) cache when model doesn't provide them."""
     for entry in daily_list:
         d = entry["date"]
         if d in main_hf_daily:
@@ -241,8 +238,6 @@ def main():
                     ens_hf_daily[d] = dict(main_hf_daily[d])
                 continue
 
-            ecmwf_entry = model_dailies.get("ecmwf_ifs025", {}).get(d, {})
-            best_entry  = model_dailies.get("best_match",   {}).get(d, {})
             main_entry  = main_hf_daily.get(d, {})
             ens_hf_daily[d] = {
                 "date":               d,
@@ -251,13 +246,12 @@ def main():
                 "snow_cm":            _avg(entries, "snow_cm"),
                 "temp_max_c":         _avg(entries, "temp_max_c"),
                 "temp_min_c":         _avg(entries, "temp_min_c"),
-                # ecmwf_ifs025 soil moisture (available for both historical + forecast)
-                "soil_moisture":      ecmwf_entry.get("soil_moisture") or main_entry.get("soil_moisture"),
-                "soil_moisture_deep": ecmwf_entry.get("soil_moisture_deep") or main_entry.get("soil_moisture_deep"),
-                # soil temps from best_match hourly midnight (only model that provides them)
-                "soil_temp_0cm":      best_entry.get("soil_temp_0cm")  or main_entry.get("soil_temp_0cm"),
-                "soil_temp_6cm":      best_entry.get("soil_temp_6cm")  or main_entry.get("soil_temp_6cm"),
-                "soil_temp_18cm":     best_entry.get("soil_temp_18cm") or main_entry.get("soil_temp_18cm"),
+                # soil from main (ecmwf_ifs025) cache; refreshed from ecmwf_ifs025 below
+                "soil_moisture":      main_entry.get("soil_moisture"),
+                "soil_moisture_deep": main_entry.get("soil_moisture_deep"),
+                "soil_temp_0cm":      main_entry.get("soil_temp_0cm"),
+                "soil_temp_6cm":      main_entry.get("soil_temp_6cm"),
+                "soil_temp_18cm":     main_entry.get("soil_temp_18cm"),
                 "precip_prob_pct":    _avg(entries, "precip_prob_pct"),
             }
 

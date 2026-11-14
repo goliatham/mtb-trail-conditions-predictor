@@ -152,7 +152,7 @@ def main():
     if missing and args.source == "ifs":
         fetch_start, fetch_end = missing[0], missing[-1]
         print(f"Fetching historical forecast {fetch_start} → {fetch_end} ({len(missing)} new days)...")
-        daily_list, new_hourly = get_historical_forecast(fetch_start, fetch_end)
+        daily_list, new_hourly = get_historical_forecast(fetch_start, fetch_end, model="ecmwf_ifs025")
         for r in daily_list:
             hf_daily[r["date"]] = r
         for d, records in new_hourly.items():
@@ -174,7 +174,7 @@ def main():
         bf_start = date.fromisoformat(cached_dates[0])
         bf_end   = date.fromisoformat(cached_dates[-1])
         print(f"Backfilling new weather fields ({bf_start} → {bf_end})...")
-        bf_daily, bf_hourly = get_historical_forecast(bf_start, bf_end)
+        bf_daily, bf_hourly = get_historical_forecast(bf_start, bf_end, model="ecmwf_ifs025")
         new_fields = ("rain_mm", "snow_cm", "soil_temp_0cm", "soil_temp_6cm", "soil_temp_18cm")
         for r in bf_daily:
             if r["date"] in hf_daily:
