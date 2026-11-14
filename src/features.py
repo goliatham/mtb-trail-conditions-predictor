@@ -133,18 +133,18 @@ def _consecutive_dry_days(precip_history: list[float]) -> int:
 
 def _hours_since_rain(hourly: list[dict], hour: int, days_since_rain: int,
                        history_hourly: list[list[dict]] = None) -> float:
-    """Hours since last rain ≥1mm before this slot.
+    """Hours since last rain ≥0.45mm before this slot.
 
     Scans today's hourly first, then history_hourly (newest day first) for
     exact hour precision.  Falls back to days_since_rain × 24 + slot_hour
     when no hourly history is available.
     """
-    rain_hours = [r["hour"] for r in hourly if r["hour"] < hour and r["precip_mm"] >= 1.0]
+    rain_hours = [r["hour"] for r in hourly if r["hour"] < hour and r["precip_mm"] >= 0.45]
     if rain_hours:
         return float(hour - max(rain_hours))
     if history_hourly:
         for days_back, day_hourly in enumerate(history_hourly, 1):
-            rain_in_day = [r["hour"] for r in day_hourly if r["precip_mm"] >= 1.0]
+            rain_in_day = [r["hour"] for r in day_hourly if r["precip_mm"] >= 0.45]
             if rain_in_day:
                 last_hour = max(rain_in_day)
                 # hours from last_hour on days_back days ago to current slot
